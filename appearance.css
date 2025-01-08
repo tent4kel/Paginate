@@ -1,8 +1,14 @@
 body {
-    font-family: Georgia, "Times New Roman", Times, serif;
-    background: #fbfbfb;
-    color: #080000;
-    font-size: 12px;
+    font-family: 'Source Serif';
+    font-weight: 400;
+    font-display: swap;
+    font-style: normal;
+    font-stretch: normal;
+    src: url('./WOFF2/TTF/SourceSerif4-Regular.ttf.woff2') format('woff2'),
+         url('./WOFF/OTF/SourceSerif4-Regular.otf.woff') format('woff'),
+         url('./OTF/SourceSerif4-Regular.otf') format('opentype'),
+         url('./TTF/SourceSerif4-Regular.ttf') format('truetype');
+    font-size: 14px;
 }
 
 figcaption {
