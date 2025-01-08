@@ -19,8 +19,8 @@ function Columnate() {
         htmltag.removeAttribute("style");
         // reset head to nothing but our stylesheets
         document.head.innerHTML = "";
-        LoadStylesheet('//anoved.github.io/Columnate/columnate.css');
-        LoadStylesheet('//anoved.github.io/Columnate/appearance.css');
+        LoadStylesheet('//eink-reader.netlify.app/columnate.css');
+        LoadStylesheet('//eink-reader.netlify.app/appearance.css');
         document.title = article.title;
         // reset body html to nothing but reformatted content  
         document.body.removeAttribute("class");
