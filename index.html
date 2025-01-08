@@ -30,6 +30,7 @@
             var url = "javascript: (function () {" + compressed_ast.print_to_string() + "}())";
             document.getElementById("bookmarkletLink").href = url;
             document.getElementById("bookmarkletLink").className = "ready";
+            document.getElementById("bookmarkletPlainText").textContent = url;
         };
 
         function ClickHelp() {
@@ -47,6 +48,10 @@
 
 <p><strong><a href="#" id="bookmarkletLink" onclick="return ClickHelp();" title="Drag this link to your bookmark bar.">Columnate</a></strong></p>
 
+
+<!-- Plain text version of the link for manual copying -->
+<p>If you can't drag the link, you can copy the link below and manually add it to your bookmarks:</p>
+<pre id="bookmarkletPlainText" style="background-color: #f4f4f4; padding: 10px; border: 1px solid #ccc;"></pre>
 <p>Now find a web page with a long article. Click the <strong>Columnate</strong> bookmarklet to reformat the page free of distractions. The article will be formatted in narrow columns like a newspaper.</p>
 
 <p>Visit the <a href="https://github.com/anoved/Columnate">Columnate project page</a> for more information or to report <a href="https://github.com/anoved/Columnate/issues">issues</a>.</p>
