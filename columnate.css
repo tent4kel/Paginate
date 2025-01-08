@@ -7,16 +7,16 @@ html {
 }
 
 body {
-	height: 100%;
+	height: 96svh;
 	width: fit-content;
 
 	margin: 0;
-	padding: 0;
-	
+    padding: 3svw;
+	padding-top: 2svh;
 	column-fill: auto;
 	column-width: 20em;
 	column-count: auto;
-	column-gap: 1.5em;
+	column-gap: 2em;
 }
 
 figure {
@@ -24,14 +24,24 @@ figure {
 	margin: 0;
 }
 
-h1, h2, h3, h4, h5, h6, p, figcaption {
-	padding-top: 16px;
-	padding-left: 16px;
+h1, h2, h3, h4, h5, h6, p, figcaption,  {
+	padding-top: 14px;
+	padding-left: 0;
 	margin-block-start: 0;
 	margin-block-end: 0;
 	margin-inline-start: 0;
 	margin-inline-end: 0;
 }
+
+ul {
+	padding-top: 0;
+	padding-left: 18px;
+	margin-block-start: 0;
+	margin-block-end: 0;
+	margin-inline-start: 0;
+	margin-inline-end: 0;
+}
+
 
 p, figcaption {
 	line-height: 1.5em;
