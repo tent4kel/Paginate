@@ -19,7 +19,7 @@ function Columnate() {
         htmltag.removeAttribute("style");
         // reset head to nothing but our stylesheets
         document.head.innerHTML = "";
-        LoadStylesheet('////eink-reader.netlify.app/columnate.css/columnate.css');
+        LoadStylesheet('////eink-reader.netlify.app/columnate.css');
         LoadStylesheet('//eink-reader.netlify.app/appearance.css');
         document.title = article.title;
         // reset body html to nothing but reformatted content  
