@@ -19,14 +19,29 @@ function Columnate() {
         htmltag.removeAttribute("style");
         // reset head to nothing but our stylesheets
         document.head.innerHTML = "";
-        LoadStylesheet('//eink-reader.netlify.app/columnate.css');
+        LoadStylesheet('////eink-reader.netlify.app/columnate.css/columnate.css');
         LoadStylesheet('//eink-reader.netlify.app/appearance.css');
         document.title = article.title;
         // reset body html to nothing but reformatted content  
         document.body.removeAttribute("class");
         document.body.removeAttribute("style");
         document.body.innerHTML = "<h1>"+article.title+"</h1>"+article.content;
+          // After content is ready, load the navigation.js script
+        loadNavigationScript();
     };
+
+    // function to load the navigation.js script
+    var loadNavigationScript = function() {
+        var navScript = document.createElement('script');
+        navScript.type = 'text/javascript';
+        navScript.src = '//eink-reader.netlify.app/navigation.js'; // Replace with actual path to navigation.js
+        navScript.onload = function() {
+            console.log('navigation.js loaded and ready!');
+            // No need to do anything here if navigation.js is fully self-contained
+        };
+        document.getElementsByTagName('head')[0].appendChild(navScript);
+    };
+
 
     // load readability script and set it to be applied when loaded
     cmjs = document.createElement('script');
