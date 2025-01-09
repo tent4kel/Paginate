@@ -17,3 +17,10 @@ figcaption {
 figure {
     font-style: italic;
 }
+
+a {
+    color: black;
+    font-style: italic;
+    text-decoration-color: black;
+    text-decoration-thickness: 0.5px; 
+}
