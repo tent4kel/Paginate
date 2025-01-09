@@ -60,3 +60,8 @@ iframe {
 blockquote {
 	margin-right: 0;
 }
+
+ table, th, td, tr, tbody {
+		display:block;
+		break-inside: column;
+  }
