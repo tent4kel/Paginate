@@ -11,11 +11,11 @@
             if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
                 event.preventDefault(); // Prevent default scrolling
                 console.log('Scrolling right via key press');
-                scrollByScreenWidth(1);
+                scrollByBodyWidth(1);
             } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
                 event.preventDefault(); // Prevent default scrolling
                 console.log('Scrolling left via key press');
-                scrollByScreenWidth(-1);
+                scrollByBodyWidth(-1);
             }
         });
 
@@ -24,7 +24,7 @@
         if (button) {
             button.addEventListener('click', function() {
                 console.log('Custom button clicked, scrolling right');
-                scrollByScreenWidth(1);
+                scrollByBodyWidth(1);
             });
         }
 
@@ -36,10 +36,10 @@
             // Check if the wheel is scrolling up or down
             if (event.deltaY > 0 || event.deltaX > 0) {
                 console.log('Scrolling right or down via mouse wheel');
-                scrollByScreenWidth(1); // Scroll right (forward)
+                scrollByBodyWidth(1); // Scroll right (forward)
             } else {
                 console.log('Scrolling left or up via mouse wheel');
-                scrollByScreenWidth(-1); // Scroll left (backward)
+                scrollByBodyWidth(-1); // Scroll left (backward)
             }
         }, { passive: false });
 
@@ -65,15 +65,15 @@
             // If the swipe was long enough, trigger the appropriate page turn
             if (touchEndX - touchStartX > 50) {
                 console.log('Swiped right via touch');
-                scrollByScreenWidth(-1); // Scroll right (forward)
+                scrollByBodyWidth(1); // Scroll right (forward)
             } else if (touchStartX - touchEndX > 50) {
                 console.log('Swiped left via touch');
-                scrollByScreenWidth(1); // Scroll left (backward)
+                scrollByBodyWidth(-1); // Scroll left (backward)
             }
         });
     }
 
-    // Function to scroll the page by one screen width 
+    // Function to scroll the page by one screen width (can be modified for height or both)
     function scrollByBodyWidth(direction) {
         const bodyWidth = document.body.offsetWidth; // Get the body width
         console.log(`Scrolling by body width: ${direction * bodyWidth}px`);
