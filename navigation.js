@@ -36,10 +36,10 @@
             // Check if the wheel is scrolling up or down
             if (event.deltaY > 0 || event.deltaX > 0) {
                 console.log('Scrolling right or down via mouse wheel');
-                scrollByScreenWidth(1); // Scroll right (forward)
+                scrollByScreenWidth(-1); // Scroll right (forward)
             } else {
                 console.log('Scrolling left or up via mouse wheel');
-                scrollByScreenWidth(-1); // Scroll left (backward)
+                scrollByScreenWidth(1); // Scroll left (backward)
             }
         }, { passive: false });
 
@@ -79,7 +79,7 @@
         console.log(`Scrolling by width: ${direction * width}px`);
         window.scrollBy({
             left: direction * width,
-            behavior: 'smooth' // Adds smooth scrolling effect
+            behavior: 'auto' 
         });
     }
 
