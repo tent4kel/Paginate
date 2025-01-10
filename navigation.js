@@ -36,10 +36,10 @@
             // Check if the wheel is scrolling up or down
             if (event.deltaY > 0 || event.deltaX > 0) {
                 console.log('Scrolling right or down via mouse wheel');
-                scrollByScreenWidth(-1); // Scroll right (forward)
+                scrollByScreenWidth(1); // Scroll right (forward)
             } else {
                 console.log('Scrolling left or up via mouse wheel');
-                scrollByScreenWidth(1); // Scroll left (backward)
+                scrollByScreenWidth(-1); // Scroll left (backward)
             }
         }, { passive: false });
 
@@ -65,10 +65,10 @@
             // If the swipe was long enough, trigger the appropriate page turn
             if (touchEndX - touchStartX > 50) {
                 console.log('Swiped right via touch');
-                scrollByScreenWidth(1); // Scroll right (forward)
+                scrollByScreenWidth(-1); // Scroll right (forward)
             } else if (touchStartX - touchEndX > 50) {
                 console.log('Swiped left via touch');
-                scrollByScreenWidth(-1); // Scroll left (backward)
+                scrollByScreenWidth(1); // Scroll left (backward)
             }
         });
     }
