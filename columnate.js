@@ -11,7 +11,7 @@ function Columnate() {
     }
 
     // Callback that will replace document content with readable version
-    var MakeReadable = function() {   
+    var MakeReadable = function() {
         var doclone = document.cloneNode(true);
         var article = new Readability(doclone).parse();
         // Strip stray styling from the html tag itself
@@ -23,7 +23,7 @@ function Columnate() {
         LoadStylesheet('//eink-reader.netlify.app/columnate.css');
         LoadStylesheet('//eink-reader.netlify.app/appearance.css');
         document.title = article.title;
-        // Reset body html to nothing but reformatted content  
+        // Reset body html to nothing but reformatted content
         document.body.removeAttribute("class");
         document.body.removeAttribute("style");
         document.body.innerHTML = "<h1>"+article.title+"</h1>"+article.content;
