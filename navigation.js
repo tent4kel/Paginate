@@ -75,10 +75,25 @@
 
     // Function to scroll the page by one screen width (can be modified for height or both)
     function scrollByBodyWidth(direction) {
-        const bodyWidth = document.body.offsetWidth; // Get the body width
-        console.log(`Scrolling by body width: ${direction * bodyWidth}px`);
+        const body = document.body;
+        const bodyWidth = body.offsetWidth; // Get the body width
+        const computedStyles = getComputedStyle(body);
+        
+        const columnWidth = parseFloat(computedStyles.columnWidth); // Get the column width
+        const columnGap = parseFloat(computedStyles.columnGap); // Get the column gap value in pixels
+
+        console.log(`Body width: ${bodyWidth}px, Column width: ${columnWidth}px, Column gap: ${columnGap}px`);
+
+        // Calculate the number of columns that fit within the body
+        const columnsInView = Math.floor(bodyWidth / columnWidth);
+        console.log(`Columns in view: ${columnsInView}`);
+
+        // The total scroll distance is the width of a single column + gap, multiplied by the number of columns
+        const scrollDistance = (columnWidth + columnGap) * columnsInView;
+
+        console.log(`Scrolling by: ${direction * scrollDistance}px`);
         window.scrollBy({
-            left: direction * bodyWidth,
+            left: direction * scrollDistance,
             behavior: 'smooth' // Adds smooth scrolling effect
         });
     }
