@@ -73,13 +73,13 @@
         });
     }
 
-    // Function to scroll the page by one screen width (can be modified for height or both)
-    function scrollByScreenWidth(direction) {
-        const width = window.outerWidth; // Get the total window width including scrollbar
-        console.log(`Scrolling by width: ${direction * width}px`);
+    // Function to scroll the page by one screen width 
+    function scrollByBodyWidth(direction) {
+        const bodyWidth = document.body.offsetWidth; // Get the body width
+        console.log(`Scrolling by body width: ${direction * bodyWidth}px`);
         window.scrollBy({
-            left: direction * width,
-            behavior: 'auto' 
+            left: direction * bodyWidth,
+            behavior: 'smooth' // Adds smooth scrolling effect
         });
     }
 
