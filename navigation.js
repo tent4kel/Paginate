@@ -3,40 +3,10 @@
     document.addEventListener('DOMContentLoaded', function() {
         console.log('navigation.js loaded and ready!');
 
-        // Variables to track swipe gestures
-        let touchStartX = 0;
-        let touchEndX = 0;
+        // Ensure the document is focused to capture key presses
+        window.focus();
 
-        // Detect swipe gestures
-        document.addEventListener('touchstart', function(event) {
-            touchStartX = event.touches[0].clientX; // Record the starting X coordinate
-            console.log(`Touch started at X: ${touchStartX}`);
-        });
-
-        document.addEventListener('touchend', function(event) {
-            touchEndX = event.changedTouches[0].clientX; // Record the ending X coordinate
-            console.log(`Touch ended at X: ${touchEndX}`);
-            handleSwipeGesture();
-        });
-
-        // Handle swipe gesture
-        function handleSwipeGesture() {
-            const swipeThreshold = 50; // Minimum distance for a swipe to be recognized
-            const swipeDistance = touchEndX - touchStartX;
-            console.log(`Swipe distance: ${swipeDistance}`);
-
-            if (touchStartX - touchEndX > swipeThreshold) {
-                console.log('Swipe detected: LEFT');
-                scrollByScreenWidth(1); // Swipe left
-            } else if (touchEndX - touchStartX > swipeThreshold) {
-                console.log('Swipe detected: RIGHT');
-                scrollByScreenWidth(-1); // Swipe right
-            } else {
-                console.log('Swipe too short, no action taken');
-            }
-        }
-
-        // Event listener for keydown (e.g., ArrowRight, ArrowLeft)
+        // Attach a keydown event listener to the whole document
         document.addEventListener('keydown', function(event) {
             console.log(`Key pressed: ${event.key}`);
             if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
