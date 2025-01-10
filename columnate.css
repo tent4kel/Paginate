@@ -54,6 +54,7 @@ body {
 	height: 100svh;
 	padding: 0;
 	margin: 0;
+	overflow-y:hidden;
 	
 }
 
@@ -103,32 +104,26 @@ blockquote {
 		display:block;
 		break-inside: column;
   }
+
 #scroll-container{
-	position:relative;
-	width:100%;
+	position:absolute;
+	/* width: auto; */
 	height:90%;
-	
 	width: fit-content;
-	margin: 3em !important; 
+	margin: 1em;
 	padding: 2em;
 	padding-left:0;
-	
 	padding-top: 2svh;
 	/* column-fill: auto; */
 	column-width: 20em;
 	/* column-count: auto; */
 	column-gap: 2em;
 	box-sizing:border-box;
-	
+	transform: translateX(1em);
 	/*background:#78bdbd;
 	border:2em #9b9b1f;
 	outline:10px pink;
 	outline-offset: -10px;*/
-	
-	
-	
-	
-	
 }
 
 iframe {
@@ -144,22 +139,7 @@ blockquote {
 		display:block;
 		break-inside: column;
   }
-#scroll-container{
-	position:relative;
-	width:100%;
-	height:90%;
-	/*background:aqua;*/
-	width: fit-content;
-	margin: 0em; 
-	padding: 2em;
-	padding-left:0;
-	padding-top: 2svh;
-	/* column-fill: auto; */
-	column-width: 20em;
-	/* column-count: auto; */
-	column-gap: 2em;
-	/overflow-y:hidden;
-}
+
 
 #overflow-cover {
     position: fixed;
@@ -168,7 +148,7 @@ blockquote {
     z-index: 9999; /* Higher z-index to cover the overflow */
     pointer-events: none; /* Allow interactions to pass through */
     background: rgba(0, 0, 0, 0); /* Transparent background */
-	border: 3em  solid  #ffffffcc;
+	border: 1em  solid  #ffffffcc;
 	box-sizing:border-box;
 	overflow:hidden;
 	border-top-width:0;
