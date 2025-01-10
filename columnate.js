@@ -7,7 +7,7 @@ function Columnate() {
         c.media = 'all';
         c.href = url;
         document.getElementsByTagName('head')[0].appendChild(c);
-        console.log(`Stylesheet loaded: ${url}`);
+        console.log('Stylesheet loaded: ' + url);
     }
 
     // Callback that will replace document content with readable version
@@ -26,7 +26,7 @@ function Columnate() {
         // Reset body html to nothing but reformatted content
         document.body.removeAttribute("class");
         document.body.removeAttribute("style");
-        document.body.innerHTML = "<h1>"+article.title+"</h1>"+article.content;
+        document.body.innerHTML = "<h1>" + article.title + "</h1>" + article.content;
         console.log('Document made readable and styles applied.');
         // After content is ready, load the navigation.js script
         loadNavigationScript();
