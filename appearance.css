@@ -58,6 +58,9 @@ sup {
   figcaption {
     color: #777;
   }
+    #overflow-cover{
+    border: 1em  solid  #FFFFFF;
+  }
 }
 
 /* Dark Mode Styles */
@@ -68,5 +71,8 @@ sup {
   }
   figcaption {
     color: #bbb;
+  }
+  #overflow-cover{
+    border: 1em  solid  #000000;
   }
 }
