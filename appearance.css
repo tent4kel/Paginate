@@ -39,3 +39,8 @@ p, a, figcaption {
     hyphenate-limit-chars: 6 3 3;
     /*text-align:justify*/
 }
+
+sup {
+    vertical-align: bottom;
+    font-size:x-small
+}
