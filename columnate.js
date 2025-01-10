@@ -36,7 +36,7 @@ function Columnate() {
         navScript.type = 'text/javascript';
         navScript.src = '//eink-reader.netlify.app/navigation.js'; // Replace with actual path to navigation.js
         navScript.onload = function() {
-            console.log('navigation.js loaded and ready!');
+            console.log('initiating navigation script...');
             // No need to do anything here if navigation.js is fully self-contained
         };
         document.getElementsByTagName('head')[0].appendChild(navScript);
