@@ -16,6 +16,7 @@ body {
 	column-width: 20em;
 	/* column-count: auto; */
 	column-gap: 2em;
+	overflow-y:hidden;
 }
 
 figure {
