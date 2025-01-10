@@ -5,6 +5,9 @@
         // Wrap content into a container div
         wrapContent();
 
+        // Create a div to cover the overflow
+        createOverflowCover();
+
         // Ensure the document is focused to capture key presses
         window.focus();
 
@@ -84,6 +87,13 @@
         container.innerHTML = content;
         document.body.innerHTML = '';
         document.body.appendChild(container);
+    }
+
+    // Function to create a div that covers the overflow
+    function createOverflowCover() {
+        const overflowCover = document.createElement('div');
+        overflowCover.id = 'overflow-cover';
+        document.body.appendChild(overflowCover);
     }
 
     // Function to scroll the container by its width
