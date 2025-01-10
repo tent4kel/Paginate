@@ -1,8 +1,9 @@
 (function() {
     function initNavigation() {
+        console.log('navigation.js firing');
         // Check if the document is ready
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('navigation.js loaded and ready!');
+            console.log('navigation.js dom loaded');
 
             // Ensure the document is focused to capture key presses
             window.focus();
