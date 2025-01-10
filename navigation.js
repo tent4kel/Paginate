@@ -1,7 +1,10 @@
 (function() {
     function initNavigation() {
         console.log('navigation.js loaded and ready!');
-        
+
+        // Wrap content into a container div
+        wrapContent();
+
         // Ensure the document is focused to capture key presses
         window.focus();
 
@@ -11,11 +14,11 @@
             if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
                 event.preventDefault(); // Prevent default scrolling
                 console.log('Scrolling right via key press');
-                scrollByBodyWidth(1);
+                scrollByContainerWidth(1);
             } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
                 event.preventDefault(); // Prevent default scrolling
                 console.log('Scrolling left via key press');
-                scrollByBodyWidth(-1);
+                scrollByContainerWidth(-1);
             }
         });
 
@@ -24,7 +27,7 @@
         if (button) {
             button.addEventListener('click', function() {
                 console.log('Custom button clicked, scrolling right');
-                scrollByBodyWidth(1);
+                scrollByContainerWidth(1);
             });
         }
 
@@ -36,10 +39,10 @@
             // Check if the wheel is scrolling up or down
             if (event.deltaY > 0 || event.deltaX > 0) {
                 console.log('Scrolling right or down via mouse wheel');
-                scrollByBodyWidth(1); // Scroll right (forward)
+                scrollByContainerWidth(-1); // Scroll right (forward)
             } else {
                 console.log('Scrolling left or up via mouse wheel');
-                scrollByBodyWidth(-1); // Scroll left (backward)
+                scrollByContainerWidth(1); // Scroll left (backward)
             }
         }, { passive: false });
 
@@ -65,25 +68,35 @@
             // If the swipe was long enough, trigger the appropriate page turn
             if (touchEndX - touchStartX > 50) {
                 console.log('Swiped right via touch');
-                scrollByBodyWidth(1); // Scroll right (forward)
+                scrollByContainerWidth(1); // Scroll right (forward)
             } else if (touchStartX - touchEndX > 50) {
                 console.log('Swiped left via touch');
-                scrollByBodyWidth(-1); // Scroll left (backward)
+                scrollByContainerWidth(-1); // Scroll left (backward)
             }
         });
     }
 
-    // Function to scroll the page by one screen width (can be modified for height or both)
-    function scrollByBodyWidth(direction) {
-        const viewportWidth = window.innerWidth; // Get the viewport width
+    // Function to wrap all content into a container div
+    function wrapContent() {
+        const content = document.body.innerHTML;
+        const container = document.createElement('div');
+        container.id = 'scroll-container';
+        container.innerHTML = content;
+        document.body.innerHTML = '';
+        document.body.appendChild(container);
+    }
 
-        console.log(`Viewport width: ${viewportWidth}px`);
-
-        // Scroll by one viewport width (forward or backward)
-        window.scrollBy({
-            left: direction * viewportWidth,
-            behavior: 'smooth' // Adds smooth scrolling effect
-        });
+    // Function to scroll the container by its width
+    function scrollByContainerWidth(direction) {
+        const container = document.getElementById('scroll-container');
+        if (container) {
+            const width = container.clientWidth; // Get the container width
+            console.log(`Scrolling by container width: ${direction * width}px`);
+            window.scrollBy({
+                left: direction * width,
+                behavior: 'auto' 
+            });
+        }
     }
 
     // Expose the initNavigation function to be called externally
