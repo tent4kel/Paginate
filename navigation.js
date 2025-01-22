@@ -6,7 +6,7 @@
         wrapContent();
 
         // Create a div to cover the overflow
-        createOverflowCover();
+        //createOverflowCover();
 
         // Ensure the document is focused to capture key presses
         window.focus();
