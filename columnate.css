@@ -80,7 +80,7 @@ blockquote {
 	/* column-count: auto; */
 	column-gap: 0em;
 	box-sizing:border-box;
-	transform: translateX(0em);
+	transform: translateX(1em);
 	/*background:#78bdbd;
 	border:2em #9b9b1f;
 	outline:10px pink;
