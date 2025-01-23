@@ -8,52 +8,42 @@ function Columnate() {
         c.href = url;
         document.getElementsByTagName('head')[0].appendChild(c);
         console.log('Stylesheet loaded: ' + url);
-    }
+    };
 
     // Callback that will replace document content with readable version
     var MakeReadable = function() {
-    var doclone = document.cloneNode(true);
-    var article = new Readability(doclone).parse();
-    
-    // Strip stray styling from the html tag itself
-    var htmltag = document.getElementsByTagName("html")[0];
-    htmltag.removeAttribute("class");
-    htmltag.removeAttribute("style");
-    
-    // Reset head to nothing but our stylesheets
-    document.head.innerHTML = "";
-    
-    // Add the meta tag for viewport settings
-    var metaTag = document.createElement('meta');
-    metaTag.name = 'viewport';
-    metaTag.content = 'width=device-width, initial-scale=1.0, user-scalable=no';
-    document.head.appendChild(metaTag);
-    
-    // Load stylesheets
-    LoadStylesheet('//eink-reader.netlify.app/columnate.css');
-    LoadStylesheet('//eink-reader.netlify.app/appearance.css');
-    
-    document.title = article.title;
-    
-    // Reset body html to nothing but reformatted content
-    document.body.removeAttribute("class");
-    document.body.removeAttribute("style");
-    document.body.innerHTML = "<h1>" + article.title + "</h1>" + article.content;
-    console.log('Document made readable and styles applied.');
-    
-    // After content is ready, load the navigation.js script
-    loadNavigationScript();
-    
-    // Function to load the navigation.js script
-    function loadNavigationScript() {
-        var script = document.createElement('script');
-        script.src = '//eink-reader.netlify.app/navigation.js';
-        script.onload = function() {
-            initNavigation();
-        };
-        document.body.appendChild(script);
-    }
-};
+        var doclone = document.cloneNode(true);
+        var article = new Readability(doclone).parse();
+
+        // Strip stray styling from the html tag itself
+        var htmltag = document.getElementsByTagName("html")[0];
+        htmltag.removeAttribute("class");
+        htmltag.removeAttribute("style");
+
+        // Reset head to nothing but our stylesheets
+        document.head.innerHTML = "";
+
+        // Add the meta tag for viewport settings
+        var metaTag = document.createElement('meta');
+        metaTag.name = 'viewport';
+        metaTag.content = 'width=device-width, initial-scale=1.0, user-scalable=no';
+        document.head.appendChild(metaTag);
+
+        // Load stylesheets
+        LoadStylesheet('//eink-reader.netlify.app/columnate.css');
+        LoadStylesheet('//eink-reader.netlify.app/appearance.css');
+
+        document.title = article.title;
+
+        // Reset body html to nothing but reformatted content
+        document.body.removeAttribute("class");
+        document.body.removeAttribute("style");
+        document.body.innerHTML = "<h1>" + article.title + "</h1>" + article.content;
+        console.log('Document made readable and styles applied.');
+
+        // After content is ready, load the navigation.js script
+        loadNavigationScript();
+    };
 
     // Function to load the navigation.js script
     var loadNavigationScript = function() {
