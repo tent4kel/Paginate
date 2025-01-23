@@ -3,14 +3,15 @@ html {
 	/*width: min-content;*/
 	padding: 0;
 	margin: 0;
+	
 }
 
 
 body {
 	height: 100svh;
 	padding: 0;
-	margin-left:0em;
-	margin-right:0em;
+	margin-left:0rem;
+	margin-right:0rem;
 	margin: 0;
 	overflow-y:hidden;
 
@@ -22,7 +23,7 @@ figure {
 }
 
 h1, h2, h3, h4, h5, h6, p, figcaption,  {
-	padding-top: 14px;
+	padding-top: .8rem;
 	padding-left: 0;
 	margin-block-start: 0;
 	margin-block-end: 0;
@@ -32,7 +33,7 @@ h1, h2, h3, h4, h5, h6, p, figcaption,  {
 
 ul {
 	padding-top: 0;
-	padding-left: 18px;
+	padding-left: 1rem;
 	margin-block-start: 0;
 	margin-block-end: 0;
 	margin-inline-start: 0;
@@ -41,7 +42,7 @@ ul {
 
 
 p, figcaption {
-	line-height: 1.5em;
+	line-height: 1.25em;
 }
 
 img {
@@ -71,16 +72,16 @@ blockquote {
 	height:96%;
 	height: 96svh;
 	width: fit-content;
-	margin: 1em;
-	padding: 0em;
+	margin: 1rem;
+	padding: 0rem;
 	padding-left:0;
 	padding-top: 2svh;
 	/* column-fill: auto; */
-	column-width: 20em;
+	column-width: 20rem;
 	/* column-count: auto; */
-	column-gap: 0em;
+	column-gap: 0rem;
 	box-sizing:border-box;
-	transform: translateX(1em);
+	transform: translateX(1rem);
 	/*background:#78bdbd;
 	border:2em #9b9b1f;
 	outline:10px pink;
@@ -102,21 +103,7 @@ blockquote {
   }
 
 
-#overflow-cover {
-    position: fixed;
-    width: 100svw !important;
-    height: 100svw;
-    z-index: 9999; /* Higher z-index to cover the overflow */
-    pointer-events: none; /* Allow interactions to pass through */
-    background: rgba(0, 0, 0, 0); /* Transparent background */
-	border: 1em  solid  #ffffffcc;
-	box-sizing:border-box;
-	overflow:hidden;
-	border-top-width:0;
-	border-bottom-width: 0;
-}
-
-.page {
-	padding-right:2em;
-	padding-left:0em;
+.page, h1 {
+	padding-right:2rem;
+	padding-left:0rem;
 }
