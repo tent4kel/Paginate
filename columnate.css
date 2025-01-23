@@ -41,9 +41,7 @@ ul {
 }
 
 
-p, figcaption {
-	line-height: 1.25em;
-}
+
 
 img {
 	height: auto !important;
@@ -77,7 +75,7 @@ blockquote {
 	padding-left:0;
 	padding-top: 2svh;
 	/* column-fill: auto; */
-	column-width: 20rem;
+	column-width: 22rem;
 	/* column-count: auto; */
 	column-gap: 0rem;
 	box-sizing:border-box;
