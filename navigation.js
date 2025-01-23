@@ -5,8 +5,6 @@
         // Wrap content into a container div
         wrapContent();
 
-        // Create a div to cover the overflow
-        //createOverflowCover();
 
         // Ensure the document is focused to capture key presses
         window.focus();
@@ -14,13 +12,13 @@
         // Attach a keydown event listener to the whole document
         document.addEventListener('keydown', function(event) {
             console.log(`Key pressed: ${event.key}`);
-            if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+            if (event.key === 'ArrowRight' || event.key === 'ArrowDown' || event.key === 'PageDown') {
                 event.preventDefault(); // Prevent default scrolling
-                console.log('Scrolling right via key press');
+                console.log('Scrolling right or down via key press');
                 scrollByContainerWidth(1);
-            } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+            } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp' || event.key === 'PageUp') {
                 event.preventDefault(); // Prevent default scrolling
-                console.log('Scrolling left via key press');
+                console.log('Scrolling left or up via key press');
                 scrollByContainerWidth(-1);
             }
         });
@@ -52,10 +50,13 @@
         // Variables for touch swipe detection
         let touchStartX = 0;
         let touchEndX = 0;
+        let touchStartY = 0;
+        let touchEndY = 0;
 
         // Touch start event listener
         document.addEventListener('touchstart', function(event) {
             touchStartX = event.changedTouches[0].screenX;
+            touchStartY = event.changedTouches[0].screenY;
         });
 
         // Touch move event listener
@@ -67,6 +68,7 @@
         // Touch end event listener (detect swipe direction)
         document.addEventListener('touchend', function(event) {
             touchEndX = event.changedTouches[0].screenX;
+            touchEndY = event.changedTouches[0].screenY;
 
             // If the swipe was long enough, trigger the appropriate page turn
             if (touchEndX - touchStartX > 50) {
@@ -75,6 +77,12 @@
             } else if (touchStartX - touchEndX > 50) {
                 console.log('Swiped left via touch');
                 scrollByContainerWidth(1); // Scroll left (backward)
+            } else if (touchEndY - touchStartY > 50) {
+                console.log('Swiped down via touch');
+                scrollByContainerWidth(1); // Scroll down (forward)
+            } else if (touchStartY - touchEndY > 50) {
+                console.log('Swiped up via touch');
+                scrollByContainerWidth(-1); // Scroll up (backward)
             }
         });
     }
@@ -89,12 +97,7 @@
         document.body.appendChild(container);
     }
 
-    // Function to create a div that covers the overflow
-    function createOverflowCover() {
-        const overflowCover = document.createElement('div');
-        overflowCover.id = 'overflow-cover';
-        document.body.appendChild(overflowCover);
-    }
+
 
     // Function to scroll the container by its width
     function scrollByContainerWidth(direction) {
