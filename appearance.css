@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
 html{
   font-size:16px;
 }
@@ -12,15 +13,17 @@ body {
 }
 
 h1{
-    font-size: 2.2rem;
-    font-weight: 800;
-    line-height: 1.1em;
-    word-wrap:break-word;
-    hyphens:auto;
-    hyphenate-limit-chars: 8 3 3;
+  font-family: Outfit, sans-serif;
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 1.1em;
+  word-wrap:break-word;
+  hyphens:auto;
+  hyphenate-limit-chars: 8 3 3;
 }
 
 h2, h3{
+  
   font-size: 1.3rem;  
   line-height:1.1em;
   font-weight: 600;
@@ -29,6 +32,7 @@ h2, h3{
 
 figcaption {
     color: #777;
+    font-size: .8em;
 }
 
 figure {
@@ -42,14 +46,13 @@ a {
     text-decoration-thickness: 0.5px; 
 }
 
-p, a, figcaption {
-  font-size:1rem;  
-  line-height: 1.1em;
+p, a {
+  font-size: 1rem;
+  line-height: 1.2em;
   hyphens:auto;
-    hyphenate-limit-chars: 6 3 3;
-    /*text-align:justify*/
-    margin-block-start:0.2rem;
-  
+  hyphenate-limit-chars: 6 3 3;
+  text-align:justify;
+  margin-block-start:0.2rem;
 }
 
 sup {
@@ -86,5 +89,8 @@ sup {
 }
 
 @media only screen and (max-width:600px){
-  html {font-size: 14px}
+  html {font-size: 10px}
+  p, a {font-size: 1.5rem}
+figure, figcaption {font-size: 1.1rem}
+h1 {font-size: 2.6rem;}
 }
