@@ -79,10 +79,10 @@
                 scrollByContainerWidth(1); // Scroll left (backward)
             } else if (touchEndY - touchStartY > 50) {
                 console.log('Swiped down via touch');
-                scrollByContainerWidth(1); // Scroll down (forward)
+                scrollByContainerWidth(-1); // Scroll down (forward)
             } else if (touchStartY - touchEndY > 50) {
                 console.log('Swiped up via touch');
-                scrollByContainerWidth(-1); // Scroll up (backward)
+                scrollByContainerWidth(1); // Scroll up (backward)
             }
         });
     }
