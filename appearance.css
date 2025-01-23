@@ -1,15 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
+html{
+  font-size:16px;
+}
 
 body {
   font-family: "Source Serif 4", serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style:normal;
-  font-size: 16px;
+  
 }
 
 h1{
-    font-size: 3em;
+    font-size: 2.3rem;
     font-weight: 800;
     line-height: 1;
     word-wrap:break-word;
@@ -18,8 +21,10 @@ h1{
 }
 
 h2, h3{
-    font-weight: 600;
-    margin-block-end: 0em;
+  font-size: 1.3rem;  
+  line-height:1.1em;
+  font-weight: 600;
+  margin-block-end: 1em;
 }
 
 figcaption {
@@ -38,10 +43,12 @@ a {
 }
 
 p, a, figcaption {
-    hyphens:auto;
+  font-size:1rem;  
+  hyphens:auto;
     hyphenate-limit-chars: 6 3 3;
     /*text-align:justify*/
-    margin-block-start:0.2em;
+    margin-block-start:0.2rem;
+  
 }
 
 sup {
@@ -75,4 +82,8 @@ sup {
   #overflow-cover{
     border: 1em  solid  #000000;
   }
+}
+
+@media only screen and (max-width:600px){
+  html {font-size: 12px}
 }
