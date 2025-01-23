@@ -12,9 +12,9 @@ body {
 }
 
 h1{
-    font-size: 2.3rem;
+    font-size: 2.2rem;
     font-weight: 800;
-    line-height: 1;
+    line-height: 1.1em;
     word-wrap:break-word;
     hyphens:auto;
     hyphenate-limit-chars: 8 3 3;
@@ -44,6 +44,7 @@ a {
 
 p, a, figcaption {
   font-size:1rem;  
+  line-height: 1.1em;
   hyphens:auto;
     hyphenate-limit-chars: 6 3 3;
     /*text-align:justify*/
@@ -85,5 +86,5 @@ sup {
 }
 
 @media only screen and (max-width:600px){
-  html {font-size: 12px}
+  html {font-size: 14px}
 }
