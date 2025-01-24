@@ -74,9 +74,9 @@ blockquote {
 	padding: 0rem;
 	padding-left:0;
 	padding-top: 2svh;
-	/* column-fill: auto; */
+	column-fill: auto;
 	column-width: 22rem;
-	/* column-count: auto; */
+	column-count: auto;
 	column-gap: 0rem;
 	box-sizing:border-box;
 	transform: translateX(1rem);
