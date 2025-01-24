@@ -4,8 +4,8 @@
     <style type="text/css">
         body {
             font-family: sans-serif;
-            font-size: large;
-            margin: 30px;
+            font-size: 1.5rem;
+            margin: 10vw;
         }
         .ready {
             border: 1px solid blue;
@@ -37,6 +37,15 @@
             alert("Drag this link to your bookmark bar.");
             return false;
         };
+
+        function CopyToClipboard() {
+            var copyText = document.getElementById("bookmarkletPlainText").textContent;
+            navigator.clipboard.writeText(copyText).then(function() {
+                alert("Bookmarklet copied to clipboard!");
+            }, function(err) {
+                alert("Failed to copy bookmarklet: ", err);
+            });
+        }
     </script>
 
 </head>
@@ -46,16 +55,15 @@
 
 <p>Drag this link to your bookmarks bar to install:</p>
 
-<p><strong><a href="#" id="bookmarkletLink" onclick="return ClickHelp();" title="Drag this link to your bookmark bar.">Columnate</a></strong></p>
-
+<p><strong><a href="#" id="bookmarkletLink" onclick="return ClickHelp();" title="Drag this link to your bookmark bar.">Columnate</a></strong>
+<button onclick="CopyToClipboard()">Copy to Clipboard</button></p>
 
 <!-- Plain text version of the link for manual copying -->
 <p>If you can't drag the link, you can copy the link below and manually add it to your bookmarks:</p>
 <pre id="bookmarkletPlainText" style="background-color: #f4f4f4; padding: 10px; border: 1px solid #ccc;"></pre>
-<p>Now find a web page with a long article. Click the <strong>Columnate</strong> bookmarklet to reformat the page free of distractions. The article will be formatted in narrow columns like a newspaper.</p>
+<p>Now find a web page with a long article. Click the <strong>Columnate</strong> bookmarklet to reformat the page free of distractions. The article will be formatted in narrow columns like a newspaper[...]
 
-<p>Visit the <a href="https://github.com/anoved/Columnate">Columnate project page</a> for more information or to report <a href="https://github.com/anoved/Columnate/issues">issues</a>.</p>
+<p>This is built on top of <a href="https://github.com/anoved/Columnate">Columnate project page</a>.</p>
 
 </body>
 </html>
-
