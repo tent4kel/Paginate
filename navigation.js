@@ -113,13 +113,7 @@
             `;
             container.appendChild(endDiv);
 
-            // Style the end div to sit at the bottom of the page
-            endDiv.style.position = 'absolute';
-            endDiv.style.bottom = '0';
-            endDiv.style.width = '100%';
-            endDiv.style.textAlign = 'center';
-            endDiv.style.backgroundColor = '#fff';
-            endDiv.style.padding = '10px 0';
+            
 
             // Attach event listeners to the buttons
             document.getElementById('go-back-button').addEventListener('click', function() {
