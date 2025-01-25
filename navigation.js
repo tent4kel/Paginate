@@ -5,6 +5,8 @@
         // Wrap content into a container div
         wrapContent();
 
+        // Append end of article div
+        appendEndOfArticleDiv();
 
         // Ensure the document is focused to capture key presses
         window.focus();
@@ -97,7 +99,29 @@
         document.body.appendChild(container);
     }
 
+    // Function to append end of article div
+    function appendEndOfArticleDiv() {
+        const container = document.getElementById('scroll-container');
+        if (container) {
+            const endDiv = document.createElement('div');
+            endDiv.id = 'end-of-article';
+            endDiv.innerHTML = `
+                <p>End of Article</p>
+                <button id="go-back-button">Go Back</button>
+                <button id="close-tab-button">Close Tab</button>
+            `;
+            container.appendChild(endDiv);
 
+            // Attach event listeners to the buttons
+            document.getElementById('go-back-button').addEventListener('click', function() {
+                window.history.back();
+            });
+
+            document.getElementById('close-tab-button').addEventListener('click', function() {
+                window.close();
+            });
+        }
+    }
 
     // Function to scroll the container by its width
     function scrollByContainerWidth(direction) {
