@@ -65,7 +65,7 @@ blockquote {
   }
 
 #scroll-container{
-	position:absolute;
+	position: relative;
 	width: auto;
 	height:96%;
 	height: 96svh;
