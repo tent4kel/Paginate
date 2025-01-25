@@ -66,10 +66,9 @@ blockquote {
 
 #scroll-container{
 	position:absolute;
-	/* width: auto; */
+	width: auto;
 	height:96%;
 	height: 96svh;
-	width: fit-content;
 	margin: 1rem;
 	padding: 0rem;
 	padding-left:0;
@@ -104,4 +103,5 @@ blockquote {
 .page, h1 {
 	padding-right:2rem;
 	padding-left:0rem;
+	margin-top: 0px;
 }
