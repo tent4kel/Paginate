@@ -105,3 +105,7 @@ blockquote {
 	padding-left:0rem;
 	margin-top: 0px;
 }
+
+article {
+padding-bottom: 6rem;
+}
