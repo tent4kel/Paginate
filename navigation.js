@@ -57,7 +57,7 @@
             // Reset canScroll after 500ms
             setTimeout(() => {
                 canScroll = true;
-            }, 300);
+            }, 100);
         }, { passive: false });
 
         // Variables for touch swipe detection
