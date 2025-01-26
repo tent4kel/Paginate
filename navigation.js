@@ -174,4 +174,7 @@ document.addEventListener('wheel', function(event) {
 
     // Expose the initNavigation function to be called externally
     window.initNavigation = initNavigation;
+
+    // Trigger initNavigation as soon as the DOM is ready (DOMContentLoaded)
+    document.addEventListener('DOMContentLoaded', initNavigation);
 })();
