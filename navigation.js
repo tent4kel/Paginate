@@ -34,24 +34,30 @@
             });
         }
 
+let canScroll = true;
+
 document.addEventListener('wheel', function(event) {
+    if (!canScroll) return;
+
     // Prevent the default scroll behavior
     event.preventDefault();
     
-    // Determine if the input is from a touchpad
-    const isTouchpad = Math.abs(event.deltaY) < 50;
-
-    // Adjust scroll speed for touchpad users
-    const scrollSpeed = isTouchpad ? 0.1 : 1;
-
     // Check if the wheel is scrolling up or down
     if (event.deltaY > 0 || event.deltaX > 0) {
         console.log('Scrolling right or down via mouse wheel');
-        scrollByContainerWidth(scrollSpeed); // Scroll right (forward)
+        scrollByContainerWidth(1); // Scroll right (forward)
     } else {
         console.log('Scrolling left or up via mouse wheel');
-        scrollByContainerWidth(-scrollSpeed); // Scroll left (backward)
+        scrollByContainerWidth(-1); // Scroll left (backward)
     }
+
+    // Set canScroll to false to start the cooldown
+    canScroll = false;
+
+    // Reset canScroll after 500ms
+    setTimeout(() => {
+        canScroll = true;
+    }, 300);
 }, { passive: false });
 
         // Variables for touch swipe detection
