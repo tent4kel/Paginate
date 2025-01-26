@@ -87,9 +87,6 @@
                 scrollByContainerWidth(1); // Scroll up (backward)
             }
         });
-
-        // Limit image sizes
-        limitImageSize();
     }
 
     // Function to wrap all content into a container div
@@ -140,17 +137,27 @@
         }
     }
 
-    // Function to limit image sizes to 1.5 times their original dimensions
-window.addEventListener('load', function() {
+ window.addEventListener('load', function() {
   const images = document.querySelectorAll('.responsive-image');
   
   images.forEach(img => {
     const originalWidth = img.naturalWidth;
     const originalHeight = img.naturalHeight;
+
+    // Calculate the maximum allowed size (150% of the original size)
+    const maxWidth = originalWidth * 1.5;
+    const maxHeight = originalHeight * 1.5;
     
-    // Limit to 150% of the original size
-    img.style.maxWidth = `${originalWidth * 1.5}px`;
-    img.style.maxHeight = `${originalHeight * 1.5}px`;
+    // Apply the max width and max height
+    img.style.maxWidth = `${maxWidth}px`;
+    img.style.maxHeight = `${maxHeight}px`;
+
+    // Make sure the image is responsive but does not exceed the calculated limits
+    img.style.width = '100%';
+    img.style.height = 'auto';
+
+    // Logging
+    console.log(`Image resized: originalWidth=${originalWidth}, originalHeight=${originalHeight}, maxWidth=${maxWidth}, maxHeight=${maxHeight}`);
   });
 });
 
