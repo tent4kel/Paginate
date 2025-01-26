@@ -87,6 +87,9 @@
                 scrollByContainerWidth(1); // Scroll up (backward)
             }
         });
+
+        // Limit image sizes
+        limitImageSize();
     }
 
     // Function to wrap all content into a container div
@@ -113,8 +116,6 @@
             `;
             container.appendChild(endDiv);
 
-            
-
             // Attach event listeners to the buttons
             document.getElementById('go-back-button').addEventListener('click', function() {
                 window.history.back();
@@ -137,6 +138,20 @@
                 behavior: 'auto' 
             });
         }
+    }
+
+    // Function to limit image sizes to 1.5 times their original dimensions
+    function limitImageSize() {
+        const images = document.querySelectorAll('img');
+        images.forEach(image => {
+            const originalWidth = image.naturalWidth;
+            const originalHeight = image.naturalHeight;
+            const maxWidth = originalWidth * 1.5;
+            const maxHeight = originalHeight * 1.5;
+            image.style.maxWidth = `${maxWidth}px`;
+            image.style.maxHeight = `${maxHeight}px`;
+            console.log(`Image limited to max dimensions: ${maxWidth}px by ${maxHeight}px`);
+        });
     }
 
     // Expose the initNavigation function to be called externally
