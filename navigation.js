@@ -34,31 +34,31 @@
             });
         }
 
-let canScroll = true;
+        let canScroll = true;
 
-document.addEventListener('wheel', function(event) {
-    if (!canScroll) return;
+        document.addEventListener('wheel', function(event) {
+            if (!canScroll) return;
 
-    // Prevent the default scroll behavior
-    event.preventDefault();
-    
-    // Check if the wheel is scrolling up or down
-    if (event.deltaY > 0 || event.deltaX > 0) {
-        console.log('Scrolling right or down via mouse wheel');
-        scrollByContainerWidth(1); // Scroll right (forward)
-    } else {
-        console.log('Scrolling left or up via mouse wheel');
-        scrollByContainerWidth(-1); // Scroll left (backward)
-    }
+            // Prevent the default scroll behavior
+            event.preventDefault();
 
-    // Set canScroll to false to start the cooldown
-    canScroll = false;
+            // Check if the wheel is scrolling up or down
+            if (event.deltaY > 0 || event.deltaX > 0) {
+                console.log('Scrolling right or down via mouse wheel');
+                scrollByContainerWidth(1); // Scroll right (forward)
+            } else {
+                console.log('Scrolling left or up via mouse wheel');
+                scrollByContainerWidth(-1); // Scroll left (backward)
+            }
 
-    // Reset canScroll after 500ms
-    setTimeout(() => {
-        canScroll = true;
-    }, 300);
-}, { passive: false });
+            // Set canScroll to false to start the cooldown
+            canScroll = false;
+
+            // Reset canScroll after 500ms
+            setTimeout(() => {
+                canScroll = true;
+            }, 300);
+        }, { passive: false });
 
         // Variables for touch swipe detection
         let touchStartX = 0;
@@ -97,6 +97,28 @@ document.addEventListener('wheel', function(event) {
                 console.log('Swiped up via touch');
                 scrollByContainerWidth(1); // Scroll up (backward)
             }
+        });
+
+        // Resize images on page load
+        const images = document.querySelectorAll('img');
+        images.forEach(img => {
+            const originalWidth = img.naturalWidth;
+            const originalHeight = img.naturalHeight;
+
+            // Calculate the maximum allowed size (150% of the original size)
+            const maxWidth = originalWidth * 1.5;
+            const maxHeight = originalHeight * 1.5;
+
+            // Apply the max width and max height
+            img.style.maxWidth = `${maxWidth}px`;
+            img.style.maxHeight = `${maxHeight}px`;
+
+            // Make sure the image is responsive but does not exceed the calculated limits
+            img.style.width = '100%';
+            img.style.height = 'auto';
+
+            // Logging
+            console.log(`Image resized: originalWidth=${originalWidth}, originalHeight=${originalHeight}, maxWidth=${maxWidth}, maxHeight=${maxHeight}`);
         });
     }
 
@@ -147,30 +169,6 @@ document.addEventListener('wheel', function(event) {
             });
         }
     }
-
- window.addEventListener('load', function() {
-  const images = document.querySelectorAll('img');
-  
-  images.forEach(img => {
-    const originalWidth = img.naturalWidth;
-    const originalHeight = img.naturalHeight;
-
-    // Calculate the maximum allowed size (150% of the original size)
-    const maxWidth = originalWidth * 1.5;
-    const maxHeight = originalHeight * 1.5;
-    
-    // Apply the max width and max height
-    img.style.maxWidth = `${maxWidth}px`;
-    img.style.maxHeight = `${maxHeight}px`;
-
-    // Make sure the image is responsive but does not exceed the calculated limits
-    img.style.width = '100%';
-    img.style.height = 'auto';
-
-    // Logging
-    console.log(`Image resized: originalWidth=${originalWidth}, originalHeight=${originalHeight}, maxWidth=${maxWidth}, maxHeight=${maxHeight}`);
-  });
-});
 
     // Expose the initNavigation function to be called externally
     window.initNavigation = initNavigation;
