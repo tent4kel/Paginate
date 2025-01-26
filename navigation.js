@@ -41,7 +41,7 @@
 
             // Prevent the default scroll behavior
             event.preventDefault();
-
+            
             // Check if the wheel is scrolling up or down
             if (event.deltaY > 0 || event.deltaX > 0) {
                 console.log('Scrolling right or down via mouse wheel');
@@ -57,7 +57,7 @@
             // Reset canScroll after 500ms
             setTimeout(() => {
                 canScroll = true;
-            }, 100);
+            }, 200);
         }, { passive: false });
 
         // Variables for touch swipe detection
@@ -99,75 +99,97 @@
             }
         });
 
-        // Resize images on page load
+        // Function to wrap all content into a container div
+        function wrapContent() {
+            const content = document.body.innerHTML;
+            const container = document.createElement('div');
+            container.id = 'scroll-container';
+            container.innerHTML = content;
+            document.body.innerHTML = '';
+            document.body.appendChild(container);
+        }
+
+        // Function to append end of article div
+        function appendEndOfArticleDiv() {
+            const container = document.getElementById('scroll-container');
+            if (container) {
+                const endDiv = document.createElement('div');
+                endDiv.id = 'end-of-article';
+                endDiv.innerHTML = `
+                    <hr>
+                    <p>End of Article</p>
+                    <button id="go-back-button">Go Back</button>
+                    <button id="close-tab-button">Close Tab</button>
+                `;
+                container.appendChild(endDiv);
+
+                // Attach event listeners to the buttons
+                document.getElementById('go-back-button').addEventListener('click', function() {
+                    window.history.back();
+                });
+
+                document.getElementById('close-tab-button').addEventListener('click', function() {
+                    window.close();
+                });
+            }
+        }
+
+        // Function to scroll the container by its width
+        function scrollByContainerWidth(direction) {
+            const container = document.getElementById('scroll-container');
+            if (container) {
+                const width = container.clientWidth; // Get the container width
+                console.log(`Scrolling by container width: ${direction * width}px`);
+                window.scrollBy({
+                    left: direction * width,
+                    behavior: 'auto' 
+                });
+            }
+        }
+
+        // Resize images based on their natural size (150% max scale)
         const images = document.querySelectorAll('img');
+        
         images.forEach(img => {
-            const originalWidth = img.naturalWidth;
-            const originalHeight = img.naturalHeight;
+            // Wait for the image to fully load before processing
+            img.addEventListener('load', function() {
+                const originalWidth = img.naturalWidth;
+                const originalHeight = img.naturalHeight;
 
-            // Calculate the maximum allowed size (150% of the original size)
-            const maxWidth = originalWidth * 1.5;
-            const maxHeight = originalHeight * 1.5;
+                // Check that we actually have valid dimensions
+                if (originalWidth > 0 && originalHeight > 0) {
+                    // Calculate the maximum allowed size (150% of the original size)
+                    const maxWidth = originalWidth * 1.5;
+                    const maxHeight = originalHeight * 1.5;
+                    
+                    // Apply the max width and max height
+                    img.style.maxWidth = `${maxWidth}px`;
+                    img.style.maxHeight = `${maxHeight}px`;
 
-            // Apply the max width and max height
-            img.style.maxWidth = `${maxWidth}px`;
-            img.style.maxHeight = `${maxHeight}px`;
+                    // Make sure the image is responsive but does not exceed the calculated limits
+                    img.style.width = '100%';
+                    img.style.height = 'auto';
 
-            // Make sure the image is responsive but does not exceed the calculated limits
-            img.style.width = '100%';
-            img.style.height = 'auto';
+                    // Logging
+                    console.log(`Image resized: originalWidth=${originalWidth}, originalHeight=${originalHeight}, maxWidth=${maxWidth}, maxHeight=${maxHeight}`);
+                }
+            });
 
-            // Logging
-            console.log(`Image resized: originalWidth=${originalWidth}, originalHeight=${originalHeight}, maxWidth=${maxWidth}, maxHeight=${maxHeight}`);
+            // If the image is already loaded (in case it’s cached), we can process it immediately
+            if (img.complete) {
+                const originalWidth = img.naturalWidth;
+                const originalHeight = img.naturalHeight;
+                if (originalWidth > 0 && originalHeight > 0) {
+                    const maxWidth = originalWidth * 1.5;
+                    const maxHeight = originalHeight * 1.5;
+                    img.style.maxWidth = `${maxWidth}px`;
+                    img.style.maxHeight = `${maxHeight}px`;
+                    img.style.width = '100%';
+                    img.style.height = 'auto';
+                    console.log(`Image resized: originalWidth=${originalWidth}, originalHeight=${originalHeight}, maxWidth=${maxWidth}, maxHeight=${maxHeight}`);
+                }
+            }
         });
-    }
-
-    // Function to wrap all content into a container div
-    function wrapContent() {
-        const content = document.body.innerHTML;
-        const container = document.createElement('div');
-        container.id = 'scroll-container';
-        container.innerHTML = content;
-        document.body.innerHTML = '';
-        document.body.appendChild(container);
-    }
-
-    // Function to append end of article div
-    function appendEndOfArticleDiv() {
-        const container = document.getElementById('scroll-container');
-        if (container) {
-            const endDiv = document.createElement('div');
-            endDiv.id = 'end-of-article';
-            endDiv.innerHTML = `
-                <hr>
-                <p>End of Article</p>
-                <button id="go-back-button">Go Back</button>
-                <button id="close-tab-button">Close Tab</button>
-            `;
-            container.appendChild(endDiv);
-
-            // Attach event listeners to the buttons
-            document.getElementById('go-back-button').addEventListener('click', function() {
-                window.history.back();
-            });
-
-            document.getElementById('close-tab-button').addEventListener('click', function() {
-                window.close();
-            });
-        }
-    }
-
-    // Function to scroll the container by its width
-    function scrollByContainerWidth(direction) {
-        const container = document.getElementById('scroll-container');
-        if (container) {
-            const width = container.clientWidth; // Get the container width
-            console.log(`Scrolling by container width: ${direction * width}px`);
-            window.scrollBy({
-                left: direction * width,
-                behavior: 'auto' 
-            });
-        }
     }
 
     // Expose the initNavigation function to be called externally
