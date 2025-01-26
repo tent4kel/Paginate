@@ -34,20 +34,25 @@
             });
         }
 
-        // Mouse wheel event listener for page turns
-        document.addEventListener('wheel', function(event) {
-            // Prevent the default scroll behavior
-            event.preventDefault();
+document.addEventListener('wheel', function(event) {
+    // Prevent the default scroll behavior
+    event.preventDefault();
+    
+    // Determine if the input is from a touchpad
+    const isTouchpad = Math.abs(event.deltaY) < 50;
 
-            // Check if the wheel is scrolling up or down
-            if (event.deltaY > 0 || event.deltaX > 0) {
-                console.log('Scrolling right or down via mouse wheel');
-                scrollByContainerWidth(1); // Scroll right (forward)
-            } else {
-                console.log('Scrolling left or up via mouse wheel');
-                scrollByContainerWidth(-1); // Scroll left (backward)
-            }
-        }, { passive: false });
+    // Adjust scroll speed for touchpad users
+    const scrollSpeed = isTouchpad ? 0.1 : 1;
+
+    // Check if the wheel is scrolling up or down
+    if (event.deltaY > 0 || event.deltaX > 0) {
+        console.log('Scrolling right or down via mouse wheel');
+        scrollByContainerWidth(scrollSpeed); // Scroll right (forward)
+    } else {
+        console.log('Scrolling left or up via mouse wheel');
+        scrollByContainerWidth(-scrollSpeed); // Scroll left (backward)
+    }
+}, { passive: false });
 
         // Variables for touch swipe detection
         let touchStartX = 0;
@@ -138,7 +143,7 @@
     }
 
  window.addEventListener('load', function() {
-  const images = document.querySelectorAll('.responsive-image');
+  const images = document.querySelectorAll('img');
   
   images.forEach(img => {
     const originalWidth = img.naturalWidth;
