@@ -26,38 +26,44 @@ function Columnate() {
         console.log('HTML cleaned of problematic attributes.');
     };
 
-    // Function to unfold collapsible sections
     var UnfoldSections = function(doc) {
+    try {
+        // Handle Wikipedia-specific collapsible sections
+        var collapsibleToggles = doc.getElementsByClassName("mw-collapsible-toggle-collapsed");
+        for (var i = 0; i < collapsibleToggles.length; i++) {
+            var toggle = collapsibleToggles[i];
+            if (toggle.childNodes[1] && typeof toggle.childNodes[1].click === "function") {
+                toggle.childNodes[1].click();
+                console.log("Clicked to expand a collapsible section:", toggle);
+            }
+        }
+
+        // Handle other generic collapsible elements
         var unfoldSelectors = [
-            '.mw-collapsible', // Wikipedia's collapsible tables
             '.collapse',       // Bootstrap-style collapsible content
             '.expandable',     // Generic expandable content
             '[aria-expanded="false"]' // ARIA attributes for collapsed sections
         ];
 
-        for (var i = 0; i < unfoldSelectors.length; i++) {
-            var elements = doc.querySelectorAll(unfoldSelectors[i]);
-            for (var j = 0; j < elements.length; j++) {
-                var el = elements[j];
-                try {
-                    if (el.classList.contains('mw-collapsible')) {
-                        el.classList.add('mw-made-collapsible');
-                        el.classList.remove('mw-collapsed');
-                    }
-                    if (el.getAttribute('aria-expanded') === 'false') {
-                        el.setAttribute('aria-expanded', 'true');
-                    }
-                    if (typeof el.click === 'function') {
-                        el.click();
-                    }
-                } catch (error) {
-                    console.warn('Error unfolding section:', el, error);
+        for (var j = 0; j < unfoldSelectors.length; j++) {
+            var elements = doc.querySelectorAll(unfoldSelectors[j]);
+            for (var k = 0; k < elements.length; k++) {
+                var el = elements[k];
+                if (el.getAttribute('aria-expanded') === 'false') {
+                    el.setAttribute('aria-expanded', 'true');
                 }
+                if (typeof el.click === 'function') {
+                    el.click();
+                }
+                console.log("Expanded section:", el);
             }
         }
 
-        console.log('Collapsible sections unfolded.');
-    };
+        console.log("Collapsible sections unfolded.");
+    } catch (error) {
+        console.error("Error unfolding sections:", error);
+    }
+};
 
     // Callback that will replace document content with readable version
     var MakeReadable = function() {
