@@ -28,10 +28,17 @@ function Columnate() {
 
     var UnfoldSections = function(doc) {
     try {
-        // Handle Wikipedia-specific collapsible sections
+        // Remove 'hidden="until-found"' attributes
+        var hiddenElements = doc.querySelectorAll('[hidden="until-found"]');
+        for (var i = 0; i < hiddenElements.length; i++) {
+            hiddenElements[i].removeAttribute('hidden');
+            console.log('Removed hidden="until-found" attribute:', hiddenElements[i]);
+        }
+
+        // Handle Wikipedia-specific collapsible toggles
         var collapsibleToggles = doc.getElementsByClassName("mw-collapsible-toggle-collapsed");
-        for (var i = 0; i < collapsibleToggles.length; i++) {
-            var toggle = collapsibleToggles[i];
+        for (var j = 0; j < collapsibleToggles.length; j++) {
+            var toggle = collapsibleToggles[j];
             if (toggle.childNodes[1] && typeof toggle.childNodes[1].click === "function") {
                 toggle.childNodes[1].click();
                 console.log("Clicked to expand a collapsible section:", toggle);
@@ -45,10 +52,10 @@ function Columnate() {
             '[aria-expanded="false"]' // ARIA attributes for collapsed sections
         ];
 
-        for (var j = 0; j < unfoldSelectors.length; j++) {
-            var elements = doc.querySelectorAll(unfoldSelectors[j]);
-            for (var k = 0; k < elements.length; k++) {
-                var el = elements[k];
+        for (var k = 0; k < unfoldSelectors.length; k++) {
+            var elements = doc.querySelectorAll(unfoldSelectors[k]);
+            for (var l = 0; l < elements.length; l++) {
+                var el = elements[l];
                 if (el.getAttribute('aria-expanded') === 'false') {
                     el.setAttribute('aria-expanded', 'true');
                 }
