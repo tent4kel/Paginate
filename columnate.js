@@ -12,14 +12,51 @@ function Columnate() {
 
     // Function to clean problematic attributes
     var CleanHTML = function(doc) {
-        doc.querySelectorAll('*').forEach(el => {
-            [...el.attributes].forEach(attr => {
-                if (attr.name.startsWith('@') || attr.name.startsWith('v-') || attr.name.includes(':')) {
+        var elements = doc.querySelectorAll('*');
+        for (var i = 0; i < elements.length; i++) {
+            var el = elements[i];
+            var attributes = el.attributes;
+            for (var j = attributes.length - 1; j >= 0; j--) {
+                var attr = attributes[j];
+                if (attr.name.indexOf('@') === 0 || attr.name.indexOf('v-') === 0 || attr.name.indexOf(':') !== -1) {
                     el.removeAttribute(attr.name);
                 }
-            });
-        });
+            }
+        }
         console.log('HTML cleaned of problematic attributes.');
+    };
+
+    // Function to unfold collapsible sections
+    var UnfoldSections = function(doc) {
+        var unfoldSelectors = [
+            '.mw-collapsible', // Wikipedia's collapsible tables
+            '.collapse',       // Bootstrap-style collapsible content
+            '.expandable',     // Generic expandable content
+            '[aria-expanded="false"]' // ARIA attributes for collapsed sections
+        ];
+
+        for (var i = 0; i < unfoldSelectors.length; i++) {
+            var elements = doc.querySelectorAll(unfoldSelectors[i]);
+            for (var j = 0; j < elements.length; j++) {
+                var el = elements[j];
+                try {
+                    if (el.classList.contains('mw-collapsible')) {
+                        el.classList.add('mw-made-collapsible');
+                        el.classList.remove('mw-collapsed');
+                    }
+                    if (el.getAttribute('aria-expanded') === 'false') {
+                        el.setAttribute('aria-expanded', 'true');
+                    }
+                    if (typeof el.click === 'function') {
+                        el.click();
+                    }
+                } catch (error) {
+                    console.warn('Error unfolding section:', el, error);
+                }
+            }
+        }
+
+        console.log('Collapsible sections unfolded.');
     };
 
     // Callback that will replace document content with readable version
@@ -28,6 +65,9 @@ function Columnate() {
 
         // Clean problematic attributes from the document clone
         CleanHTML(doclone);
+
+        // Unfold collapsible sections
+        UnfoldSections(doclone);
 
         try {
             var article = new Readability(doclone).parse();
@@ -72,7 +112,6 @@ function Columnate() {
         navScript.src = '//eink-reader.netlify.app/navigation.js'; // Replace with actual path to navigation.js
         navScript.onload = function() {
             console.log('navigation.js loaded and ready!');
-            // Call the main function of navigation.js if it has one
             if (typeof initNavigation === 'function') {
                 console.log('Executing initNavigation...');
                 initNavigation();
