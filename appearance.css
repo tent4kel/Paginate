@@ -92,28 +92,28 @@ sup {
 
 @media only screen and (max-width: 600px) {
   html {
-    font-size: 10px;
+    font-size:8px;
   }
 
   body {
-    font-size: 1.5rem;
+    font-size: 2rem;
     line-height: 1.4em;
   }
 
-  p, a {
-    font-size: 1.5rem;
+  p, a, button {
+    font-size: 2rem;
     line-height: 1.4em;
   }
 
-  figure, figcaption {
+  figure, figcaption, sup, sub {
     font-size: 1.1rem;
   }
 
   h1 {
-    font-size: 2.6rem;
+    font-size: 3rem;
   }
 
   h2, h3 {
-    font-size: 1.6rem;
+    font-size: 2.8rem;
   }
 }
