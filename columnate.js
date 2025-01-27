@@ -10,39 +10,59 @@ function Columnate() {
         console.log('Stylesheet loaded: ' + url);
     };
 
+    // Function to clean problematic attributes
+    var CleanHTML = function(doc) {
+        doc.querySelectorAll('*').forEach(el => {
+            [...el.attributes].forEach(attr => {
+                if (attr.name.startsWith('@') || attr.name.startsWith('v-') || attr.name.includes(':')) {
+                    el.removeAttribute(attr.name);
+                }
+            });
+        });
+        console.log('HTML cleaned of problematic attributes.');
+    };
+
     // Callback that will replace document content with readable version
     var MakeReadable = function() {
         var doclone = document.cloneNode(true);
-        var article = new Readability(doclone).parse();
 
-        // Strip stray styling from the html tag itself
-        var htmltag = document.getElementsByTagName("html")[0];
-        htmltag.removeAttribute("class");
-        htmltag.removeAttribute("style");
+        // Clean problematic attributes from the document clone
+        CleanHTML(doclone);
 
-        // Reset head to nothing but our stylesheets
-        document.head.innerHTML = "";
+        try {
+            var article = new Readability(doclone).parse();
 
-        // Add the meta tag for viewport settings
-        var metaTag = document.createElement('meta');
-        metaTag.name = 'viewport';
-        metaTag.content = 'width=device-width, initial-scale=1.0, user-scalable=no';
-        document.head.appendChild(metaTag);
+            // Strip stray styling from the html tag itself
+            var htmltag = document.getElementsByTagName("html")[0];
+            htmltag.removeAttribute("class");
+            htmltag.removeAttribute("style");
 
-        // Load stylesheets
-        LoadStylesheet('//eink-reader.netlify.app/columnate.css');
-        LoadStylesheet('//eink-reader.netlify.app/appearance.css');
+            // Reset head to nothing but our stylesheets
+            document.head.innerHTML = "";
 
-        document.title = article.title;
+            // Add the meta tag for viewport settings
+            var metaTag = document.createElement('meta');
+            metaTag.name = 'viewport';
+            metaTag.content = 'width=device-width, initial-scale=1.0, user-scalable=no';
+            document.head.appendChild(metaTag);
 
-        // Reset body html to nothing but reformatted content
-        document.body.removeAttribute("class");
-        document.body.removeAttribute("style");
-        document.body.innerHTML = "<h1>" + article.title + "</h1>" + article.content;
-        console.log('Document made readable and styles applied.');
+            // Load stylesheets
+            LoadStylesheet('//eink-reader.netlify.app/columnate.css');
+            LoadStylesheet('//eink-reader.netlify.app/appearance.css');
 
-        // After content is ready, load the navigation.js script
-        loadNavigationScript();
+            document.title = article.title;
+
+            // Reset body html to nothing but reformatted content
+            document.body.removeAttribute("class");
+            document.body.removeAttribute("style");
+            document.body.innerHTML = "<h1>" + article.title + "</h1>" + article.content;
+            console.log('Document made readable and styles applied.');
+
+            // After content is ready, load the navigation.js script
+            loadNavigationScript();
+        } catch (error) {
+            console.error('Error parsing document with Readability:', error);
+        }
     };
 
     // Function to load the navigation.js script
