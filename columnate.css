@@ -23,7 +23,7 @@ figure {
 }
 
 h1, h2, h3, h4, h5, h6, p, figcaption,  {
-	padding-top: .8rem;
+	padding-top: .8em;
 	padding-left: 0;
 	margin-block-start: 0;
 	margin-block-end: 0;
@@ -33,7 +33,7 @@ h1, h2, h3, h4, h5, h6, p, figcaption,  {
 
 ul {
 	padding-top: 0;
-	padding-left: 1rem;
+	padding-left: 1em;
 	margin-block-start: 0;
 	margin-block-end: 0;
 	margin-inline-start: 0;
@@ -74,7 +74,7 @@ blockquote {
 	padding-left:0;
 	padding-top: 2svh;
 	column-fill: auto;
-	column-width: 24rem;
+	column-width: 21em;
 	column-count: auto;
 	column-gap: 0rem;
 	box-sizing:border-box;
