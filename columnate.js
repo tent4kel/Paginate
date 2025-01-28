@@ -154,7 +154,7 @@ function Columnate() {
     // Load readability script and set it to be applied when loaded
     var cmjs = document.createElement('script');
     cmjs.type = 'text/javascript';
-    cmjs.src = '//anoved.github.io/Columnate/readability/Readability.js';
+    cmjs.src = '//eink-reader.netlify.app/Readability.js';
     cmjs.onreadystatechange = MakeReadable;
     cmjs.onload = MakeReadable;
     cmjs.onerror = function() {
