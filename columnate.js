@@ -82,8 +82,23 @@ function Columnate() {
         console.log('All images set to load eagerly.');
     };
 
+    // Function to set the color scheme based on the time
+    var SetColorScheme = function() {
+        var hour = new Date().getHours();
+        var prefersDark = (hour >= 18 || hour < 6);
+        if (prefersDark) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+        console.log('Color scheme set based on time: ' + (prefersDark ? 'dark' : 'light'));
+    };
+
     // Callback that will replace document content with readable version
     var MakeReadable = function() {
+        // Set color scheme based on time
+        SetColorScheme();
+
         var doclone = document.cloneNode(true);
 
         // Clean problematic attributes from the document clone
