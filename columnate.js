@@ -121,7 +121,8 @@ function Columnate() {
             // Reset body html to nothing but reformatted content
             document.body.removeAttribute("class");
             document.body.removeAttribute("style");
-            document.body.innerHTML = "<h1>" + article.title + "</h1>" + article.content;
+            document.body.innerHTML = "<h1 id='article-title'>" + article.title + "</h1><h2 id='article-byline'>By " + article.byline + "</h2><h3 id='article-author'>Author: " + article.author + "</h3>" + article.content;
+
             console.log('Document made readable and styles applied.');
 
             // After content is ready, load the navigation.js script
