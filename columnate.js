@@ -27,50 +27,60 @@ function Columnate() {
     };
 
     var UnfoldSections = function(doc) {
-    try {
-        // Remove 'hidden="until-found"' attributes
-        var hiddenElements = doc.querySelectorAll('[hidden="until-found"]');
-        for (var i = 0; i < hiddenElements.length; i++) {
-            hiddenElements[i].removeAttribute('hidden');
-            console.log('Removed hidden="until-found" attribute:', hiddenElements[i]);
-        }
-
-        // Handle Wikipedia-specific collapsible toggles
-        var collapsibleToggles = doc.getElementsByClassName("mw-collapsible-toggle-collapsed");
-        for (var j = 0; j < collapsibleToggles.length; j++) {
-            var toggle = collapsibleToggles[j];
-            if (toggle.childNodes[1] && typeof toggle.childNodes[1].click === "function") {
-                toggle.childNodes[1].click();
-                console.log("Clicked to expand a collapsible section:", toggle);
+        try {
+            // Remove 'hidden="until-found"' attributes
+            var hiddenElements = doc.querySelectorAll('[hidden="until-found"]');
+            for (var i = 0; i < hiddenElements.length; i++) {
+                hiddenElements[i].removeAttribute('hidden');
+                console.log('Removed hidden="until-found" attribute:', hiddenElements[i]);
             }
-        }
 
-        // Handle other generic collapsible elements
-        var unfoldSelectors = [
-            '.collapse',       // Bootstrap-style collapsible content
-            '.expandable',     // Generic expandable content
-            '[aria-expanded="false"]' // ARIA attributes for collapsed sections
-        ];
-
-        for (var k = 0; k < unfoldSelectors.length; k++) {
-            var elements = doc.querySelectorAll(unfoldSelectors[k]);
-            for (var l = 0; l < elements.length; l++) {
-                var el = elements[l];
-                if (el.getAttribute('aria-expanded') === 'false') {
-                    el.setAttribute('aria-expanded', 'true');
+            // Handle Wikipedia-specific collapsible toggles
+            var collapsibleToggles = doc.getElementsByClassName("mw-collapsible-toggle-collapsed");
+            for (var j = 0; j < collapsibleToggles.length; j++) {
+                var toggle = collapsibleToggles[j];
+                if (toggle.childNodes[1] && typeof toggle.childNodes[1].click === "function") {
+                    toggle.childNodes[1].click();
+                    console.log("Clicked to expand a collapsible section:", toggle);
                 }
-                if (typeof el.click === 'function') {
-                    el.click();
-                }
-                console.log("Expanded section:", el);
             }
-        }
 
-        console.log("Collapsible sections unfolded.");
-    } catch (error) {
-        console.error("Error unfolding sections:", error);
-    }
-};
+            // Handle other generic collapsible elements
+            var unfoldSelectors = [
+                '.collapse',       // Bootstrap-style collapsible content
+                '.expandable',     // Generic expandable content
+                '[aria-expanded="false"]' // ARIA attributes for collapsed sections
+            ];
+
+            for (var k = 0; k < unfoldSelectors.length; k++) {
+                var elements = doc.querySelectorAll(unfoldSelectors[k]);
+                for (var l = 0; l < elements.length; l++) {
+                    var el = elements[l];
+                    if (el.getAttribute('aria-expanded') === 'false') {
+                        el.setAttribute('aria-expanded', 'true');
+                    }
+                    if (typeof el.click === 'function') {
+                        el.click();
+                    }
+                    console.log("Expanded section:", el);
+                }
+            }
+
+            console.log("Collapsible sections unfolded.");
+        } catch (error) {
+            console.error("Error unfolding sections:", error);
+        }
+    };
+
+    // Function to force load all images
+    var LoadAllImages = function(doc) {
+        var images = doc.querySelectorAll('img');
+        images.forEach(function(img) {
+            img.setAttribute('loading', 'eager');
+            img.src = img.src; // Trigger image load
+        });
+        console.log('All images set to load eagerly.');
+    };
 
     // Callback that will replace document content with readable version
     var MakeReadable = function() {
@@ -81,6 +91,9 @@ function Columnate() {
 
         // Unfold collapsible sections
         UnfoldSections(doclone);
+
+        // Force load all images
+        LoadAllImages(doclone);
 
         try {
             var article = new Readability(doclone).parse();
