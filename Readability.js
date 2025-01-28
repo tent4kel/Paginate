@@ -142,11 +142,11 @@ Readability.prototype = {
     okMaybeItsACandidate: /and|article|body|column|content|main|shadow/i,
 
     positive:
-      /article|body|content|entry|hentry|h-entry|main|page|pagination|post|text|blog|story/i,
+      /article|body|content|entry|hentry|h-entry|main|page|pagination|post|hero|text|blog|story/i,
     negative:
-      /-ad-|hidden|^hid$| hid$| hid |^hid |banner|combx|comment|com-|contact|footer|gdpr|masthead|media|meta|outbrain|promo|related|scroll|share|shoutbox|sidebar|skyscraper|sponsor|shopping|tags|widget/i,
+      /-ad-|hidden|^hid$| hid$| hid |^hid |banner|combx|comment|com-|contact|footer|gdpr|masthead|media|meta|outbrain|promo|related|scroll|share|shoutbox|sidebar|skyscraper|sponsor|shopping|feature-bar|tags|widget/i,
     extraneous:
-      /print|archive|comment|discuss|e[\-]?mail|share|reply|all|login|sign|single|utility/i,
+      /print|archive|comment|discuss|e[\-]?mail|share|reply|all|feature-bar|sign|single|utility/i,
     byline: /byline|author|dateline|writtenby|p-author/i,
     replaceFonts: /<(\/?)font[^>]*>/gi,
     normalize: /\s{2,}/g,
@@ -179,6 +179,7 @@ Readability.prototype = {
     "menubar",
     "complementary",
     "navigation",
+    "feature-bar",
     "alert",
     "alertdialog",
     "dialog",
