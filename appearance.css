@@ -9,6 +9,7 @@ body {
   font-weight: 400;
   font-style: normal;
   text-wrap: pretty;
+  font-size: 1rem;
   
 }
 
@@ -17,7 +18,7 @@ h1{
   font-optical-sizing: auto;
   font-weight: 800;
   font-style: normal;  
-  font-size: 2.2rem;
+  font-size: 2.2em;
   line-height: 1.1em;
   word-wrap:break-word;
   hyphens:auto;
@@ -26,7 +27,7 @@ h1{
 
 h2, h3{
   
-  font-size: 1.3rem;  
+  font-size: 1.3em;  
   line-height:1.1em;
   font-weight: 600;
   margin-block-end: 1em;
@@ -49,7 +50,7 @@ a {
 }
 
 p, a {
-  font-size: 1rem;
+  font-size: 1em;
   line-height: 1.3em;
   hyphens:auto;
   hyphenate-limit-chars: 6 3 3;
@@ -90,30 +91,13 @@ sup {
   }
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 500px) {
   html {
-    font-size:8px;
+    font-size:6px;
   }
 
   body {
-    font-size: 2rem;
+    font-size: 2.4rem;
     line-height: 1.4em;
   }
 
-  p, a, button {
-    font-size: 2rem;
-    line-height: 1.4em;
-  }
-
-  figure, figcaption, sup, sub {
-    font-size: 1.1rem;
-  }
-
-  h1 {
-    font-size: 3rem;
-  }
-
-  h2, h3 {
-    font-size: 2.8rem;
-  }
-}
