@@ -78,6 +78,10 @@ sup {
   padding-right: 2rem;
   margin-block-end: 3rem;
 }
+#end-of-article {
+text-align:center;
+}
+
 
 /* Light Mode Styles */
 @media (prefers-color-scheme: light) {
