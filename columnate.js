@@ -96,8 +96,7 @@ function Columnate() {
 
     // Callback that will replace document content with readable version
     var MakeReadable = function() {
-        // Set color scheme based on time
-        SetColorScheme();
+        
 
         var doclone = document.cloneNode(true);
 
@@ -130,7 +129,8 @@ function Columnate() {
             // Load stylesheets
             LoadStylesheet('//eink-reader.netlify.app/columnate.css');
             LoadStylesheet('//eink-reader.netlify.app/appearance.css');
-
+            // Set color scheme based on time
+            SetColorScheme();
             document.title = article.title;
 
             // Reset body html to nothing but reformatted content
