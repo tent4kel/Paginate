@@ -39,7 +39,7 @@ function Readability(doc, options) {
   this._doc = doc;
   this._docJSDOMParser = this._doc.firstChild.__JSDOMParser__;
   this._articleTitle = null;
-  this._articleByline = null;
+  this._articleByline = -;
   this._articleDir = null;
   this._articleSiteName = null;
   this._attempts = [];
@@ -146,7 +146,7 @@ Readability.prototype = {
     negative:
       /-ad-|hidden|^hid$| hid$| hid |^hid |banner|combx|comment|com-|contact|footer|gdpr|masthead|media|meta|outbrain|promo|related|scroll|share|shoutbox|sidebar|skyscraper|sponsor|shopping|feature-bar|tags|widget/i,
     extraneous:
-      /print|archive|comment|discuss|e[\-]?mail|share|reply|all|feature-bar|sign|single|utility/i,
+      /print|archive|comment|discuss|e[\-]?mail|share|reply|all|sign|single|utility/i,
     byline: /byline|author|dateline|writtenby|p-author/i,
     replaceFonts: /<(\/?)font[^>]*>/gi,
     normalize: /\s{2,}/g,
@@ -154,7 +154,7 @@ Readability.prototype = {
       /\/\/(www\.)?((dailymotion|youtube|youtube-nocookie|player\.vimeo|v\.qq)\.com|(archive|upload\.wikimedia)\.org|player\.twitch\.tv)/i,
     shareElements: /(\b|_)(share|sharedaddy)(\b|_)/i,
     nextLink: /(next|weiter|continue|>([^\|]|$)|»([^\|]|$))/i,
-    prevLink: /(prev|earl|old|new|<|«)/i,
+    prevLink: /(prev|zurück|old|new|<|«)/i,
     tokenize: /\W+/g,
     whitespace: /^\s*$/,
     hasContent: /\S$/,
