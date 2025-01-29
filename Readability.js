@@ -38,7 +38,7 @@ function Readability(doc, options) {
   this._doc = doc;
   this._docJSDOMParser = this._doc.firstChild.__JSDOMParser__;
   this._articleTitle = null;
-  this._articleByline = null;
+  this._articleByline = "";
   this._articleDir = null;
   this._articleSiteName = null;
   this._attempts = [];
