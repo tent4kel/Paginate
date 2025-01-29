@@ -63,6 +63,15 @@ sup {
     font-size:x-small
 }
 
+#article-byline {
+  text-align: center;
+  font-family: "Outfit", sans-serif;
+}
+
+#article-excerpt {
+  font-style: italic;
+}
+
 /* Light Mode Styles */
 @media (prefers-color-scheme: light) {
   body {
