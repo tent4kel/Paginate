@@ -111,28 +111,30 @@
 
         // Function to append end of article div
         function appendEndOfArticleDiv() {
-            const container = document.getElementById('scroll-container');
-            if (container) {
-                const endDiv = document.createElement('div');
-                endDiv.id = 'end-of-article';
-                endDiv.innerHTML = `
-                    <hr>
-                    <p>End of Article</p>
-                    <button id="go-back-button">Go Back</button>
-                    <button id="close-tab-button">Close Tab</button>
-                `;
-                container.appendChild(endDiv);
+    const container = document.getElementById('scroll-container');
+    if (container) {
+        const endDiv = document.createElement('div');
+        endDiv.id = 'end-of-article';
+        endDiv.innerHTML = `
+            <hr>
+            <p>End of Article</p>
+            <button id="go-back-button">Go Back</button>
+            <button id="scroll-back-button">Scroll Back</button>
+        `;
+        container.appendChild(endDiv);
 
-                // Attach event listeners to the buttons
-                document.getElementById('go-back-button').addEventListener('click', function() {
-                    window.history.back();
-                });
+        // Attach event listeners to the buttons
+        document.getElementById('go-back-button').addEventListener('click', function() {
+            window.history.back();
+        });
 
-                document.getElementById('close-tab-button').addEventListener('click', function() {
-                    window.close();
-                });
-            }
-        }
+        document.getElementById('scroll-back-button').addEventListener('click', function() {
+            window.scrollTo({
+                left: 0,  // Scroll to the far left
+            });
+        });
+    }
+}
 
         // Function to scroll the container by its width
         function scrollByContainerWidth(direction) {
