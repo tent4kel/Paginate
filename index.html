@@ -1,28 +1,54 @@
-<html>
-<head>
+<html><head>
     <title>Paginate!</title>
 
-<link rel="stylesheet" href="appearance.css">
+
         
 
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
+
+ @media (prefers-color-scheme: light) {
+  :root{
+  --mainColor: black;
+  --bgColor:white;
+  --capColor:#777
+  }
+  }
+
+  @media (prefers-color-scheme: dark) {
+  :root{
+  --mainColor: #ffffff;
+  --bgColor:#000000;
+  --capColor:#bbb
+  }
+  }
     
     html {
 	height: 100%;
 	/*width: min-content;*/
 	padding: 0;
 	margin: 0;
-	
+    font-size:24px;
 }
 
 
 body {
-	height: 100%;
+	
+    color: var(--mainColor);
+  background-color:var(--bgColor);
+ font-family: "Source Serif 4", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  text-wrap: pretty;
+  font-size: .7rem;
+    height: 100%;
 	width:100%;
 	padding: 0;
 	margin-left:0rem;
 	margin-right:0rem;
 	margin: 0;
+    font-size: .7em;
 	
 
 }
@@ -48,6 +74,64 @@ button:hover {
     color: var(--bgColor); 
     border-color: var(--bgColor); 
 }
+
+    h1{
+ font-family: "Outfit", serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;  
+  font-size: 3.0em;
+  line-height: 1.1em;
+  word-wrap:break-word;
+  hyphens:auto;
+  hyphenate-limit-chars: 8 3 3;
+  text-align:center
+}
+
+h2, h3,  #end-of-article{
+  font-family: "Outfit", sans-serif;
+  font-size: 1.2em;
+  line-height:1.4em;
+  font-weight: 600;
+  margin-block-end: 2em;
+  text-align:center
+}
+    p, a {
+  font-size: 1em;
+  line-height: 1.5em;
+  hyphens:auto;
+  hyphenate-limit-chars: 6 3 3;
+  text-align:justify;
+  margin-block-start:0.2rem;
+}
+    
+    a {
+    color: inherit;
+    font-style: italic;
+    text-decoration-color: inherit;
+    text-decoration-thickness: 0.5px; 
+}
+
+    @media only screen and (max-width: 960px) {
+  html {
+    font-size:12px;
+  }
+
+  body {
+    font-size: 1.4rem;
+    
+  }
+
+
+
+@media only screen and (max-width: 600px) {
+  html {
+    font-size:6px;
+  }
+
+  body {
+    font-size: 2.8rem;
+  }
     
     </style>
     
@@ -86,8 +170,8 @@ button:hover {
     </script>
 
 </head>
-<body onload="CreateLink(); style="height: 100vh; margin: 0;">
-    <div style="max-width: 40em; text-align: center; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+<body onload="CreateLink()">
+    <div style="max-width: 50em;/* width: auto; *//* height: auto; */text-align: center;position: relative;top: 50%;left: 50%;transform: translate(-50%, -50%);">
 					
 					<h1>Paginate!</h1>
 
@@ -97,15 +181,14 @@ button:hover {
 
         <p style="text-align:center;">
             <strong>
-                <a href="#" id="bookmarkletLink" onclick="return ClickHelp();" title="Drag this link to your bookmark bar;">Paginate!</a> </br>
+                <a href="#" id="bookmarkletLink" onclick="return ClickHelp();" title="Drag this link to your bookmark bar;">Paginate!</a> <br>
             </strong>
             </p>
 
         <!-- Plain text version of the link for manual copying -->
         <p>If you can't drag the link, you can copy the link below and manually add it to your bookmarks:</p>
 
-        <pre id="bookmarkletPlainText" style="background-color: var(--mainColor); color: var(--bgColor);  padding: 10px; border: none; white-space: pre-wrap; word-wrap: break-word; max-width: 100%;">
-        </pre>
+        <pre id="bookmarkletPlainText" style="background-color: var(--mainColor); color: var(--bgColor);  padding: 10px; border: none; white-space: pre-wrap; word-wrap: break-word; max-width: 100%;">        </pre>
 								
 								<button onclick="CopyToClipboard()" style="display: inline-block; margin-top: 1em;">Copy to Clipboard</button>
         
@@ -113,5 +196,6 @@ button:hover {
         <p>Now find a web page with a long article. Click the <strong>Paginate</strong> bookmarklet to reformat the page free of distractions. The article will be formatted in narrow columns like a newspaper.</p>
         <p>This is built on top of <a href="https://github.com/anoved/Columnate">Columnate project</a>.</p>
     </div>
-</body>
-</html>
+
+
+</body></html>
