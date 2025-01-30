@@ -109,6 +109,7 @@ sup {
 
 #end-of-article {
     text-align: center;
+    padding-right: 2rem;
 }
 
 #end-of-article p {
@@ -118,7 +119,7 @@ sup {
 #end-of-article hr {
     border-bottom: 0.2em solid var(--mainColor);
     width: 50%;
-    margin-block-start: 1em;
+    
 }
 
 #end-of-article button {
@@ -132,6 +133,7 @@ sup {
     cursor: pointer;
     border: 2px solid var(--mainColor); 
     color: var(--mainColor); 
+    margin-block-start:2em;
     
 }
 
