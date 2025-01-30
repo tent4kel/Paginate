@@ -1,15 +1,41 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
+
+/* Light Mode Styles */
+
+  @media (prefers-color-scheme: light) {
+  :root{
+  --mainColor: black;
+  --bgColor:white;
+  --capColor:#777
+  }
+  }
+
+  @media (prefers-color-scheme: dark) {
+  :root{
+  --mainColor: #ffffff;
+  --bgColor:#000000;
+  --capColor:#bbb
+  }
+  }
+
+
+    
+
+
 html{
-  font-size:18px;
+  font-size:24px;
 }
 
+
 body {
+  color: var(--mainColor);
+  background-color:var(--bgColor);
  font-family: "Source Serif 4", serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
   text-wrap: pretty;
-  font-size: 1rem;
+  font-size: .7rem;
   
 }
 
@@ -18,19 +44,20 @@ h1{
   font-optical-sizing: auto;
   font-weight: 800;
   font-style: normal;  
-  font-size: 2.2em;
+  font-size: 2.0em;
   line-height: 1.1em;
   word-wrap:break-word;
   hyphens:auto;
   hyphenate-limit-chars: 8 3 3;
+  text-align:center
 }
 
-h2, h3{
+h2, h3,  #end-of-article{
   font-family: "Outfit", sans-serif;
-  font-size: 1.3em;  
-  line-height:1.1em;
+  font-size: 1.4em;
+  line-height:1.4em;
   font-weight: 600;
-  margin-block-end: .3em;
+  margin-block-end: .2em;
 }
 
 figcaption {
@@ -51,7 +78,7 @@ a {
 
 p, a {
   font-size: 1em;
-  line-height: 1.3em;
+  line-height: 1.5em;
   hyphens:auto;
   hyphenate-limit-chars: 6 3 3;
   text-align:justify;
@@ -64,7 +91,7 @@ sup {
 }
 
 #article-byline {
-  font-size:1.2em;
+  font-size:1.1em;
   text-align: center;
   font-family: "Outfit", sans-serif;
   padding-right: 2rem;
@@ -72,17 +99,37 @@ sup {
 
 #article-excerpt { 
   font-family: "Source Serif 4", serif;
-  font-size:1.2em;
+  font-size:1em;
+  line-height:1.5em:
   font-style: italic;
   text-align:center;
   padding-right: 2rem;
-  margin-block-end: 3rem;
-}
-#end-of-article {
-text-align:center;
+  margin-block-end: 2em;
 }
 
-/* If there is no light/dark preference */
+#end-of-article 
+{text-align:center !important;
+p{text-align:center}
+hr{
+  border-bottom: .2em solid var(--mainColor);
+  width:50%;
+    margin-block-start: 1em;
+}
+ button{background-color:transparent;
+        border-radius:50px;
+        font-size:.8em;
+        font-weight: 600;
+        padding:.1em .6em .1em .6em;
+        margin: 1em
+        
+        
+       }
+}
+
+
+
+
+/* If there is no light/dark preference 
 [data-theme="light"]{
   body {
     background-color: white;
@@ -108,44 +155,28 @@ text-align:center;
     border: 1em  solid  #000000;
   }
 }
+*/
 
-/* Light Mode Styles */
-@media (prefers-color-scheme: light) {
+
+@media only screen and (max-width: 960px) {
+  html {
+    font-size:12px;
+  }
+
   body {
-    background-color: white;
-    color: black;
+    font-size: 1.3rem;
+    
   }
-  figcaption {
-    color: #777;
-  }
-    #overflow-cover{
-    border: 1em  solid  #FFFFFF;
-  }
-}
-
-/* Dark Mode Styles */
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: black;
-    color: white;
-  }
-  figcaption {
-    color: #bbb;
-  }
-  #overflow-cover{
-    border: 1em  solid  #000000;
-  }
-}
 
 
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 600px) {
   html {
     font-size:6px;
   }
 
   body {
     font-size: 2.6rem;
-    line-height: 1.5em;
   }
+
 
