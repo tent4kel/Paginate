@@ -116,7 +116,6 @@
         const endDiv = document.createElement('div');
         endDiv.id = 'end-of-article';
         endDiv.innerHTML = `
-            <hr>
             <button id="go-back-button">Go Back</button>
             <button id="scroll-back-button">Scroll Back</button>
         `;
