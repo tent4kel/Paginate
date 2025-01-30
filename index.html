@@ -1,10 +1,35 @@
 <html>
 <head>
-    <title>Paginate</title>
+    <title>Paginate!</title>
 
-    
-    <link rel="stylesheet" href="appearance.css">
+<link rel="stylesheet" href="appearance.css">
         
+
+    <style>
+    button {
+    background-color: transparent;
+    border-radius: 50px;
+    font-size: 0.8em;
+    font-weight: 600;
+    padding: 0.1em 0.6em;
+    margin: 1em;
+    display: inline-block;
+    cursor: pointer;
+    border: 2px solid var(--mainColor); 
+    color: var(--mainColor); 
+    margin-block-start:2em;
+    
+}
+
+/* Button hover effect */
+button:hover {
+    background-color: var(--mainColor); 
+    color: var(--bgColor); 
+    border-color: var(--bgColor); 
+}
+    
+    </style>
+    
     <script type="text/javascript" src="uglifyjs.js"></script>
     <script type="text/javascript" src="columnate.js"></script>
     <script>
@@ -40,24 +65,30 @@
     </script>
 
 </head>
-<body onload="CreateLink();">
-<div style="margin: 5em; max-width: 30em;">
-<h1>Paginate</h1>
+<body style="display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0;">
+    <div style="margin: 5em; max-width: 30em; text-align: center;">
+        <h1>Paginate!</h1>
 
-<p>This bookmarklet below creates a simplified, columnated and paginated version of almost any website. Enjoy a newspaper-like reading experience without scrolling. Works great on eInk devices and tablets. </>
+        <h3>This bookmarklet below creates a simplified, columnated and paginated version of almost any website. Enjoy a newspaper-like reading experience without scrolling. Works great on eInk devices and tablets.</h3>
 
+        <p>Drag this link to your bookmarks bar to install:</p>
 
-<p>Drag this link to your bookmarks bar to install:</p>
+        <p>
+            <strong>
+                <a href="#" id="bookmarkletLink" onclick="return ClickHelp();" title="Drag this link to your bookmark bar;">Columnate</a> </br>
+            </strong>
+            <button onclick="CopyToClipboard()" style="display: inline-block; margin-left: 10px;">Copy to Clipboard</button>
+        </p>
 
-<p><strong><a href="#" id="bookmarkletLink" onclick="return ClickHelp();" title="Drag this link to your bookmark bar.">Columnate</a></strong>
-<button onclick="CopyToClipboard()">Copy to Clipboard</button></p>
+        <!-- Plain text version of the link for manual copying -->
+        <p>If you can't drag the link, you can copy the link below and manually add it to your bookmarks:</p>
 
-<!-- Plain text version of the link for manual copying -->
-<p>If you can't drag the link, you can copy the link below and manually add it to your bookmarks:</p>
-<pre id="bookmarkletPlainText" style="background-color: #f4f4f4; padding: 10px; border: 1px solid #ccc;"></pre>
-<p>Now find a web page with a long article. Click the <strong>Columnate</strong> bookmarklet to reformat the page free of distractions. The article will be formatted in narrow columns like a newspaper[...]
+        <pre id="bookmarkletPlainText" style="background-color: var(--fontColor); color: var(--bgColor); padding: 10px; border: none; white-space: pre-wrap; word-wrap: break-word; max-width: 100%;">
+</pre>
 
-<p>This is built on top of <a href="https://github.com/anoved/Columnate">Columnate project page</a>.</p>
-</div>
+        <p>Now find a web page with a long article. Click the <strong>Columnate</strong> bookmarklet to reformat the page free of distractions. The article will be formatted in narrow columns like a newspaper.</p>
+
+        <p>This is built on top of <a href="https://github.com/anoved/Columnate">Columnate project</a>.</p>
+    </div>
 </body>
 </html>
