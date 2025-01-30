@@ -54,20 +54,20 @@ h1{
 
 h2, h3,  #end-of-article{
   font-family: "Outfit", sans-serif;
-  font-size: 1.4em;
+  font-size: 1.2em;
   line-height:1.4em;
   font-weight: 600;
   margin-block-end: .2em;
+  text-align:center
 }
 
-figcaption {
-    color: #777;
+figcaption, figure {
+    color: var(--capColor);
     font-size: .8em;
+    font-style: italic;
+    text-wrap:auto;
 }
 
-figure {
-    font-style: italic;
-}
 
 a {
     color: inherit;
@@ -100,7 +100,7 @@ sup {
 #article-excerpt { 
   font-family: "Source Serif 4", serif;
   font-size:1em;
-  line-height:1.5em:
+  line-height:1.5em;
   font-style: italic;
   text-align:center;
   padding-right: 2rem;
@@ -143,37 +143,6 @@ sup {
     color: var(--bgColor); 
     border-color: var(--bgColor); 
 }
-
-
-
-
-/* If there is no light/dark preference 
-[data-theme="light"]{
-  body {
-    background-color: white;
-    color: black;
-  }
-  figcaption {
-    color: #777;
-  }
-    #overflow-cover{
-    border: 1em  solid  #FFFFFF;
-  }
-}
-
-[data-theme="dark"]{
-  body {
-    background-color: black;
-    color: white;
-  }
-  figcaption {
-    color: #bbb;
-  }
-  #overflow-cover{
-    border: 1em  solid  #000000;
-  }
-}
-*/
 
 
 @media only screen and (max-width: 960px) {
