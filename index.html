@@ -17,12 +17,13 @@
 
 
 body {
-	height: 100svh;
+	height: 100%;
+	width:100%;
 	padding: 0;
 	margin-left:0rem;
 	margin-right:0rem;
 	margin: 0;
-	overflow-y:hidden;
+	
 
 }
     
@@ -85,8 +86,8 @@ button:hover {
     </script>
 
 </head>
-<body style="display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0;">
-    <div style="margin: 5em; max-width: 30em; text-align: center;">
+<body style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0;">
+    <div style="max-width: 30em; text-align: center;">
         <h1>Paginate!</h1>
 
         <h3>This bookmarklet below creates a simplified, columnated and paginated version of almost any website. Enjoy a newspaper-like reading experience without scrolling. Works great on eInk devices and tablets.</h3>
@@ -97,14 +98,14 @@ button:hover {
             <strong>
                 <a href="#" id="bookmarkletLink" onclick="return ClickHelp();" title="Drag this link to your bookmark bar;">Paginate!</a> </br>
             </strong>
-            <button onclick="CopyToClipboard()" style="display: inline-block; margin-left: 10px;">Copy to Clipboard</button>
+            <button onclick="CopyToClipboard()" style="display: inline-block; margin-top: 1em;">Copy to Clipboard</button>
         </p>
 
         <!-- Plain text version of the link for manual copying -->
         <p>If you can't drag the link, you can copy the link below and manually add it to your bookmarks:</p>
 
         <pre id="bookmarkletPlainText" style="background-color: var(--mainColor); color: var(--bgColor); padding: 10px; border: none; white-space: pre-wrap; word-wrap: break-word; max-width: 100%;">
-</pre>
+        </pre>
 
         <p>Now find a web page with a long article. Click the <strong>Columnate</strong> bookmarklet to reformat the page free of distractions. The article will be formatted in narrow columns like a newspaper.</p>
 
