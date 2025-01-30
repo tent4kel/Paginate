@@ -96,18 +96,18 @@ function Columnate() {
 
     // Callback that will replace document content with readable version
     var MakeReadable = function() {
-        
+        // Unfold collapsible sections
+        UnfoldSections(document);
+
+        // Force load all images
+        LoadAllImages(document);
+
 
         var doclone = document.cloneNode(true);
 
         // Clean problematic attributes from the document clone
         CleanHTML(doclone);
 
-        // Unfold collapsible sections
-        UnfoldSections(doclone);
-
-        // Force load all images
-        LoadAllImages(doclone);
 
         try {
             var article = new Readability(doclone).parse();
