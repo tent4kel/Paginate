@@ -107,23 +107,39 @@ sup {
   margin-block-end: 2em;
 }
 
-#end-of-article 
-{text-align:center !important;
-p{text-align:center}
-hr{
-  border-bottom: .2em solid var(--mainColor);
-  width:50%;
+#end-of-article {
+    text-align: center;
+}
+
+#end-of-article p {
+    text-align: center;
+}
+
+#end-of-article hr {
+    border-bottom: 0.2em solid var(--mainColor);
+    width: 50%;
     margin-block-start: 1em;
 }
- button{background-color:transparent;
-        border-radius:50px;
-        font-size:.8em;
-        font-weight: 600;
-        padding:.1em .6em .1em .6em;
-        margin: 1em
-        
-        
-       }
+
+#end-of-article button {
+    background-color: transparent;
+    border-radius: 50px;
+    font-size: 0.8em;
+    font-weight: 600;
+    padding: 0.1em 0.6em;
+    margin: 1em;
+    display: inline-block;
+    cursor: pointer;
+    border: 2px solid var(--mainColor); 
+    color: var(--mainColor); 
+    
+}
+
+/* Button hover effect */
+#end-of-article button:hover {
+    background-color: var(--mainColor); 
+    color: var(--bgColor); 
+    border-color: var(--bgColor); 
 }
 
 
