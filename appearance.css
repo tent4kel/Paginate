@@ -28,6 +28,7 @@ body {
   font-style: normal;
   text-wrap: pretty;
   hyphens: auto !important;
+  -webkit-hyphens: auto !important;
   hyphenate-limit-chars: auto 3 2;
 }
 
