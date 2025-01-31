@@ -2,6 +2,9 @@
     function initNavigation() {
         console.log('navigation.js loaded and ready!');
 
+        // Inject pagination div
+        injectPaginationDiv();
+
         // Wrap content into a container div
         wrapContent();
 
@@ -11,7 +14,8 @@
         // Ensure the document is focused to capture key presses
         window.focus();
 
-        calculateTotalPages();
+        // Update pagination initially
+        updatePagination();
 
         // Attach a keydown event listener to the whole document
         document.addEventListener('keydown', function(event) {
@@ -100,147 +104,164 @@
                 scrollByContainerWidth(1); // Scroll up (backward)
             }
         });
+    }
 
-        // Function to wrap all content into a container div
-        function wrapContent() {
-            const content = document.body.innerHTML;
-            const container = document.createElement('div');
-            container.id = 'scroll-container';
-            container.innerHTML = content;
-            document.body.innerHTML = '';
-            document.body.appendChild(container);
-        }
+    // Function to inject pagination div
+    function injectPaginationDiv() {
+        const paginationDiv = document.createElement('div');
+        paginationDiv.id = 'pagination';
+        paginationDiv.textContent = 'Page 1 / 1';
+        document.body.insertBefore(paginationDiv, document.body.firstChild);
+    }
 
-        // Function to append end of article div
-        function appendEndOfArticleDiv() {
-    const container = document.getElementById('scroll-container');
-    if (container) {
-        const endDiv = document.createElement('div');
-        endDiv.id = 'end-of-article';
-        endDiv.innerHTML = `
-            <button id="go-back-button">Go Back</button>
-            <button id="scroll-back-button">Scroll Back</button>
-            <div id='extender'>1</div><div id='extender'>2</div><div id='extender'>3</div><div id='extender'>4</div>
-        `;
-        container.appendChild(endDiv);
+    // Function to wrap all content into a container div
+    function wrapContent() {
+        const content = document.body.innerHTML;
+        const container = document.createElement('div');
+        container.id = 'scroll-container';
+        container.innerHTML = content;
+        document.body.innerHTML = '';
+        document.body.appendChild(container);
+    }
 
-        // Attach event listeners to the buttons
-        document.getElementById('go-back-button').addEventListener('click', function() {
-            window.history.back();
-        });
+    // Function to append end of article div
+    function appendEndOfArticleDiv() {
+        const container = document.getElementById('scroll-container');
+        if (container) {
+            const endDiv = document.createElement('div');
+            endDiv.id = 'end-of-article';
+            endDiv.innerHTML = `
+                <button id="go-back-button">Go Back</button>
+                <button id="scroll-back-button">Scroll Back</button>
+                <div id='extender'>1</div><div id='extender'>2</div><div id='extender'>3</div><div id='extender'>4</div>
+            `;
+            container.appendChild(endDiv);
 
-        document.getElementById('scroll-back-button').addEventListener('click', function() {
-            window.scrollTo({
-                left: 0,  // Scroll to the far left
+            // Attach event listeners to the buttons
+            document.getElementById('go-back-button').addEventListener('click', function() {
+                window.history.back();
             });
-        });
-    }
-}
 
-// Function to calculate the total number of pages
-function calculateTotalPages() {
-    const container = document.getElementById('scroll-container');
-    const scrollBackButton = document.getElementById('scroll-back-button');
-    if (container && scrollBackButton) {
-        const width = container.clientWidth; // Get the container width
-        const buttonRect = scrollBackButton.getBoundingClientRect(); // Get the position of the scroll-back-button
-        const buttonPosition = buttonRect.left + window.scrollX; // Calculate the button's position relative to the document
-        const totalPages = Math.ceil((buttonPosition + 10) / width); // Calculate total pages with tolerance
-        console.log(`Total pages: ${totalPages}`);
-        return totalPages;
-    }
-    return 0;
-}
-        
-// Function to calculate the current page based on scroll position and container width
-function calculateCurrentPage() {
-    const container = document.getElementById('scroll-container');
-    if (container) {
-        const width = container.clientWidth; // Get the container width
-        const scrollLeft = window.scrollX; // Get the current scroll position of the window
-        console.log(`Container width: ${width}, Scroll left: ${scrollLeft}`);
-        const page = Math.round((scrollLeft + 10) / width)+1;
-        console.log(`Current page: ${page}`);
-        return page;
-    }
-    return 0;
-}
-        
-// Function to check if an element is in the viewport
-function isElementInViewport(el) {
-    const rect = el.getBoundingClientRect();
-    return (
-        rect.top >= 0 &&
-        rect.left >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-    );
-}
-
-// Function to scroll the container by its width
-function scrollByContainerWidth(direction) {
-    calculateTotalPages();
-    const container = document.getElementById('scroll-container');
-    const scrollBackButton = document.getElementById('scroll-back-button');
-    if (container) {
-        const width = container.clientWidth; // Get the container width
-        if (direction > 0 && scrollBackButton && isElementInViewport(scrollBackButton)) {
-            console.log('Scroll-back button is in the viewport, scroll prevented.');
-        } else {
-            console.log(`Scrolling by container width: ${direction * width}px`);
-            window.scrollBy({
-                left: direction * width,
-                behavior: 'auto'
+            document.getElementById('scroll-back-button').addEventListener('click', function() {
+                window.scrollTo({
+                    left: 0,  // Scroll to the far left
+                });
             });
-            calculateCurrentPage(); // Log the current page after scrolling
         }
     }
-}
 
-        // Resize images based on their natural size (150% max scale)
-        const images = document.querySelectorAll('img');
-        
-        images.forEach(img => {
-            // Wait for the image to fully load before processing
-            img.addEventListener('load', function() {
-                const originalWidth = img.naturalWidth;
-                const originalHeight = img.naturalHeight;
+    // Function to calculate the total number of pages
+    function calculateTotalPages() {
+        const container = document.getElementById('scroll-container');
+        const scrollBackButton = document.getElementById('scroll-back-button');
+        if (container && scrollBackButton) {
+            const width = container.clientWidth; // Get the container width
+            const buttonRect = scrollBackButton.getBoundingClientRect(); // Get the position of the scroll-back-button
+            const buttonPosition = buttonRect.left + window.scrollX; // Calculate the button's position relative to the document
+            const totalPages = Math.ceil((buttonPosition + 10) / width); // Calculate total pages with tolerance
+            console.log(`Total pages: ${totalPages}`);
+            return totalPages;
+        }
+        return 0;
+    }
 
-                // Check that we actually have valid dimensions
-                if (originalWidth > 0 && originalHeight > 0) {
-                    // Calculate the maximum allowed size (150% of the original size)
-                    const maxWidth = originalWidth * 1.5;
-                    const maxHeight = originalHeight * 1.5;
-                    
-                    // Apply the max width and max height
-                    img.style.maxWidth = `${maxWidth}px`;
-                    img.style.maxHeight = `${maxHeight}px`;
+    // Function to calculate the current page based on scroll position and container width
+    function calculateCurrentPage() {
+        const container = document.getElementById('scroll-container');
+        if (container) {
+            const width = container.clientWidth; // Get the container width
+            const scrollLeft = window.scrollX; // Get the current scroll position of the window
+            console.log(`Container width: ${width}, Scroll left: ${scrollLeft}`);
+            const page = Math.round((scrollLeft + 10) / width) + 1;
+            console.log(`Current page: ${page}`);
+            return page;
+        }
+        return 0;
+    }
 
-                    // Make sure the image is responsive but does not exceed the calculated limits
-                    img.style.width = '100%';
-                    img.style.height = 'auto';
+    // Function to update the pagination display
+    function updatePagination() {
+        const pagination = document.getElementById('pagination');
+        if (pagination) {
+            const currentPage = calculateCurrentPage();
+            const totalPages = calculateTotalPages();
+            pagination.textContent = `Page ${currentPage} / ${totalPages}`;
+        }
+    }
 
-                    // Logging
-                    console.log(`Image resized: originalWidth=${originalWidth}, originalHeight=${originalHeight}, maxWidth=${maxWidth}, maxHeight=${maxHeight}`);
-                }
-            });
+    // Function to check if an element is in the viewport
+    function isElementInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
+    }
 
-            // If the image is already loaded (in case it’s cached), we can process it immediately
-            if (img.complete) {
-                const originalWidth = img.naturalWidth;
-                const originalHeight = img.naturalHeight;
-                if (originalWidth > 0 && originalHeight > 0) {
-                    const maxWidth = originalWidth * 1.5;
-                    const maxHeight = originalHeight * 1.5;
-                    img.style.maxWidth = `${maxWidth}px`;
-                    img.style.maxHeight = `${maxHeight}px`;
-                    img.style.width = '100%';
-                    img.style.height = 'auto';
-                    console.log(`Image resized: originalWidth=${originalWidth}, originalHeight=${originalHeight}, maxWidth=${maxWidth}, maxHeight=${maxHeight}`);
-                }
+    // Function to scroll the container by its width
+    function scrollByContainerWidth(direction) {
+        const container = document.getElementById('scroll-container');
+        const scrollBackButton = document.getElementById('scroll-back-button');
+        if (container) {
+            const width = container.clientWidth; // Get the container width
+            if (direction > 0 && scrollBackButton && isElementInViewport(scrollBackButton)) {
+                console.log('Scroll-back button is in the viewport, scroll prevented.');
+            } else {
+                console.log(`Scrolling by container width: ${direction * width}px`);
+                window.scrollBy({
+                    left: direction * width,
+                    behavior: 'auto'
+                });
+                updatePagination(); // Update pagination after scrolling
+            }
+        }
+    }
+
+    // Resize images based on their natural size (150% max scale)
+    const images = document.querySelectorAll('img');
+    
+    images.forEach(img => {
+        // Wait for the image to fully load before processing
+        img.addEventListener('load', function() {
+            const originalWidth = img.naturalWidth;
+            const originalHeight = img.naturalHeight;
+
+            // Check that we actually have valid dimensions
+            if (originalWidth > 0 && originalHeight > 0) {
+                // Calculate the maximum allowed size (150% of the original size)
+                const maxWidth = originalWidth * 1.5;
+                const maxHeight = originalHeight * 1.5;
+                
+                // Apply the max width and max height
+                img.style.maxWidth = `${maxWidth}px`;
+                img.style.maxHeight = `${maxHeight}px`;
+
+                // Make sure the image is responsive but does not exceed the calculated limits
+                img.style.width = '100%';
+                img.style.height = 'auto';
+
+                // Logging
+                console.log(`Image resized: originalWidth=${originalWidth}, originalHeight=${originalHeight}, maxWidth=${maxWidth}, maxHeight=${maxHeight}`);
             }
         });
-    }
+
+        // If the image is already loaded (in case it’s cached), we can process it immediately
+        if (img.complete) {
+            const originalWidth = img.naturalWidth;
+            const originalHeight = img.naturalHeight;
+            if (originalWidth > 0 && originalHeight > 0) {
+                const maxWidth = originalWidth * 1.5;
+                const maxHeight = originalHeight * 1.5;
+                img.style.maxWidth = `${maxWidth}px`;
+                img.style.maxHeight = `${maxHeight}px`;
+                img.style.width = '100%';
+                img.style.height = 'auto';
+                console.log(`Image resized: originalWidth=${originalWidth}, originalHeight=${originalHeight}, maxWidth=${maxWidth}, maxHeight=${maxHeight}`);
+            }
+        }
+    });
 
     // Expose the initNavigation function to be called externally
     window.initNavigation = initNavigation;
