@@ -135,18 +135,32 @@
     }
 }
 
-        // Function to scroll the container by its width
-        function scrollByContainerWidth(direction) {
-            const container = document.getElementById('scroll-container');
-            if (container) {
-                const width = container.clientWidth; // Get the container width
-                console.log(`Scrolling by container width: ${direction * width}px`);
-                window.scrollBy({
-                    left: direction * width,
-                    behavior: 'auto' 
-                });
-            }
-        }
+// Function to check if an element is in the viewport
+function isElementInViewport(el) {
+    const rect = el.getBoundingClientRect();
+    return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+}
+
+// Function to scroll the container by its width
+function scrollByContainerWidth(direction) {
+    const container = document.getElementById('scroll-container');
+    const scrollBackButton = document.getElementById('scroll-back-button');
+    if (container && (!scrollBackButton || !isElementInViewport(scrollBackButton))) {
+        const width = container.clientWidth; // Get the container width
+        console.log(`Scrolling by container width: ${direction * width}px`);
+        window.scrollBy({
+            left: direction * width,
+            behavior: 'auto' 
+        });
+    } else {
+        console.log('Scroll-back button is in the viewport, scroll prevented.');
+    }
+}
 
         // Resize images based on their natural size (150% max scale)
         const images = document.querySelectorAll('img');
