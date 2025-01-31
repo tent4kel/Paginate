@@ -11,6 +11,8 @@
         // Ensure the document is focused to capture key presses
         window.focus();
 
+        calculateTotalPages();
+
         // Attach a keydown event listener to the whole document
         document.addEventListener('keydown', function(event) {
             console.log(`Key pressed: ${event.key}`);
@@ -135,6 +137,19 @@
     }
 }
 
+// Function to calculate the total number of pages
+function calculateTotalPages() {
+    const container = document.getElementById('scroll-container');
+    if (container) {
+        const width = container.clientWidth; // Get the container width
+        const scrollWidth = container.scrollWidth; // Get the total scrollable width
+        const totalPages = Math.ceil((scrollWidth + 10) / width); // Calculate total pages with tolerance
+        console.log(`Total pages: ${totalPages}`);
+        return totalPages;
+    }
+    return 0;
+}
+        
 // Function to calculate the current page based on scroll position and container width
 function calculateCurrentPage() {
     const container = document.getElementById('scroll-container');
@@ -142,7 +157,7 @@ function calculateCurrentPage() {
         const width = container.clientWidth; // Get the container width
         const scrollLeft = window.scrollX; // Get the current scroll position of the window
         console.log(`Container width: ${width}, Scroll left: ${scrollLeft}`);
-        const page = Math.round((scrollLeft + 10) / width);
+        const page = Math.round((scrollLeft + 10) / width)+1;
         console.log(`Current page: ${page}`);
         return page;
     }
@@ -162,6 +177,7 @@ function isElementInViewport(el) {
 
 // Function to scroll the container by its width
 function scrollByContainerWidth(direction) {
+    calculateTotalPages();
     const container = document.getElementById('scroll-container');
     const scrollBackButton = document.getElementById('scroll-back-button');
     if (container) {
