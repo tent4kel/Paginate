@@ -2,11 +2,12 @@
     function initNavigation() {
         console.log('navigation.js loaded and ready!');
 
-        // Inject pagination div
-        injectPaginationDiv();
-
+        
         // Wrap content into a container div
         wrapContent();
+
+        // Inject pagination div
+        injectPaginationDiv();
 
         // Append end of article div
         appendEndOfArticleDiv();
@@ -110,7 +111,7 @@
     function injectPaginationDiv() {
         const paginationDiv = document.createElement('div');
         paginationDiv.id = 'pagination';
-        paginationDiv.textContent = 'Page 1 / 1';
+        paginationDiv.textContent = '1 / 1';
         document.body.insertBefore(paginationDiv, document.body.firstChild);
     }
 
@@ -185,7 +186,7 @@
         if (pagination) {
             const currentPage = calculateCurrentPage();
             const totalPages = calculateTotalPages();
-            pagination.textContent = `Page ${currentPage} / ${totalPages}`;
+            pagination.textContent = `${currentPage} / ${totalPages}`;
         }
     }
 
