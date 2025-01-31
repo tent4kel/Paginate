@@ -118,7 +118,7 @@
         endDiv.innerHTML = `
             <button id="go-back-button">Go Back</button>
             <button id="scroll-back-button">Scroll Back</button>
-            <div id='extender'></div><div id='extender'></div><div id='extender'></div>
+            <div id='extender'>1</div><div id='extender'>2</div><div id='extender'>3</div><div id='extender'>4</div>
         `;
         container.appendChild(endDiv);
 
@@ -135,6 +135,19 @@
     }
 }
 
+// Function to calculate the current page based on scroll position and container width
+function calculateCurrentPage() {
+    const container = document.getElementById('scroll-container');
+    if (container) {
+        const width = container.clientWidth; // Get the container width
+        const scrollLeft = container.scrollLeft; // Get the current scroll position
+        const page = Math.round((scrollLeft + 10) / width);
+        console.log(`Current page: ${page}`);
+        return page;
+    }
+    return 0;
+}
+        
 // Function to check if an element is in the viewport
 function isElementInViewport(el) {
     const rect = el.getBoundingClientRect();
@@ -160,6 +173,7 @@ function scrollByContainerWidth(direction) {
                 left: direction * width,
                 behavior: 'auto'
             });
+            calculateCurrentPage(); // Log the current page after scrolling
         }
     }
 }
