@@ -1,130 +1,186 @@
 html {
-	font-size: 32px;
-	height: 100%;
-	padding: 0;
-	margin: 0;	
+  font-size: 32px;
+  height: 100%;
+  padding: 0;
+  margin: 0;
 }
-
 
 body {
-	font-size: .55rem;
-	height: 100svh;
-	padding: 0;
-	margin-left:0rem;
-	margin-right:0rem;
-	margin: 0;
-	overflow-y:hidden;
+  font-size: .55rem;
+  height: 100svh;
+  padding: 0;
+  margin-left: 0rem;
+  margin-right: 0rem;
+  margin: 0;
+  overflow-y: hidden;
 }
 
-/* Responsive sizign of column gaps */
+/* Responsive sizing of column gaps */
 @media only screen and (max-width: 1200px) {
   html {
-    font-size:12px;
+    font-size: 12px;
   }
   body {
     font-size: 1.4rem;
-  }}
-
-
+  }
+}
 
 @media only screen and (max-width: 600px) {
   html {
-    font-size:6px;
+    font-size: 6px;
   }
   body {
     font-size: 2.8rem;
-  }}
-
-
-figure {
-	padding: 0;
-	margin: 0;
+  }
 }
 
-h1, h2, h3, h4, h5, h6, p, figcaption,  {
-	padding-top: .8em;
-	padding-left: 0;
-	margin-block-start: 0;
-	margin-block-end: 0;
-	margin-inline-start: 0;
-	margin-inline-end: 0;
+figure {
+  padding: 0;
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6, p, figcaption {
+  padding-top: .8em;
+  padding-left: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
 }
 
 ul {
-	padding-top: 0;
-	padding-left: 1em;
-	margin-block-start: 0;
-	margin-block-end: 0;
-	margin-inline-start: 0;
-	margin-inline-end: 0;
+  padding-top: 0;
+  padding-left: 1em;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
 }
-
-
-
 
 img {
-	height: auto !important;
-	max-width: 100%;
-}
-
-
-
-iframe {
-	width: auto;
-	height: auto;
-}
-
-blockquote {
-	margin-right: 0;
-}
-
- table, th, td, tr, tbody {
-		display:block;
-		break-inside: column;
-  }
-
-#scroll-container{
-	position: relative;
-	width: auto;
-	height:96%;
-	height: 96svh;
-	margin: 1rem;
-	padding: 0rem;
-	padding-left:0;
-	padding-top: 2svh;
-	column-fill: auto;
-	column-width: 21em;
-	column-count: auto;
-	column-gap: 0rem;
-	box-sizing:border-box;
-	transform: translateX(1rem);
-	/*background:#78bdbd;
-	border:2em #9b9b1f;
-	outline:10px pink;
-	outline-offset: -10px;*/
+  height: auto !important;
+  max-width: 100%;
 }
 
 iframe {
-	width: auto;
-	height: auto;
+  width: auto;
+  height: auto;
 }
 
 blockquote {
-	margin-right: 0;
+  margin-right: 0;
 }
 
- table, th, td, tr, tbody {
-		display:block;
-		break-inside: column;
-  }
+table, th, td, tr, tbody {
+  display: block;
+  break-inside: column;
+}
 
+#scroll-container {
+  position: relative;
+  width: auto;
+  height: 96%;
+  height: 96svh;
+  margin: 1rem;
+  padding: 0rem;
+  padding-left: 0;
+  padding-top: 2svh;
+  column-fill: auto;
+  column-width: 21em;
+  column-count: auto;
+  column-gap: 0rem;
+  box-sizing: border-box;
+  transform: translateX(1rem);
+  /* background:#78bdbd;
+  border:2em #9b9b1f;
+  outline:10px pink;
+  outline-offset: -10px; */
+}
+
+iframe {
+  width: auto;
+  height: auto;
+}
+
+blockquote {
+  margin-right: 0;
+}
+
+table, th, td, tr, tbody {
+  display: block;
+  break-inside: column;
+}
 
 .page, h1 {
-	padding-right:2rem;
-	padding-left:0rem;
-	margin-top: 0px;
+  padding-right: 2rem;
+  padding-left: 0rem;
+  margin-top: 0px;
 }
 
 article {
-padding-bottom: 6rem;
+  padding-bottom: 6rem;
 }
+
+/* Add breaks, orphans, and widows properties */
+h1, h2, h3, h4, h5, h6 {
+  page-break-before: always; /* Prevent breaks before headings */
+  orphans: 3;
+  widows: 3;
+}
+
+h1 {
+  break-after: avoid; /* Prevent break right after h1 */
+}
+
+h2, h3 {
+  break-after: avoid; /* Prevent break right after h2/h3 */
+}
+
+p {
+  orphans: 2; 
+  widows: 2;
+}
+
+p, ul, ol {
+  break-inside: avoid; /* Prevent content breaks inside paragraphs and lists */
+}
+
+ul, ol {
+  margin: 0 0 1em 0;
+}
+
+li {
+  break-inside: avoid;
+}
+
+blockquote {
+  font-style: italic;
+  border-left: 3px solid #ccc;
+  padding-left: 1em;
+  margin: 1em 0;
+  break-inside: avoid;
+}
+
+
+figcaption, small {
+  break-inside: avoid;
+}
+
+figures {
+  page-break-inside: avoid;
+}
+
+img, video {
+  max-width: 100%;
+  height: auto;
+  break-inside: avoid;
+  display: block;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  break-inside: avoid;
+}
+
+
