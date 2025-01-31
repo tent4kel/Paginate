@@ -118,6 +118,7 @@
         endDiv.innerHTML = `
             <button id="go-back-button">Go Back</button>
             <button id="scroll-back-button">Scroll Back</button>
+            <div id='extender'></div><div id='extender'></div><div id='extender'></div>
         `;
         container.appendChild(endDiv);
 
