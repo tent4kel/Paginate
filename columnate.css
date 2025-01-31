@@ -1,21 +1,40 @@
 html {
+	font-size: 32px;
 	height: 100%;
-	/*width: min-content;*/
 	padding: 0;
-	margin: 0;
-	
+	margin: 0;	
 }
 
 
 body {
+	font-size: .55rem;
 	height: 100svh;
 	padding: 0;
 	margin-left:0rem;
 	margin-right:0rem;
 	margin: 0;
 	overflow-y:hidden;
-
 }
+
+/* Responsive sizign of column gaps */
+@media only screen and (max-width: 960px) {
+  html {
+    font-size:12px;
+  }
+  body {
+    font-size: 1.4rem;
+  }
+
+
+
+@media only screen and (max-width: 600px) {
+  html {
+    font-size:6px;
+  }
+  body {
+    font-size: 2.8rem;
+  }
+
 
 figure {
 	padding: 0;
