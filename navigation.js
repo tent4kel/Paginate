@@ -140,7 +140,8 @@ function calculateCurrentPage() {
     const container = document.getElementById('scroll-container');
     if (container) {
         const width = container.clientWidth; // Get the container width
-        const scrollLeft = container.scrollLeft; // Get the current scroll position
+        const scrollLeft = window.scrollX; // Get the current scroll position of the window
+        console.log(`Container width: ${width}, Scroll left: ${scrollLeft}`);
         const page = Math.round((scrollLeft + 10) / width);
         console.log(`Current page: ${page}`);
         return page;
