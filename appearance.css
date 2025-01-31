@@ -26,20 +26,22 @@ body {
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
-  text-wrap: pretty;  
+  text-wrap: pretty;
+  hyphens: auto !important;
+  hyphenate-limit-chars: auto 3 2;
 }
 
 h1{
  font-family: "Outfit", serif;
-  font-optical-sizing: auto;
-  font-weight: 800;
-  font-style: normal;  
-  font-size: 2.0em;
-  line-height: 1.1em;
-  word-wrap:break-word;
-  hyphens:auto;
-  hyphenate-limit-chars: 8 3 3;
-  text-align:center
+ font-optical-sizing: auto;
+ font-weight: 800;
+ font-style: normal;
+ font-size: 2.0em;
+ line-height: 1.1em;
+ word-wrap:break-word;
+ /* hyphens:auto; */
+ hyphenate-limit-chars: 8 3 3;
+ text-align:center
 }
 
 h2, h3,  #end-of-article{
@@ -69,10 +71,11 @@ a {
 p, a {
   font-size: 1em;
   line-height: 1.5em;
-  hyphens:auto;
-  hyphenate-limit-chars: 6 3 3;
+  /* hyphens:auto; */
+  hyphenate-limit-chars: auto 3 2;
   text-align:justify;
   margin-block-start:0.2rem;
+  /* text-wrap: pretty; */
 }
 
 sup {
