@@ -183,4 +183,6 @@ table {
   break-inside: avoid;
 }
 
-
+#extender {
+  break-before:column
+}
