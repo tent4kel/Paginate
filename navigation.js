@@ -150,15 +150,17 @@ function isElementInViewport(el) {
 function scrollByContainerWidth(direction) {
     const container = document.getElementById('scroll-container');
     const scrollBackButton = document.getElementById('scroll-back-button');
-    if (container && (!scrollBackButton || !isElementInViewport(scrollBackButton))) {
+    if (container) {
         const width = container.clientWidth; // Get the container width
-        console.log(`Scrolling by container width: ${direction * width}px`);
-        window.scrollBy({
-            left: direction * width,
-            behavior: 'auto' 
-        });
-    } else {
-        console.log('Scroll-back button is in the viewport, scroll prevented.');
+        if (direction > 0 && scrollBackButton && isElementInViewport(scrollBackButton)) {
+            console.log('Scroll-back button is in the viewport, scroll prevented.');
+        } else {
+            console.log(`Scrolling by container width: ${direction * width}px`);
+            window.scrollBy({
+                left: direction * width,
+                behavior: 'auto'
+            });
+        }
     }
 }
 
