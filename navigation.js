@@ -140,10 +140,12 @@
 // Function to calculate the total number of pages
 function calculateTotalPages() {
     const container = document.getElementById('scroll-container');
-    if (container) {
+    const scrollBackButton = document.getElementById('scroll-back-button');
+    if (container && scrollBackButton) {
         const width = container.clientWidth; // Get the container width
-        const scrollWidth = container.scrollWidth; // Get the total scrollable width
-        const totalPages = Math.ceil((scrollWidth + 10) / width); // Calculate total pages with tolerance
+        const buttonRect = scrollBackButton.getBoundingClientRect(); // Get the position of the scroll-back-button
+        const buttonPosition = buttonRect.left + window.scrollX; // Calculate the button's position relative to the document
+        const totalPages = Math.ceil((buttonPosition + 10) / width); // Calculate total pages with tolerance
         console.log(`Total pages: ${totalPages}`);
         return totalPages;
     }
