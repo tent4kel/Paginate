@@ -2,7 +2,6 @@
     function initNavigation() {
         console.log('navigation.js loaded and ready!');
 
-        
         // Wrap content into a container div
         wrapContent();
 
@@ -108,8 +107,8 @@
 
         // Add an event listener to trigger page calculation on viewport resize
         window.addEventListener('resize', updatePagination);
-        
-            // Delay the initial updatePagination call to ensure all elements are ready
+
+        // Delay the initial updatePagination call to ensure all elements are ready
         setTimeout(updatePagination, 100);
     }
 
@@ -140,7 +139,7 @@
             endDiv.innerHTML = `
                 <button id="go-back-button">Go Back</button>
                 <button id="scroll-back-button">Scroll Back</button>
-                <div id='extender'>1</div><div id='extender'>2</div><div id='extender'>3</div><div id='extender'>4</div>
+                <div id='extender'></div>
             `;
             container.appendChild(endDiv);
 
@@ -193,6 +192,17 @@
             const currentPage = calculateCurrentPage();
             const totalPages = calculateTotalPages();
             pagination.textContent = `${currentPage} / ${totalPages}`;
+
+            // Update the extender width
+            const container = document.getElementById('scroll-container');
+            const extender = document.getElementById('extender');
+            if (container && extender) {
+                const width = container.clientWidth;
+                const contentWidth = container.scrollWidth;
+                const additionalWidth = (Math.ceil(contentWidth / width) * width) - contentWidth;
+                extender.style.width = `${additionalWidth}px`;
+                extender.style.height = '1px';
+            }
         }
     }
 
