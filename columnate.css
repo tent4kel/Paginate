@@ -23,7 +23,7 @@ body {
   padding: 0rem;
   padding-left: 0;
   padding-top: 1rem;
-  padding-bottom: 4rem;
+  padding-bottom: 2rem;
   column-fill: auto;
   column-width: 21em;
   column-count: auto;
@@ -39,10 +39,10 @@ body {
 /* medium devies */
 @media only screen and (max-width: 1200px) {
   html {
-    font-size: 12px;
+    font-size: 16px;
   }
   body {
-    font-size: 1.6rem;
+    font-size: 1.2rem;
       margin: 0;
   }
 }
