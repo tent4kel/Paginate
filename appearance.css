@@ -112,8 +112,7 @@ sup {
 
 #end-of-article hr {
     border-bottom: 0.2em solid var(--mainColor);
-    width: 50%;
-    
+    width: 50%;  
 }
 
 #end-of-article button {
@@ -128,6 +127,7 @@ sup {
     border: 2px solid var(--mainColor); 
     color: var(--mainColor); 
     margin-block-start:2em;
+    break-before: avoid; 
     
 }
 
@@ -140,15 +140,15 @@ sup {
 
 #pagination {
     position: fixed;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
+    bottom: .4rem;
+    right: 2rem;
     font-family: "Outfit", sans-serif;
     font-size: .7em;
-    font-weight: 200;
-    text-align:center
-    padding: 10px 20px;
+    font-weight: 300;
+    text-align:right;
+    padding-right: 00px;
     z-index: 1000;
+    color: var(--capColor) 
     
 }
 
