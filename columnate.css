@@ -1,6 +1,6 @@
 html {
   font-size: 32px;
-  height: 100vh;
+  height: 100dvh;
   padding: 0;
   margin: 0;
 }
@@ -80,11 +80,12 @@ table, th, td, tr, tbody {
   position: relative;
   width: auto;
   height:100%;
-  height:100 dvh;
+  height: 96 dvh;
   margin: 1rem;
   padding: 0rem;
   padding-left: 0;
-  padding-top: 2svh;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
   column-fill: auto;
   column-width: 21em;
   column-count: auto;
@@ -147,7 +148,7 @@ p, ul, ol {
 }
 
 ul, ol {
-  margin: 0 0 1em 0;
+  margin: 0 0 .5em 0;
   list-style-position: inside;
 }
 
@@ -186,5 +187,6 @@ table {
 }
 
 #extender {
-  break-before:column
+  color: transparent;
+  break-before:column;
 }
