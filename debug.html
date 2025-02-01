@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Device Debug</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        .info { font-size: 1.2em; margin: 10px 0; }
+        .box { border: 2px solid black; margin: 10px auto; padding: 10px; }
+        .full-width { width: 100%; background: lightblue; }
+        .vw { width: 100vw; background: lightcoral; }
+        .vh { height: 100vh; background: lightgreen; }
+        .dvw { width: 100dvw; background: lightgoldenrodyellow; }
+        .dvh { height: 100dvh; background: lightpink; }
+    </style>
+</head>
+<body>
+    <h1>Device Debug Info</h1>
+    <div class="info">Screen Size: <span id="screenSize"></span></div>
+    <div class="info">Available Size: <span id="availableSize"></span></div>
+    <div class="info">Viewport Size: <span id="viewportSize"></span></div>
+    <div class="info">Device Pixel Ratio: <span id="dpr"></span></div>
+
+    <h2>Measured Elements</h2>
+    <div class="box full-width">100% width (<span id="fullWidth"></span>)</div>
+    <div class="box vw">100vw width (<span id="vwWidth"></span>)</div>
+    <div class="box vh">100vh height (<span id="vhHeight"></span>)</div>
+    <div class="box dvw">100dvw width (<span id="dvwWidth"></span>)</div>
+    <div class="box dvh">100dvh height (<span id="dvhHeight"></span>)</div>
+
+    <script>
+        function updateInfo() {
+            document.getElementById("screenSize").textContent = `${screen.width} x ${screen.height}`;
+            document.getElementById("availableSize").textContent = `${screen.availWidth} x ${screen.availHeight}`;
+            document.getElementById("viewportSize").textContent = `${window.innerWidth} x ${window.innerHeight}`;
+            document.getElementById("dpr").textContent = window.devicePixelRatio;
+
+            document.getElementById("fullWidth").textContent = document.querySelector(".full-width").offsetWidth;
+            document.getElementById("vwWidth").textContent = document.querySelector(".vw").offsetWidth;
+            document.getElementById("vhHeight").textContent = document.querySelector(".vh").offsetHeight;
+            document.getElementById("dvwWidth").textContent = document.querySelector(".dvw").offsetWidth;
+            document.getElementById("dvhHeight").textContent = document.querySelector(".dvh").offsetHeight;
+        }
+
+        window.addEventListener("resize", updateInfo);
+        updateInfo();
+    </script>
+</body>
+</html>
