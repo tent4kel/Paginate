@@ -105,6 +105,12 @@
                 scrollByContainerWidth(1); // Scroll up (backward)
             }
         });
+
+        // Add an event listener to trigger page calculation on viewport resize
+        window.addEventListener('resize', updatePagination);
+        
+            // Delay the initial updatePagination call to ensure all elements are ready
+        setTimeout(updatePagination, 100);
     }
 
     // Function to inject pagination div
