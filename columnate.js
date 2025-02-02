@@ -59,7 +59,9 @@ function Columnate() {
 
         document.body.removeAttribute("class");
         document.body.removeAttribute("style");
-        document.body.innerHTML = "<h1 id='article-title'>" + article.title + "</h1><h2 id='article-byline'>" + article.byline + "</h2><h3 id='article-excerpt'>" + article.excerpt + "</h3>" + article.content;
+
+        var heroImageHTML = heroImageSrc ? "<img src='" + heroImageSrc + "' alt='Hero Image'>" : "";
+        document.body.innerHTML = heroImageHTML + "<h1 id='article-title'>" + article.title + "</h1><h2 id='article-byline'>" + article.byline + "</h2><h3 id='article-excerpt'>" + article.excerpt + "</h3>" + article.content;
 
         if (heroImageSrc) {
             console.log('Hero image source:', heroImageSrc);
