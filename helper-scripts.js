@@ -79,6 +79,7 @@ var LoadAllImages = function(doc) {
 };
 
 // Function to retrieve the hero image
+// Function to retrieve the hero image
 var getHeroImage = function(document, article) {
     console.log('Starting hero image extraction.');
     var images = document.querySelectorAll('img:not([src$=".svg"])');
@@ -114,6 +115,8 @@ var getHeroImage = function(document, article) {
             return className.includes(cls);
         });
 
+        var isSVG = src.startsWith('data:image/svg+xml');
+
         console.log('Image analysis:', {
             src: img.src,
             width: width,
@@ -126,10 +129,11 @@ var getHeroImage = function(document, article) {
             hasDescriptiveAlt: hasDescriptiveAlt,
             isSmall: isSmall,
             isRepetitive: isRepetitive,
-            isInNonContentArea: isInNonContentArea
+            isInNonContentArea: isInNonContentArea,
+            isSVG: isSVG
         });
 
-        if ((isLarge || isProminent || hasDescriptiveAlt) && !(isSmall || isRepetitive || isInNonContentArea)) {
+        if ((isLarge || isProminent || hasDescriptiveAlt) && !(isSmall || isRepetitive || isInNonContentArea || isSVG)) {
             console.log('Hero image candidate found:', img.src);
             heroImage = img;
         }
