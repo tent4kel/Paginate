@@ -79,22 +79,20 @@ var LoadAllImages = function(doc) {
 };
 
 // Function to retrieve the hero image
+// Function to retrieve the hero image
 var getHeroImage = function(document, article) {
     console.log('Starting hero image extraction.');
     var images = document.querySelectorAll('img:not([src$=".svg"])');
     var heroImage = null;
-    var candidates = [];
     var maxCandidates = 5;
 
     var largeDimensions = { width: 600, height: 300 };
     var prominentClasses = ['hero', 'featured', 'main-image'];
     var descriptiveAltKeywords = ['article', 'hero'];
     var exclusionClasses = ['logo', 'icon', 'thumbnail', 'header', 'footer', 'sidebar'];
-    var exclusionPatterns = ['logo', 'icon', 'thumbnail', 'abo', 'werbung', 'subscription','teaser'];
+    var exclusionPatterns = ['logo', 'icon', 'thumbnail'];
 
-    images.forEach(function(img) {
-        if (candidates.length >= maxCandidates) return;
-
+    var candidates = Array.from(images).map(function(img) {
         var width = img.naturalWidth;
         var height = img.naturalHeight;
         var altText = img.alt.toLowerCase();
@@ -120,6 +118,9 @@ var getHeroImage = function(document, article) {
 
         var isSVG = src.startsWith('data:image/svg+xml');
 
+        var passCount = (isLarge ? 1 : 0) + (isProminent ? 1 : 0) + (hasDescriptiveAlt ? 1 : 0);
+        var failCount = (isSmall ? 1 : 0) + (isRepetitive ? 1 : 0) + (isInNonContentArea ? 1 : 0) + (isSVG ? 1 : 0);
+
         console.log('Image analysis:', {
             src: img.src,
             width: width,
@@ -133,17 +134,25 @@ var getHeroImage = function(document, article) {
             isSmall: isSmall,
             isRepetitive: isRepetitive,
             isInNonContentArea: isInNonContentArea,
-            isSVG: isSVG
+            isSVG: isSVG,
+            passCount: passCount,
+            failCount: failCount
         });
 
-        if ((isLarge || isProminent || hasDescriptiveAlt) && !(isSmall || isRepetitive || isInNonContentArea || isSVG)) {
-            console.log('Hero image candidate found:', img.src);
-            candidates.push(img);
-        }
+        return { img: img, passCount: passCount, failCount: failCount };
+    });
+
+    candidates = candidates.filter(function(candidate) {
+        return candidate.failCount === 0;
+    });
+
+    candidates.sort(function(a, b) {
+        return b.passCount - a.passCount;
     });
 
     if (candidates.length > 0) {
-        heroImage = candidates[0];
+        heroImage = candidates[0].img;
+
         if (heroImage && !article.content.includes(heroImage.outerHTML)) {
             var articleElement = document.querySelector('#article-title');
             if (articleElement) {
