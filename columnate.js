@@ -39,7 +39,7 @@ function Columnate() {
 
     try {
         var article = new Readability(doclone).parse();
-        var heroImageSrc = getHeroImage(document, article);
+        getHeroImage(doclone, article); // Apply to the cloned document
 
         var htmltag = document.getElementsByTagName("html")[0];
         htmltag.removeAttribute("class");
@@ -59,18 +59,7 @@ function Columnate() {
 
         document.body.removeAttribute("class");
         document.body.removeAttribute("style");
-
-        var heroImageHTML = heroImageSrc ? "<img src='" + heroImageSrc + "' alt='Hero Image'>" : "";
-        console.log('Inserting image HTML:', heroImageHTML);
-        document.body.innerHTML = heroImageHTML + "<h1 id='article-title'>" + article.title + "</h1><h2 id='article-byline'>" + article.byline + "</h2><h3 id='article-excerpt'>" + article.excerpt + "</h3>" + article.content;
-
-        
-
-        if (heroImageSrc) {
-            console.log('Hero image source:', heroImageSrc);
-        } else {
-            console.log('No hero image found.');
-        }
+        document.body.innerHTML = "<h1 id='article-title'>" + article.title + "</h1><h2 id='article-byline'>" + article.byline + "</h2><h3 id='article-excerpt'>" + article.excerpt + "</h3>" + article.content;
 
         console.log('Document made readable and styles applied.');
 
