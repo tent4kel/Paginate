@@ -67,6 +67,18 @@ function Columnate() {
         document.getElementsByTagName('head')[0].appendChild(navScript);
     };
 
+var loadHelperScripts = function(callback) {
+        var helperScript = document.createElement('script');
+        helperScript.type = 'text/javascript';
+        helperScript.src = '//paginate-wip.netlify.app/helper-scripts.js';
+        helperScript.onload = callback;
+        helperScript.onerror = function() {
+            console.error('Failed to load helper-scripts.js');
+        };
+        document.getElementsByTagName('head')[0].appendChild(helperScript);
+    };
+
+
     var cmjs = document.createElement('script');
     cmjs.type = 'text/javascript';
     cmjs.src = '//paginate-wip.netlify.app/Readability.js';
