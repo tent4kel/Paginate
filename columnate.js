@@ -150,7 +150,7 @@ function Columnate() {
     var loadNavigationScript = function() {
         var navScript = document.createElement('script');
         navScript.type = 'text/javascript';
-        navScript.src = '//eink-reader.netlify.app/navigation.js'; // Replace with actual path to navigation.js
+        navScript.src = 'navigation.js'; // Replace with actual path to navigation.js
         navScript.onload = function() {
             console.log('navigation.js loaded and ready!');
             if (typeof initNavigation === 'function') {
@@ -169,7 +169,7 @@ function Columnate() {
     // Load readability script and set it to be applied when loaded
     var cmjs = document.createElement('script');
     cmjs.type = 'text/javascript';
-    cmjs.src = '//eink-reader.netlify.app/Readability.js';
+    cmjs.src = 'Readability.js';
     cmjs.onreadystatechange = MakeReadable;
     cmjs.onload = MakeReadable;
     cmjs.onerror = function() {
