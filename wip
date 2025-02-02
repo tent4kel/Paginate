@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+  <title>Paginate!</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --mainColor: black;
+        --bgColor: white;
+        --capColor: #777;
+      }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --mainColor: #ffffff;
+        --bgColor: #000000;
+        --capColor: #bbb;
+      }
+    }
+
+    html {
+      height: 100%;
+      padding: 10px;
+      margin: 10px;
+      font-size: 18px;
+    }
+
+    body {
+      color: var(--mainColor);
+      background-color: var(--bgColor);
+      font-family: "Source Serif 4", serif;
+      font-optical-sizing: auto;
+      font-weight: 400;
+      font-style: normal;
+      text-wrap: pretty;
+      font-size: .7rem;
+      height: 100%;
+      width: 100%;
+      padding: 0rem;
+      margin: 2rem;
+      font-size: 1em;
+    }
+
+    div {
+
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    text-wrap: pretty;
+    font-size: 1em;
+    max-width: 50em;
+    width: 90%;
+    height: 100%;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    }
+
+    button {
+      background-color: transparent;
+      border-radius: 50px;
+      font-size: 0.8em;
+      font-weight: 600;
+      padding: 0.1em 0.6em;
+      margin: 1em;
+      display: inline-block;
+      cursor: pointer;
+      border: 2px solid var(--mainColor);
+      color: var(--mainColor);
+      margin-block-start: 1em;
+    }
+
+    button:hover {
+      background-color: var(--mainColor);
+      color: var(--bgColor);
+      border-color: var(--bgColor);
+    }
+
+    h1 {
+      font-family: "Outfit", serif;
+      font-optical-sizing: auto;
+      font-weight: 800;
+      font-style: normal;
+      font-size: 3.0em;
+      line-height: 1.1em;
+      word-wrap: break-word;
+      hyphens: auto;
+      hyphenate-limit-chars: 8 3 3;
+      text-align: center;
+    }
+
+    h2,
+    h3,
+    #end-of-article {
+      font-family: "Outfit", sans-serif;
+      font-size: 1.2em;
+      line-height: 1.4em;
+      font-weight: 600;
+      margin-block-end: 2em;
+      text-align: center;
+    }
+
+    p,
+    a {
+      font-size: 1em;
+      line-height: 1.5em;
+      hyphens: auto;
+      hyphenate-limit-chars: 6 3 3;
+      text-align: justify;
+      margin-block-start: 0.2rem;
+    }
+
+    a {
+      color: inherit;
+      font-style: italic;
+      text-decoration-color: inherit;
+      text-decoration-thickness: 0.5px;
+    }
+
+    pre {
+      font-optical-sizing: auto;
+      font-weight: 400;
+      font-style: normal;
+      text-wrap: pretty;
+      font-size: .7em;
+      text-align: center;
+      background-color: var(--mainColor);
+      color: var(--bgColor);
+      padding: 10px;
+      border: none;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      max-width: 100%;
+      overflow: scroll;
+      height: 5em;
+    }
+
+    @media only screen and (max-width: 960px) {
+      html {
+        font-size: 16px;
+      }
+    }
+
+    @media only screen and (max-width: 600px) {
+      html {
+        font-size: 11px;
+      }
+    }
+
+
+  </style>
+	
+  <script type="text/javascript" src="uglifyjs.js"></script>
+  <script type="text/javascript" src="columnate-wip.js"></script>
+  <script>
+    function CreateLink() {
+      // cribbed from bookmarkletify
+      var toplevel_ast = UglifyJS.parse(Columnate.toString() + "Columnate();");
+      toplevel_ast.figure_out_scope();
+      var compressor = UglifyJS.Compressor();
+      var compressed_ast = toplevel_ast.transform(compressor);
+      compressed_ast.figure_out_scope();
+
+      var url = "javascript: (function () {" + compressed_ast.print_to_string() + "}())";
+      document.getElementById("bookmarkletLink").href = url;
+      document.getElementById("bookmarkletLink").className = "ready";
+      document.getElementById("bookmarkletPlainText").textContent = url;
+    }
+
+    function ClickHelp() {
+      alert("Drag this link to your bookmark bar.");
+      return false;
+    }
+
+    function CopyToClipboard() {
+      var copyText = document.getElementById("bookmarkletPlainText").textContent;
+      navigator.clipboard.writeText(copyText).then(function () {
+        alert("Bookmarklet copied to clipboard!");
+      }, function (err) {
+        alert("Failed to copy bookmarklet: ", err);
+      });
+    }
+  </script>
+</head>
+
+<body onload="CreateLink()">
+  <div>
+    <h1>Paginate! </br> Work in Progress</h1>
+    <h3>This bookmarklet below creates a simplified, columnated and paginated version of almost any website. Enjoy a newspaper-like reading experience without scrolling. Works great on eInk devices!</h3>
+    <p>Drag this link to your bookmarks bar to install:</p>
+    <p style="text-align:center;">
+      <strong>
+        <a href="#" id="bookmarkletLink" onclick="return ClickHelp();" title="Drag this link to your bookmark bar;">Paginate!</a> <br>
+      </strong>
+    </p>
+    <p>If you can't drag the link, you can copy the link below or click on the button. You can then create your bookmark manually.</p>
+    <pre id="bookmarkletPlainText"></pre>
+    <button onclick="CopyToClipboard()">Copy to Clipboard</button>
+    <p>Now find a web page with a long article. Click the <strong>Paginate</strong> bookmarklet to reformat the page free of distractions. The article will be formatted in narrow columns like a newspaper.</p>
+    <p>This is built on top of <a href="https://github.com/anoved/Columnate">Columnate project</a>.</p>
+  </div>
+</body>
+
+</html>
