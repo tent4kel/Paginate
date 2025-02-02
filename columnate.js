@@ -22,51 +22,58 @@ function Columnate() {
     };
 
     var MakeReadable = function() {
-        // Ensure helper scripts are loaded
-        if (typeof UnfoldSections === 'undefined' || 
-            typeof LoadAllImages === 'undefined' || 
-            typeof CleanHTML === 'undefined' || 
-            typeof getHeroImage === 'undefined') {
-            console.error('Helper scripts not loaded.');
-            return;
+    // Ensure helper scripts are loaded
+    if (typeof UnfoldSections === 'undefined' || 
+        typeof LoadAllImages === 'undefined' || 
+        typeof CleanHTML === 'undefined' || 
+        typeof getHeroImage === 'undefined') {
+        console.error('Helper scripts not loaded.');
+        return;
+    }
+
+    UnfoldSections(document);
+    LoadAllImages(document);
+
+    var doclone = document.cloneNode(true);
+    CleanHTML(doclone);
+
+    try {
+        var article = new Readability(doclone).parse();
+        var heroImageSrc = getHeroImage(document, article);
+
+        var htmltag = document.getElementsByTagName("html")[0];
+        htmltag.removeAttribute("class");
+        htmltag.removeAttribute("style");
+
+        document.head.innerHTML = "";
+        var metaTag = document.createElement('meta');
+        metaTag.name = 'viewport';
+        metaTag.content = 'width=device-width, initial-scale=1.0, user-scalable=no';
+        document.head.appendChild(metaTag);
+
+        LoadStylesheet('//paginate-wip.netlify.app/columnate.css');
+        LoadStylesheet('//paginate-wip.netlify.app/appearance.css');
+
+        SetColorScheme();
+        document.title = article.title;
+
+        document.body.removeAttribute("class");
+        document.body.removeAttribute("style");
+        document.body.innerHTML = "<h1 id='article-title'>" + article.title + "</h1><h2 id='article-byline'>" + article.byline + "</h2><h3 id='article-excerpt'>" + article.excerpt + "</h3>" + article.content;
+
+        if (heroImageSrc) {
+            console.log('Hero image source:', heroImageSrc);
+        } else {
+            console.log('No hero image found.');
         }
 
-        UnfoldSections(document);
-        LoadAllImages(document);
+        console.log('Document made readable and styles applied.');
 
-        var doclone = document.cloneNode(true);
-        CleanHTML(doclone);
-
-        try {
-            var article = new Readability(doclone).parse();
-            getHeroImage(document, article);
-
-            var htmltag = document.getElementsByTagName("html")[0];
-            htmltag.removeAttribute("class");
-            htmltag.removeAttribute("style");
-
-            document.head.innerHTML = "";
-            var metaTag = document.createElement('meta');
-            metaTag.name = 'viewport';
-            metaTag.content = 'width=device-width, initial-scale=1.0, user-scalable=no';
-            document.head.appendChild(metaTag);
-
-            LoadStylesheet('//paginate-wip.netlify.app/columnate.css');
-            LoadStylesheet('//paginate-wip.netlify.app/appearance.css');
-
-            SetColorScheme();
-            document.title = article.title;
-
-            document.body.removeAttribute("class");
-            document.body.removeAttribute("style");
-            document.body.innerHTML = "<h1 id='article-title'>" + article.title + "</h1><h2 id='article-byline'>" + article.byline + "</h2><h3 id='article-excerpt'>" + article.excerpt + "</h3>" + article.content;
-            console.log('Document made readable and styles applied.');
-
-            loadNavigationScript();
-        } catch (error) {
-            console.error('Error parsing document with Readability:', error);
-        }
-    };
+        loadNavigationScript();
+    } catch (error) {
+        console.error('Error parsing document with Readability:', error);
+    }
+};
 
     var loadNavigationScript = function() {
         var navScript = document.createElement('script');
