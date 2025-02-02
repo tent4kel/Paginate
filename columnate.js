@@ -94,59 +94,6 @@ function Columnate() {
         console.log('Color scheme set based on time: ' + (prefersDark ? 'dark' : 'light'));
     };
 
-    // Function to retrieve the hero image
-    var getHeroImage = function(document, article) {
-        var images = document.querySelectorAll('img');
-        var heroImage = null;
-
-        // Criteria arrays for ease of customization
-        var largeDimensions = { width: 600, height: 300 };
-        var prominentClasses = ['hero', 'featured', 'main-image'];
-        var descriptiveAltKeywords = ['article', 'hero'];
-        var exclusionClasses = ['logo', 'icon', 'thumbnail', 'header', 'footer', 'sidebar'];
-        var exclusionPatterns = ['logo', 'icon', 'thumbnail'];
-
-        images.forEach(function(img) {
-            var width = img.naturalWidth;
-            var height = img.naturalHeight;
-            var altText = img.alt.toLowerCase();
-            var src = img.src.toLowerCase();
-            var className = img.className.toLowerCase();
-            var id = img.id.toLowerCase();
-
-            // Criteria for hero image
-            var isLarge = width > largeDimensions.width && height > largeDimensions.height;
-            var isProminent = prominentClasses.some(function(cls) {
-                return className.includes(cls) || id.includes(cls);
-            });
-            var hasDescriptiveAlt = descriptiveAltKeywords.some(function(keyword) {
-                return altText.includes(keyword);
-            }) || altText.length > 10;
-
-            // Exclusion criteria
-            var isSmall = width < 300 || height < 200;
-            var isRepetitive = exclusionPatterns.some(function(pattern) {
-                return src.includes(pattern);
-            });
-            var isInNonContentArea = exclusionClasses.some(function(cls) {
-                return className.includes(cls);
-            });
-
-            if ((isLarge || isProminent || hasDescriptiveAlt) && !(isSmall || isRepetitive || isInNonContentArea)) {
-                heroImage = img;
-            }
-        });
-
-        if (heroImage && !article.content.includes(heroImage.outerHTML)) {
-            var articleElement = document.querySelector('#article-title');
-            if (articleElement) {
-                articleElement.insertAdjacentHTML('beforebegin', '<img src="' + heroImage.src + '" alt="' + heroImage.alt + '" class="' + heroImage.className + '" id="' + heroImage.id + '" />');
-            }
-        }
-
-        return heroImage ? heroImage.src : null;
-    };
-
     // Callback that will replace document content with readable version
     var MakeReadable = function() {
         // Unfold collapsible sections
@@ -155,16 +102,15 @@ function Columnate() {
         // Force load all images
         LoadAllImages(document);
 
+
         var doclone = document.cloneNode(true);
 
         // Clean problematic attributes from the document clone
         CleanHTML(doclone);
 
+
         try {
             var article = new Readability(doclone).parse();
-
-            // Retrieve and inject hero image if applicable
-            getHeroImage(document, article);
 
             // Strip stray styling from the html tag itself
             var htmltag = document.getElementsByTagName("html")[0];
@@ -183,7 +129,6 @@ function Columnate() {
             // Load stylesheets
             LoadStylesheet('//eink-reader.netlify.app/columnate.css');
             LoadStylesheet('//eink-reader.netlify.app/appearance.css');
-
             // Set color scheme based on time
             SetColorScheme();
             document.title = article.title;
