@@ -1,4 +1,5 @@
 function Columnate() {
+    // Apply columnate stylesheets to document
     var LoadStylesheet = function(url) {
         var c = document.createElement('link');
         c.rel = 'stylesheet';
@@ -9,8 +10,27 @@ function Columnate() {
         console.log('Stylesheet loaded: ' + url);
     };
 
+    var SetColorScheme = function() {
+        var hour = new Date().getHours();
+        var prefersDark = (hour >= 18 || hour < 6);
+        if (prefersDark) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+        console.log('Color scheme set based on time: ' + (prefersDark ? 'dark' : 'light'));
+    };
 
     var MakeReadable = function() {
+        // Ensure helper scripts are loaded
+        if (typeof UnfoldSections === 'undefined' || 
+            typeof LoadAllImages === 'undefined' || 
+            typeof CleanHTML === 'undefined' || 
+            typeof getHeroImage === 'undefined') {
+            console.error('Helper scripts not loaded.');
+            return;
+        }
+
         UnfoldSections(document);
         LoadAllImages(document);
 
@@ -34,7 +54,7 @@ function Columnate() {
             LoadStylesheet('//paginate-wip.netlify.app/columnate.css');
             LoadStylesheet('//paginate-wip.netlify.app/appearance.css');
 
-            //SetColorScheme();
+            SetColorScheme();
             document.title = article.title;
 
             document.body.removeAttribute("class");
@@ -67,7 +87,7 @@ function Columnate() {
         document.getElementsByTagName('head')[0].appendChild(navScript);
     };
 
-var loadHelperScripts = function(callback) {
+    var loadHelperScripts = function(callback) {
         var helperScript = document.createElement('script');
         helperScript.type = 'text/javascript';
         helperScript.src = '//paginate-wip.netlify.app/helper-scripts.js';
@@ -77,7 +97,6 @@ var loadHelperScripts = function(callback) {
         };
         document.getElementsByTagName('head')[0].appendChild(helperScript);
     };
-
 
     var cmjs = document.createElement('script');
     cmjs.type = 'text/javascript';
