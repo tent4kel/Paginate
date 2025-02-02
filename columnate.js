@@ -127,8 +127,8 @@ function Columnate() {
             document.head.appendChild(metaTag);
 
             // Load stylesheets
-            LoadStylesheet('columnate.css');
-            LoadStylesheet('appearance.css');
+            LoadStylesheet('//paginate-reader.netlify.app/columnate.css');
+            LoadStylesheet('//paginate-reader.netlify.app/appearance.css');
             // Set color scheme based on time
             SetColorScheme();
             document.title = article.title;
@@ -150,7 +150,7 @@ function Columnate() {
     var loadNavigationScript = function() {
         var navScript = document.createElement('script');
         navScript.type = 'text/javascript';
-        navScript.src = 'navigation.js'; // Replace with actual path to navigation.js
+        navScript.src = '//paginate-reader.netlify.app/navigation.js'; // Replace with actual path to navigation.js
         navScript.onload = function() {
             console.log('navigation.js loaded and ready!');
             if (typeof initNavigation === 'function') {
@@ -169,7 +169,7 @@ function Columnate() {
     // Load readability script and set it to be applied when loaded
     var cmjs = document.createElement('script');
     cmjs.type = 'text/javascript';
-    cmjs.src = 'Readability.js';
+    cmjs.src = '//paginate-reader.netlify.app/Readability.js';
     cmjs.onreadystatechange = MakeReadable;
     cmjs.onload = MakeReadable;
     cmjs.onerror = function() {
