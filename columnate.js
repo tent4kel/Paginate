@@ -31,8 +31,8 @@ function Columnate() {
             metaTag.content = 'width=device-width, initial-scale=1.0, user-scalable=no';
             document.head.appendChild(metaTag);
 
-            LoadStylesheet('//eink-reader.netlify.app/columnate.css');
-            LoadStylesheet('//eink-reader.netlify.app/appearance.css');
+            LoadStylesheet('columnate.css');
+            LoadStylesheet('appearance.css');
 
             //SetColorScheme();
             document.title = article.title;
@@ -51,7 +51,7 @@ function Columnate() {
     var loadNavigationScript = function() {
         var navScript = document.createElement('script');
         navScript.type = 'text/javascript';
-        navScript.src = '//eink-reader.netlify.app/navigation.js';
+        navScript.src = 'navigation.js';
         navScript.onload = function() {
             console.log('navigation.js loaded and ready!');
             if (typeof initNavigation === 'function') {
@@ -69,7 +69,7 @@ function Columnate() {
 
     var cmjs = document.createElement('script');
     cmjs.type = 'text/javascript';
-    cmjs.src = '//eink-reader.netlify.app/Readability.js';
+    cmjs.src = 'Readability.js';
     cmjs.onreadystatechange = MakeReadable;
     cmjs.onload = MakeReadable;
     cmjs.onerror = function() {
