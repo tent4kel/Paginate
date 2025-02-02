@@ -82,8 +82,8 @@ var loadHelperScripts = function(callback) {
     var cmjs = document.createElement('script');
     cmjs.type = 'text/javascript';
     cmjs.src = '//paginate-wip.netlify.app/Readability.js';
-    cmjs.onreadystatechange = MakeReadable;
-    cmjs.onload = MakeReadable;
+    cmjs.onreadystatechange = function() { if (cmjs.readyState === 'complete') loadHelperScripts(MakeReadable); };
+    cmjs.onload = function() { loadHelperScripts(MakeReadable); };
     cmjs.onerror = function() {
         console.error('Failed to load Readability.js');
     };
