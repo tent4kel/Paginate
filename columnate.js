@@ -40,7 +40,7 @@ function Columnate() {
     CleanHTML(doclone);
 
     try {
-        var article = new Readability(doclone, debug).parse();
+         var article = new Readability(doclone, { debug: true }).parse();
         
 
         var htmltag = document.getElementsByTagName("html")[0];
