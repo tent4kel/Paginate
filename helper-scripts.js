@@ -89,7 +89,7 @@ var getHeroImage = function(document, article) {
     var prominentClasses = ['hero', 'featured', 'main-image'];
     var descriptiveAltKeywords = ['article', 'hero'];
     var exclusionClasses = ['logo', 'icon', 'thumbnail', 'header', 'footer', 'sidebar'];
-    var exclusionPatterns = ['logo', 'icon', 'thumbnail', 'doubleclick', 'outbrain', 'advert', 'werbung', 'promo', 'content-box'];
+    var exclusionPatterns = ['logo', 'icon', 'thumbnail', 'doubleclick'];
 
     var candidates = Array.from(images).map(function(img) {
         var width = img.naturalWidth;
@@ -153,11 +153,9 @@ var getHeroImage = function(document, article) {
         heroImage = candidates[0].img;
 
         if (heroImage && !article.content.includes(heroImage.outerHTML)) {
-            var articleElement = document.querySelector('#article-title');
-            if (articleElement) {
-                articleElement.insertAdjacentHTML('beforebegin', '<img src="' + heroImage.src + '" alt="' + heroImage.alt + '" class="' + heroImage.className + '" id="' + heroImage.id + '" />');
-                console.log('Hero image inserted into the article.');
-            }
+            heroImage.classList.add('hero-image');
+            heroImage.classList.add('featured-image');
+            console.log('Hero image classes added:', heroImage.className);
         }
     }
 
