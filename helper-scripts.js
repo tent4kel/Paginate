@@ -157,6 +157,8 @@ var getHeroImage = function(document) {
         heroImage.classList.add('main');
         
         console.log('Hero image classes added:', heroImage.className);
+    } else {
+        console.log('No suitable hero image found.');
     }
 
     console.log('Hero image extraction completed. Hero image:', heroImage ? heroImage.src : 'None');
