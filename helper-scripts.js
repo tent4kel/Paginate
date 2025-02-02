@@ -153,6 +153,9 @@ var getHeroImage = function(document) {
         heroImage = candidates[0].img;
         heroImage.classList.add('hero-image');
         heroImage.classList.add('featured-image');
+        heroImage.classList.add('article-image');
+        heroImage.classList.add('main');
+        
         console.log('Hero image classes added:', heroImage.className);
     }
 
