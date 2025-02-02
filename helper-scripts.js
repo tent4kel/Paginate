@@ -80,6 +80,7 @@ var LoadAllImages = function(doc) {
 
 // Function to retrieve the hero image
 var getHeroImage = function(document, article) {
+    console.log('Starting hero image extraction.');
     var images = document.querySelectorAll('img');
     var heroImage = null;
 
@@ -113,7 +114,23 @@ var getHeroImage = function(document, article) {
             return className.includes(cls);
         });
 
+        console.log('Image analysis:', {
+            src: img.src,
+            width: width,
+            height: height,
+            altText: altText,
+            className: className,
+            id: id,
+            isLarge: isLarge,
+            isProminent: isProminent,
+            hasDescriptiveAlt: hasDescriptiveAlt,
+            isSmall: isSmall,
+            isRepetitive: isRepetitive,
+            isInNonContentArea: isInNonContentArea
+        });
+
         if ((isLarge || isProminent || hasDescriptiveAlt) && !(isSmall || isRepetitive || isInNonContentArea)) {
+            console.log('Hero image candidate found:', img.src);
             heroImage = img;
         }
     });
@@ -122,8 +139,10 @@ var getHeroImage = function(document, article) {
         var articleElement = document.querySelector('#article-title');
         if (articleElement) {
             articleElement.insertAdjacentHTML('beforebegin', '<img src="' + heroImage.src + '" alt="' + heroImage.alt + '" class="' + heroImage.className + '" id="' + heroImage.id + '" />');
+            console.log('Hero image inserted into the article.');
         }
     }
 
+    console.log('Hero image extraction completed. Hero image:', heroImage ? heroImage.src : 'None');
     return heroImage ? heroImage.src : null;
 };
