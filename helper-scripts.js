@@ -79,7 +79,6 @@ var LoadAllImages = function(doc) {
 };
 
 // Function to retrieve the hero image
-// Function to retrieve the hero image
 var getHeroImage = function(document, article) {
     console.log('Starting hero image extraction.');
     var images = document.querySelectorAll('img:not([src$=".svg"])');
@@ -90,7 +89,7 @@ var getHeroImage = function(document, article) {
     var prominentClasses = ['hero', 'featured', 'main-image'];
     var descriptiveAltKeywords = ['article', 'hero'];
     var exclusionClasses = ['logo', 'icon', 'thumbnail', 'header', 'footer', 'sidebar'];
-    var exclusionPatterns = ['logo', 'icon', 'thumbnail'];
+    var exclusionPatterns = ['logo', 'icon', 'thumbnail', 'doubleclick', 'outbrain' 'advert', 'werbung', 'promo' 'content-box'];
 
     var candidates = Array.from(images).map(function(img) {
         var width = img.naturalWidth;
