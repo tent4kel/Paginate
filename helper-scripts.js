@@ -81,7 +81,7 @@ var LoadAllImages = function(doc) {
 // Function to retrieve the hero image
 var getHeroImage = function(document, article) {
     console.log('Starting hero image extraction.');
-    var images = document.querySelectorAll('img');
+    var images = document.querySelectorAll('img:not([src$=".svg"])');
     var heroImage = null;
 
     var largeDimensions = { width: 600, height: 300 };
