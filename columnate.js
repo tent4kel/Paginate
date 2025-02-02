@@ -31,7 +31,7 @@ function Columnate() {
         return;
     }
         
-    getHeroImage(document, article); // Apply to the cloned document
+    getHeroImage(document); // Apply to the cloned document
     UnfoldSections(document);
         
     LoadAllImages(document);
