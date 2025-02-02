@@ -79,7 +79,7 @@ var LoadAllImages = function(doc) {
 };
 
 // Function to retrieve the hero image
-var getHeroImage = function(document, article) {
+var getHeroImage = function(document) {
     console.log('Starting hero image extraction.');
     var images = document.querySelectorAll('img:not([src$=".svg"])');
     var heroImage = null;
@@ -151,12 +151,9 @@ var getHeroImage = function(document, article) {
 
     if (candidates.length > 0) {
         heroImage = candidates[0].img;
-
-        if (heroImage && !article.content.includes(heroImage.outerHTML)) {
-            heroImage.classList.add('hero-image');
-            heroImage.classList.add('featured-image');
-            console.log('Hero image classes added:', heroImage.className);
-        }
+        heroImage.classList.add('hero-image');
+        heroImage.classList.add('featured-image');
+        console.log('Hero image classes added:', heroImage.className);
     }
 
     console.log('Hero image extraction completed. Hero image:', heroImage ? heroImage.src : 'None');
