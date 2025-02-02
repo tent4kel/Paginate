@@ -30,8 +30,10 @@ function Columnate() {
         console.error('Helper scripts not loaded.');
         return;
     }
-
+        
+    getHeroImage(document, article); // Apply to the cloned document
     UnfoldSections(document);
+        
     LoadAllImages(document);
 
     var doclone = document.cloneNode(true);
@@ -39,7 +41,7 @@ function Columnate() {
 
     try {
         var article = new Readability(doclone).parse();
-        getHeroImage(doclone, article); // Apply to the cloned document
+        
 
         var htmltag = document.getElementsByTagName("html")[0];
         htmltag.removeAttribute("class");
