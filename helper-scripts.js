@@ -79,19 +79,22 @@ var LoadAllImages = function(doc) {
 };
 
 // Function to retrieve the hero image
-// Function to retrieve the hero image
 var getHeroImage = function(document, article) {
     console.log('Starting hero image extraction.');
     var images = document.querySelectorAll('img:not([src$=".svg"])');
     var heroImage = null;
+    var candidates = [];
+    var maxCandidates = 5;
 
     var largeDimensions = { width: 600, height: 300 };
     var prominentClasses = ['hero', 'featured', 'main-image'];
     var descriptiveAltKeywords = ['article', 'hero'];
     var exclusionClasses = ['logo', 'icon', 'thumbnail', 'header', 'footer', 'sidebar'];
-    var exclusionPatterns = ['logo', 'icon', 'thumbnail'];
+    var exclusionPatterns = ['logo', 'icon', 'thumbnail', 'abo', 'werbung', 'subscription','teaser'];
 
     images.forEach(function(img) {
+        if (candidates.length >= maxCandidates) return;
+
         var width = img.naturalWidth;
         var height = img.naturalHeight;
         var altText = img.alt.toLowerCase();
@@ -135,15 +138,18 @@ var getHeroImage = function(document, article) {
 
         if ((isLarge || isProminent || hasDescriptiveAlt) && !(isSmall || isRepetitive || isInNonContentArea || isSVG)) {
             console.log('Hero image candidate found:', img.src);
-            heroImage = img;
+            candidates.push(img);
         }
     });
 
-    if (heroImage && !article.content.includes(heroImage.outerHTML)) {
-        var articleElement = document.querySelector('#article-title');
-        if (articleElement) {
-            articleElement.insertAdjacentHTML('beforebegin', '<img src="' + heroImage.src + '" alt="' + heroImage.alt + '" class="' + heroImage.className + '" id="' + heroImage.id + '" />');
-            console.log('Hero image inserted into the article.');
+    if (candidates.length > 0) {
+        heroImage = candidates[0];
+        if (heroImage && !article.content.includes(heroImage.outerHTML)) {
+            var articleElement = document.querySelector('#article-title');
+            if (articleElement) {
+                articleElement.insertAdjacentHTML('beforebegin', '<img src="' + heroImage.src + '" alt="' + heroImage.alt + '" class="' + heroImage.className + '" id="' + heroImage.id + '" />');
+                console.log('Hero image inserted into the article.');
+            }
         }
     }
 
