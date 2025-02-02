@@ -127,8 +127,8 @@ function Columnate() {
             document.head.appendChild(metaTag);
 
             // Load stylesheets
-            LoadStylesheet('//eink-reader.netlify.app/columnate.css');
-            LoadStylesheet('//eink-reader.netlify.app/appearance.css');
+            LoadStylesheet('columnate.css');
+            LoadStylesheet('appearance.css');
             // Set color scheme based on time
             SetColorScheme();
             document.title = article.title;
