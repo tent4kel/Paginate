@@ -14,6 +14,17 @@ var CleanHTML = function(doc) {
     console.log('HTML cleaned of problematic attributes.');
 };
 
+  var SetColorScheme = function() {
+        var hour = new Date().getHours();
+        var prefersDark = (hour >= 18 || hour < 6);
+        if (prefersDark) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+        console.log('Color scheme set based on time: ' + (prefersDark ? 'dark' : 'light'));
+    };
+
 var UnfoldSections = function(doc) {
     try {
         var hiddenElements = doc.querySelectorAll('[hidden="until-found"]');
