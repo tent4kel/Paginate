@@ -1942,77 +1942,72 @@ Readability.prototype = {
   },
 
   /* convert images and figures that have properties like data-src into images that can be loaded without JS */
-  _fixLazyImages: function (root) {
-    this._forEachNode(this._getAllNodesWithTag(root, ["img", "picture", "figure"]), function (elem) {
-      // In some sites (e.g. Kotaku), they put 1px square image as base64 data uri in the src attribute.
-      // So, here we check if the data uri is too short, just might as well remove it.
-      if (elem.src && this.REGEXPS.b64DataUrl.test(elem.src)) {
-        // Make sure it's not SVG, because SVG can have a meaningful image in under 133 bytes.
-        var parts = this.REGEXPS.b64DataUrl.exec(elem.src);
-        if (parts[1] === "image/svg+xml") {
-          return;
-        }
+_fixLazyImages: function (root) {
+  this._forEachNode(this._getAllNodesWithTag(root, ["img", "picture", "figure"]), function (elem) {
+    // Preserve images with the class `preserve-image`
+    if (elem.classList.contains('preserve-image')) {
+      return;
+    }
 
-        // Make sure this element has other attributes which contains image.
-        // If it doesn't, then this src is important and shouldn't be removed.
-        var srcCouldBeRemoved = false;
-        for (var i = 0; i < elem.attributes.length; i++) {
-          var attr = elem.attributes[i];
-          if (attr.name === "src") {
-            continue;
-          }
-
-          if (/\.(jpg|jpeg|png|webp)/i.test(attr.value)) {
-            srcCouldBeRemoved = true;
-            break;
-          }
-        }
-
-        // Here we assume if image is less than 100 bytes (or 133B after encoded to base64)
-        // it will be too small, therefore it might be placeholder image.
-        if (srcCouldBeRemoved) {
-          var b64starts = elem.src.search(/base64\s*/i) + 7;
-          var b64length = elem.src.length - b64starts;
-          if (b64length < 133) {
-            elem.removeAttribute("src");
-          }
-        }
-      }
-
-      // also check for "null" to work around https://github.com/jsdom/jsdom/issues/2580
-      if ((elem.src || (elem.srcset && elem.srcset != "null")) &&
-          elem.className.toLowerCase().indexOf("lazy") === -1 &&
-          !this._overwriteImgSrc) {
+    // Existing logic to handle lazy-loaded images
+    if (elem.src && this.REGEXPS.b64DataUrl.test(elem.src)) {
+      var parts = this.REGEXPS.b64DataUrl.exec(elem.src);
+      if (parts[1] === "image/svg+xml") {
         return;
       }
 
-      for (var j = 0; j < elem.attributes.length; j++) {
-        attr = elem.attributes[j];
-        if (attr.name === "src" || attr.name === "srcset") {
+      var srcCouldBeRemoved = false;
+      for (var i = 0; i < elem.attributes.length; i++) {
+        var attr = elem.attributes[i];
+        if (attr.name === "src") {
           continue;
         }
-        var copyTo = null;
-        if (/\.(jpg|jpeg|png|webp)\s+\d/.test(attr.value)) {
-          copyTo = "srcset";
-        } else if (/^\s*\S+\.(jpg|jpeg|png|webp)\S*\s*$/.test(attr.value) ||
-                   /^\s*https?:\/\/\S+=(jpg|jpeg|png|webp)\S*\s*$/.test(attr.value)) {
-          copyTo = "src";
-        }
-        if (copyTo) {
-          //if this is an img or picture, set the attribute directly
-          if (elem.tagName === "IMG" || elem.tagName === "PICTURE") {
-            elem.setAttribute(copyTo, attr.value);
-          } else if (elem.tagName === "FIGURE" && !this._getAllNodesWithTag(elem, ["img", "picture"]).length) {
-            //if the item is a <figure> that does not contain an image or picture, create one and place it inside the figure
-            //see the nytimes-3 testcase for an example
-            var img = this._doc.createElement("img");
-            img.setAttribute(copyTo, attr.value);
-            elem.appendChild(img);
-          }
+
+        if (/\.(jpg|jpeg|png|webp)/i.test(attr.value)) {
+          srcCouldBeRemoved = true;
+          break;
         }
       }
-    });
-  },
+
+      if (srcCouldBeRemoved) {
+        var b64starts = elem.src.search(/base64\s*/i) + 7;
+        var b64length = elem.src.length - b64starts;
+        if (b64length < 133) {
+          elem.removeAttribute("src");
+        }
+      }
+    }
+
+    if ((elem.src || (elem.srcset && elem.srcset != "null")) &&
+        elem.className.toLowerCase().indexOf("lazy") === -1 &&
+        !this._overwriteImgSrc) {
+      return;
+    }
+
+    for (var j = 0; j < elem.attributes.length; j++) {
+      attr = elem.attributes[j];
+      if (attr.name === "src" || attr.name === "srcset") {
+        continue;
+      }
+      var copyTo = null;
+      if (/\.(jpg|jpeg|png|webp)\s+\d/.test(attr.value)) {
+        copyTo = "srcset";
+      } else if (/^\s*\S+\.(jpg|jpeg|png|webp)\S*\s*$/.test(attr.value) ||
+                 /^\s*https?:\/\/\S+=(jpg|jpeg|png|webp)\S*\s*$/.test(attr.value)) {
+        copyTo = "src";
+      }
+      if (copyTo) {
+        if (elem.tagName === "IMG" || elem.tagName === "PICTURE") {
+          elem.setAttribute(copyTo, attr.value);
+        } else if (elem.tagName === "FIGURE" && !this._getAllNodesWithTag(elem, ["img", "picture"]).length) {
+          var img = this._doc.createElement("img");
+          img.setAttribute(copyTo, attr.value);
+          elem.appendChild(img);
+        }
+      }
+    }
+  });
+}
 
   _getTextDensity: function(e, tags) {
     var textLength = this._getInnerText(e, true).length;
