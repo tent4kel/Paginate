@@ -39,15 +39,15 @@ body {
 /* medium devies */
 @media only screen and (max-width: 1200px) {
   html {
-    font-size: 16px;
+    font-size:24px;
   }
   body {
-    font-size: 1.2rem;
+    font-size: .9rem;
       margin: 0;
   }
 }
 /* small devices */
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 500px) {
   html {
     font-size: 6px;
   }
