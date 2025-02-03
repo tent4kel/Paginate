@@ -1944,8 +1944,8 @@ Readability.prototype = {
   /* convert images and figures that have properties like data-src into images that can be loaded without JS */
 _fixLazyImages: function (root) {
   this._forEachNode(this._getAllNodesWithTag(root, ["img", "picture", "figure"]), function (elem) {
-    // Preserve images with the class `preserve-image`
-    if (elem.classList.contains('preserve-image')) {
+    // Preserve images with the class `hero-image`
+    if (elem.classList.contains('hero-image')) {
       return;
     }
 
