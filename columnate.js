@@ -26,6 +26,30 @@ function Columnate() {
         return heroImageString;
     };
 
+    function levenshteinDistance(a, b) {
+        const matrix = [];
+        let i;
+        for (i = 0; i <= b.length; i++) {
+            matrix[i] = [i];
+        }
+        let j;
+        for (j = 0; j <= a.length; j++) {
+            matrix[0][j] = j;
+        }
+
+        for (i = 1; i <= b.length; i++) {
+            for (j = 1; j <= a.length; j++) {
+                if (b.charAt(i - 1) === a.charAt(j - 1)) {
+                    matrix[i][j] = matrix[i - 1][j - 1];
+                } else {
+                    matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1, Math.min(matrix[i][j - 1] + 1, matrix[i - 1][j] + 1));
+                }
+            }
+        }
+
+        return matrix[b.length][a.length];
+    }
+
     var insertHeroImage = function(heroImageString, articleContent) {
         if (heroImageString) {
             var tempDiv = document.createElement('div');
@@ -34,10 +58,11 @@ function Columnate() {
 
             var existingImages = articleContent.querySelectorAll('img');
             var alreadyPresent = Array.from(existingImages).some(function(img) {
-                var srcMatch = img.src === heroImage.src;
-                var altMatch = img.alt === heroImage.alt;
-                var titleMatch = img.title === heroImage.title;
-                return srcMatch || (altMatch && titleMatch);
+                var srcMatch = img.src.split('?')[0] === heroImage.src.split('?')[0]; // Ignore query parameters
+                var altMatch = levenshteinDistance(img.alt, heroImage.alt) < 5; // Allow slight variations
+                var titleMatch = levenshteinDistance(img.title, heroImage.title) < 5; // Allow slight variations
+                var dimensionsMatch = img.width === heroImage.width && img.height === heroImage.height;
+                return srcMatch || (altMatch && titleMatch && dimensionsMatch);
             });
 
             if (!alreadyPresent) {
