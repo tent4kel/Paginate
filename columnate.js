@@ -21,59 +21,67 @@ function Columnate() {
         console.log('Color scheme set based on time: ' + (prefersDark ? 'dark' : 'light'));
     };
 
+    var extractHeroImage = function(doc) {
+        var heroImageString = getHeroImage(doc);
+        return heroImageString;
+    };
+
+    var insertHeroImage = function(heroImageString) {
+        if (heroImageString) {
+            document.getElementById('hero-container').innerHTML = heroImageString;
+        }
+    };
+
     var MakeReadable = function() {
-    // Ensure helper scripts are loaded
-    if (typeof UnfoldSections === 'undefined' || 
-        typeof LoadAllImages === 'undefined' || 
-        typeof CleanHTML === 'undefined' || 
-        typeof getHeroImage === 'undefined') {
-        console.error('Helper scripts not loaded.');
-        return;
-    }
+        // Ensure helper scripts are loaded
+        if (typeof UnfoldSections === 'undefined' || 
+            typeof LoadAllImages === 'undefined' || 
+            typeof CleanHTML === 'undefined' || 
+            typeof getHeroImage === 'undefined') {
+            console.error('Helper scripts not loaded.');
+            return;
+        }
+
+        var heroImageString = extractHeroImage(document); // Extract hero image before document is replaced
         
-    //getHeroImage(document); // Apply to the cloned document
-    UnfoldSections(document);
-        
-    LoadAllImages(document);
+        UnfoldSections(document);
+        LoadAllImages(document);
 
-    var doclone = document.cloneNode(true);
-    CleanHTML(doclone);
+        var doclone = document.cloneNode(true);
+        CleanHTML(doclone);
 
-    try {
-         var article = new Readability(doclone, { debug: true }).parse();
-        
+        try {
+            var article = new Readability(doclone, { debug: true }).parse();
+            
+            var htmltag = document.getElementsByTagName("html")[0];
+            htmltag.removeAttribute("class");
+            htmltag.removeAttribute("style");
 
-        var htmltag = document.getElementsByTagName("html")[0];
-        htmltag.removeAttribute("class");
-        htmltag.removeAttribute("style");
+            document.head.innerHTML = "";
+            var metaTag = document.createElement('meta');
+            metaTag.name = 'viewport';
+            metaTag.content = 'width=device-width, initial-scale=1.0, user-scalable=no';
+            document.head.appendChild(metaTag);
 
-        document.head.innerHTML = "";
-        var metaTag = document.createElement('meta');
-        metaTag.name = 'viewport';
-        metaTag.content = 'width=device-width, initial-scale=1.0, user-scalable=no';
-        document.head.appendChild(metaTag);
+            LoadStylesheet('//paginate-wip.netlify.app/columnate.css');
+            LoadStylesheet('//paginate-wip.netlify.app/appearance.css');
 
-        LoadStylesheet('//paginate-wip.netlify.app/columnate.css');
-        LoadStylesheet('//paginate-wip.netlify.app/appearance.css');
+            SetColorScheme();
+            document.title = article.title;
 
-        SetColorScheme();
-        document.title = article.title;
+            document.body.removeAttribute("class");
+            document.body.removeAttribute("style");
+            document.body.innerHTML = "<h1 id='article-title'>" + article.title + "</h1><h2 id='article-byline'>" + article.byline + "</h2><h3 id='article-excerpt'>" + article.excerpt + "</h3><div id='hero-container'></div>" + article.content;
 
-        document.body.removeAttribute("class");
-        document.body.removeAttribute("style");
-        document.body.innerHTML = "<h1 id='article-title'>" + article.title + "</h1><h2 id='article-byline'>" + article.byline + "</h2><h3 id='article-excerpt'>" + article.excerpt + "</h3><div id='hero-container'></div>" + article.content;
+            console.log('Document made readable and styles applied.');
 
-        console.log('Document made readable and styles applied.');
-        var heroImageString = getHeroImage(document);
-if (heroImageString) {
-    document.getElementById('hero-container').innerHTML = heroImageString;
-}
+            insertHeroImage(heroImageString); // Insert hero image after document is replaced
 
-        loadNavigationScript();
-    } catch (error) {
-        console.error('Error parsing document with Readability:', error);
-    }
-};
+            loadNavigationScript();
+        } catch (error) {
+            console.error('Error parsing document with Readability:', error);
+        }
+    };
 
     var loadNavigationScript = function() {
         var navScript = document.createElement('script');
