@@ -217,25 +217,26 @@
         );
     }
 
-    // Function to scroll the container by its width
-    function scrollByContainerWidth(direction) {
-        const container = document.getElementById('scroll-container');
-        const scrollBackButton = document.getElementById('scroll-back-button');
-        if (container) {
-            const width = container.clientWidth; // Get the container width
-            if (direction > 0 && scrollBackButton && isElementInViewport(scrollBackButton)) {
-                console.log('Scroll-back button is in the viewport, scroll prevented.');
-            } else {
-                console.log(`Scrolling by container width: ${direction * width}px`);
-                window.scrollBy({
-                    left: direction * width,
-                    behavior: 'auto'
-                });
-                updatePagination(); // Update pagination after scrolling
-            }
+function scrollByContainerWidth(direction) {
+    const container = document.getElementById('scroll-container');
+    const scrollBackButton = document.getElementById('scroll-back-button');
+    if (container) {
+        const width = container.clientWidth; // Get the container width
+        const currentPage = Math.round(window.scrollX / width);
+        const newScrollLeft = (currentPage + direction) * width;
+
+        if (direction > 0 && scrollBackButton && isElementInViewport(scrollBackButton)) {
+            console.log('Scroll-back button is in the viewport, scroll prevented.');
+        } else {
+            console.log(`Scrolling by container width: ${direction * width}px`);
+            window.scrollTo({
+                left: newScrollLeft,
+                behavior: 'auto'
+            });
+            updatePagination(); // Update pagination after scrolling
         }
     }
-
+}
     // Resize images based on their natural size (150% max scale)
     const images = document.querySelectorAll('img');
     
