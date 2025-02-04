@@ -14,16 +14,16 @@ var CleanHTML = function(doc) {
     console.log('HTML cleaned of problematic attributes.');
 };
 
-  var SetColorScheme = function() {
-        var hour = new Date().getHours();
-        var prefersDark = (hour >= 18 || hour < 6);
-        if (prefersDark) {
-            document.documentElement.setAttribute('data-theme', 'dark');
-        } else {
-            document.documentElement.setAttribute('data-theme', 'light');
-        }
-        console.log('Color scheme set based on time: ' + (prefersDark ? 'dark' : 'light'));
-    };
+var SetColorScheme = function() {
+    var hour = new Date().getHours();
+    var prefersDark = (hour >= 18 || hour < 6);
+    if (prefersDark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+    }
+    console.log('Color scheme set based on time: ' + (prefersDark ? 'dark' : 'light'));
+};
 
 var UnfoldSections = function(doc) {
     try {
@@ -109,7 +109,7 @@ var getHeroImage = function(document) {
         var passCount = (isLarge ? 1 : 0) + (isProminent ? 1 : 0) + (hasDescriptiveAlt ? 1 : 0);
         var failCount = (isSmall ? 1 : 0) + (isRepetitive ? 1 : 0) + (isInNonContentArea ? 1 : 0) + (isSVG ? 1 : 0);
 
-        console.log('Image analysis:', { src: img.src, width: width, height: height, altText: altText, className: className, id: id, isLarge: isLarge, isProminent: isProminent, hasDescriptiveAlt: hasDescriptiveAlt, isSmall: isSmall, isRepetitive: isRepetitive, isInNonContentArea: isInNonContentArea, isSVG: isSVG, passCount: passCount, failCount: failCount });
+        console.log('Image analysis:', { src: img.src, width: width, height: height, altText: altText, className: className, id: id, isLarge: isLarge, isProminent: isProminent, hasDescriptiveAlt: hasDescriptiveAlt });
 
         return { img: img, passCount: passCount, failCount: failCount };
     });
@@ -143,4 +143,51 @@ var getHeroImage = function(document) {
 
     console.log('Hero image extraction completed. Hero image:', heroImage ? heroImage.src : 'None');
     return null;
+};
+
+function levenshteinDistance(a, b) {
+    const matrix = [];
+    let i;
+    for (i = 0; i <= b.length; i++) {
+        matrix[i] = [i];
+    }
+    let j;
+    for (j = 0; j <= a.length; j++) {
+        matrix[0][j] = j;
+    }
+
+    for (i = 1; i <= b.length; i++) {
+        for (j = 1; j <= a.length; j++) {
+            if (b.charAt(i - 1) === a.charAt(j - 1)) {
+                matrix[i][j] = matrix[i - 1][j - 1];
+            } else {
+                matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1, Math.min(matrix[i][j - 1] + 1, matrix[i - 1][j] + 1));
+            }
+        }
+    }
+
+    return matrix[b.length][a.length];
+}
+
+var insertHeroImage = function(heroImageString, articleContent) {
+    if (heroImageString) {
+        var tempDiv = document.createElement('div');
+        tempDiv.innerHTML = heroImageString;
+        var heroImage = tempDiv.querySelector('img');
+
+        var existingImages = articleContent.querySelectorAll('img');
+        var alreadyPresent = Array.from(existingImages).some(function(img) {
+            var srcMatch = img.src.split('?')[0] === heroImage.src.split('?')[0]; // Ignore query parameters
+            var altMatch = levenshteinDistance(img.alt, heroImage.alt) < 5; // Allow slight variations
+            var titleMatch = levenshteinDistance(img.title, heroImage.title) < 5; // Allow slight variations
+            var dimensionsMatch = img.width === heroImage.width && img.height === heroImage.height;
+            return srcMatch || (altMatch && titleMatch && dimensionsMatch);
+        });
+
+        if (!alreadyPresent) {
+            document.getElementById('hero-container').innerHTML = heroImageString;
+        } else {
+            console.log('Hero image already present in article content, aborting insertion.');
+        }
+    }
 };
