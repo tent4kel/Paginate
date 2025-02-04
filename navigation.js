@@ -185,26 +185,26 @@
         return 0;
     }
 
-    // Function to update the pagination display
-    function updatePagination() {
-        const pagination = document.getElementById('pagination');
-        if (pagination) {
-            const currentPage = calculateCurrentPage();
-            const totalPages = calculateTotalPages();
-            pagination.textContent = `${currentPage} / ${totalPages}`;
+ function updatePagination() {
+    const pagination = document.getElementById('pagination');
+    if (pagination) {
+        const currentPage = calculateCurrentPage();
+        const totalPages = calculateTotalPages();
+        pagination.textContent = `${currentPage} / ${totalPages}`;
 
-            // Update the extender width
-            const container = document.getElementById('scroll-container');
-            const extender = document.getElementById('extender');
-            if (container && extender) {
-                const width = container.clientWidth;
-                const contentWidth = container.scrollWidth;
-                const additionalWidth = (Math.ceil(contentWidth / width) * width) - contentWidth;
-                extender.style.width = `${additionalWidth}px`;
-                extender.style.height = '1px';
-            }
+        // Update the extender width
+        const container = document.getElementById('scroll-container');
+        const extender = document.getElementById('extender');
+        if (container && extender) {
+            const width = container.clientWidth;
+            const contentWidth = container.scrollWidth;
+            const theoreticalWidth = totalPages * width;
+            const additionalWidth = theoreticalWidth - contentWidth;
+            extender.style.width = `${additionalWidth}px`;
+            extender.style.height = '1px';
         }
     }
+}
 
     // Function to check if an element is in the viewport
     function isElementInViewport(el) {
