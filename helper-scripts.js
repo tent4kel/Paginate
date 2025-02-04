@@ -78,13 +78,10 @@ var LoadAllImages = function(doc) {
     console.log('All images set to load eagerly.');
 };
 
-// Function to retrieve the hero image
-// Function to retrieve the hero image
 var getHeroImage = function(document) {
     console.log('Starting hero image extraction.');
     var images = document.querySelectorAll('img:not([src$=".svg"])');
     var heroImage = null;
-    var maxCandidates = 5;
 
     var largeDimensions = { width: 600, height: 300 };
     var prominentClasses = ['hero', 'featured', 'main-image'];
@@ -101,54 +98,24 @@ var getHeroImage = function(document) {
         var id = img.id.toLowerCase();
 
         var isLarge = width > largeDimensions.width && height > largeDimensions.height;
-        var isProminent = prominentClasses.some(function(cls) {
-            return className.includes(cls) || id.includes(cls);
-        });
-        var hasDescriptiveAlt = descriptiveAltKeywords.some(function(keyword) {
-            return altText.includes(keyword);
-        }) || altText.length > 10;
+        var isProminent = prominentClasses.some(function(cls) { return className.includes(cls) || id.includes(cls); });
+        var hasDescriptiveAlt = descriptiveAltKeywords.some(function(keyword) { return altText.includes(keyword); }) || altText.length > 10;
 
         var isSmall = width < 300 || height < 200;
-        var isRepetitive = exclusionPatterns.some(function(pattern) {
-            return src.includes(pattern);
-        });
-        var isInNonContentArea = exclusionClasses.some(function(cls) {
-            return className.includes(cls);
-        });
-
+        var isRepetitive = exclusionPatterns.some(function(pattern) { return src.includes(pattern); });
+        var isInNonContentArea = exclusionClasses.some(function(cls) { return className.includes(cls); });
         var isSVG = src.startsWith('data:image/svg+xml');
 
         var passCount = (isLarge ? 1 : 0) + (isProminent ? 1 : 0) + (hasDescriptiveAlt ? 1 : 0);
         var failCount = (isSmall ? 1 : 0) + (isRepetitive ? 1 : 0) + (isInNonContentArea ? 1 : 0) + (isSVG ? 1 : 0);
 
-        console.log('Image analysis:', {
-            src: img.src,
-            width: width,
-            height: height,
-            altText: altText,
-            className: className,
-            id: id,
-            isLarge: isLarge,
-            isProminent: isProminent,
-            hasDescriptiveAlt: hasDescriptiveAlt,
-            isSmall: isSmall,
-            isRepetitive: isRepetitive,
-            isInNonContentArea: isInNonContentArea,
-            isSVG: isSVG,
-            passCount: passCount,
-            failCount: failCount
-        });
+        console.log('Image analysis:', { src: img.src, width: width, height: height, altText: altText, className: className, id: id, isLarge: isLarge, isProminent: isProminent, hasDescriptiveAlt: hasDescriptiveAlt, isSmall: isSmall, isRepetitive: isRepetitive, isInNonContentArea: isInNonContentArea, isSVG: isSVG, passCount: passCount, failCount: failCount });
 
         return { img: img, passCount: passCount, failCount: failCount };
     });
 
-    candidates = candidates.filter(function(candidate) {
-        return candidate.failCount === 0;
-    });
-
-    candidates.sort(function(a, b) {
-        return b.passCount - a.passCount;
-    });
+    candidates = candidates.filter(function(candidate) { return candidate.failCount === 0; });
+    candidates.sort(function(a, b) { return b.passCount - a.passCount; });
 
     if (candidates.length > 0) {
         heroImage = candidates[0].img;
@@ -158,12 +125,22 @@ var getHeroImage = function(document) {
         figure.appendChild(heroImage);
 
         heroImage.classList.add('hero-image', 'featured-image', 'article-image', 'main');
-        
         console.log('Hero image classes added:', heroImage.className);
+
+        var caption = heroImage.getAttribute('title') || "No caption available";
+        var credit = heroImage.getAttribute('data-credit') || "No credit available";
+        var alt = heroImage.getAttribute('alt') || "No alt text available";
+
+        var htmlString = `<figure class="hero-figure">
+                            <img src="${heroImage.src}" class="${heroImage.className}" alt="${alt}" title="${caption}" data-credit="${credit}">
+                            <figcaption>${caption} - ${credit}</figcaption>
+                          </figure>`;
+        console.log('HTML string for hero image:', htmlString);
+        return htmlString;
     } else {
         console.log('No suitable hero image found.');
     }
 
     console.log('Hero image extraction completed. Hero image:', heroImage ? heroImage.src : 'None');
-    return heroImage ? heroImage.src : null;
+    return null;
 };
