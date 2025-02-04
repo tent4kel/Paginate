@@ -26,9 +26,25 @@ function Columnate() {
         return heroImageString;
     };
 
-    var insertHeroImage = function(heroImageString) {
+    var insertHeroImage = function(heroImageString, articleContent) {
         if (heroImageString) {
-            document.getElementById('hero-container').innerHTML = heroImageString;
+            var tempDiv = document.createElement('div');
+            tempDiv.innerHTML = heroImageString;
+            var heroImage = tempDiv.querySelector('img');
+
+            var existingImages = articleContent.querySelectorAll('img');
+            var alreadyPresent = Array.from(existingImages).some(function(img) {
+                var srcMatch = img.src === heroImage.src;
+                var altMatch = img.alt === heroImage.alt;
+                var titleMatch = img.title === heroImage.title;
+                return srcMatch || (altMatch && titleMatch);
+            });
+
+            if (!alreadyPresent) {
+                document.getElementById('hero-container').innerHTML = heroImageString;
+            } else {
+                console.log('Hero image already present in article content, aborting insertion.');
+            }
         }
     };
 
@@ -75,7 +91,7 @@ function Columnate() {
 
             console.log('Document made readable and styles applied.');
 
-            insertHeroImage(heroImageString); // Insert hero image after document is replaced
+            insertHeroImage(heroImageString, document.body); // Insert hero image after document is replaced
 
             loadNavigationScript();
         } catch (error) {
