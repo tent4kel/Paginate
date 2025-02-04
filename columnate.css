@@ -114,7 +114,7 @@ table, th, td, tr, tbody {
   break-inside: column;
 }
 
-.page, h1 {
+.page, h1, #hero-container {
   padding-right: 2rem;
   padding-left: 0rem;
   margin-top: 0px;
