@@ -7,7 +7,7 @@ html {
 
 body {
   font-size: .5625rem;
-  height: 100dvh;
+  height: 100vh;
   padding: 0em;
   margin-left: 0rem;
   margin-right: 0rem;
@@ -22,7 +22,7 @@ body {
   margin: 1rem;
   padding: 0rem;
   padding-left: 0;
-  padding-top: 1rem;
+  /* padding-top: 1rem; */
   padding-bottom: 2rem;
   column-fill: auto;
   column-width: 21em;
@@ -42,9 +42,9 @@ body {
     font-size:24px;
   }
   body {
-    font-size: .9rem;
-      margin: 0;
+    font-size: .9rem;  
   }
+  
 }
 /* small devices */
 @media only screen and (max-width: 500px) {
@@ -52,7 +52,7 @@ body {
     font-size: 6px;
   }
   body {
-    font-size: 2.6rem;
+    font-size: 2.7rem;
   }
 }
 
@@ -62,12 +62,12 @@ figure {
 }
 
 h1, h2, h3, h4, h5, h6, p, figcaption {
-  padding-top: .8em;
-  padding-left: 0;
-  margin-block-start: 0;
-  margin-block-end: 0;
-  margin-inline-start: 0;
-  margin-inline-end: 0;
+  /* padding-top: .8em; */
+  /* padding-left: 0; */
+   margin-block-start: .5em; 
+   margin-block-end: .5em;
+  /* margin-inline-start: 0; */
+  /* margin-inline-end: 0; */
 }
 
 ul {
@@ -139,7 +139,6 @@ h1, h2, h3, h4, h5, h6 {
 p {
     orphans: 2;
     widows: 2;
-
 }
 
 p, ul, ol {
