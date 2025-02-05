@@ -1,10 +1,11 @@
-# Columnate for eInk
+# Paginate!
 
-Bookmarklet for multicolumn reader mode.
+Bookmarklet for multicolumn and paginated reader mode.
+It is tweaked to make websites enjoyable on eink devices, reduce scrolling on big tablets and look beautiful. 
 
 ## Installation
 
-Visit [eink-reader.netlify.app](https://eink-reader.netlify.app) and drag the **Columnate** link to your bookmarks bar to install.
+Visit [paginate-reader.netlify.app](https://Paginate.reader.netlify.app) and drag the **Paginate!** link to your bookmarks bar to install.
 
 ## Usage
 
@@ -12,7 +13,7 @@ Find a web page with a long article. Click the **Columnate** bookmarklet to refo
 
 ## Acknowledgements
 Based on [anoved.github.io/Columnate](https://anoved.github.io/Columnate/)
-Columnate uses [Mozilla Readability](https://github.com/mozilla/readability). Columnate is a simplified rewrite of my earlier effort [McReadability](https://github.com/anoved/mcreadability), which was based on a now-obselete predecessor of Mozilla Readability. Bookmarklet creation is modelled after [Bookmarkletify](https://martijnbrekelmans.com/bookmarkletify/) by Martijn Brekelmans.
+Columnate uses [Mozilla Readability](https://github.com/mozilla/readability). Bookmarklet creation is modelled after [Bookmarkletify](https://martijnbrekelmans.com/bookmarkletify/) by Martijn Brekelmans.
 
 ## License
 
