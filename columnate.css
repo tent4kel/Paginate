@@ -1,7 +1,8 @@
 html {
   font-size: 32px;
   height: 100%;
-  height: 100dvh;
+  /* width: fit-content; */
+  /* height: 100dvh; */
   padding: 0;
   margin: 0;
 }
@@ -9,27 +10,26 @@ html {
 body {
   font-size: .5625rem;
   height: 100%;
-  height: 100dvh;
+  /* height: 80%; */
   padding: 0em;
-  margin-left: 0rem;
+  margin: 0;
   margin-right: 0rem;
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
 }
 
 #scroll-container {
-  position: relative;
-  width: auto;
-  height:100%;
-  
+  position: absolute;
+  /* width: auto; */
+  max-height: 95%;
+  max-height: 95dvh;
   margin: 1rem;
-  padding: 0rem;
-  /* padding-top: 1rem; */
-  padding-bottom: 3rem;
+  padding: 0;
+  margin-top: 2vh;
   column-fill: auto;
   column-width: 21em;
   column-count: auto;
   column-gap: 0rem;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   transform: translateX(1rem);
   /* background:#78bdbd;
   border:2em #9b9b1f;
@@ -60,6 +60,7 @@ body {
 figure {
   padding: 0;
   margin: 0;
+  page-break-inside: avoid;
 }
 
 h1, h2, h3, h4, h5, h6, p, figcaption {
@@ -99,21 +100,6 @@ table, th, td, tr, tbody {
   break-inside: column;
 }
 
-
-
-iframe {
-  width: auto;
-  height: auto;
-}
-
-blockquote {
-  margin-right: 0;
-}
-
-table, th, td, tr, tbody {
-  display: block;
-  break-inside: column;
-}
 
 .page, h1, #hero-container {
   padding-right: 2rem;
@@ -168,9 +154,6 @@ figcaption, small {
   break-inside: avoid;
 }
 
-figures {
-  page-break-inside: avoid;
-}
 
 img, video {
   max-width: 100%;
