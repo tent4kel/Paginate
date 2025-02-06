@@ -131,30 +131,33 @@
     }
 
     // Function to append end of article div
-    function appendEndOfArticleDiv() {
-        const container = document.getElementById('scroll-container');
-        if (container) {
-            const endDiv = document.createElement('div');
-            endDiv.id = 'end-of-article';
-            endDiv.innerHTML = `
-                <button id="go-back-button">Go Back</button>
-                <button id="scroll-back-button">Scroll Back</button>
-                <div id='extender'></div>
-            `;
-            container.appendChild(endDiv);
+function appendEndOfArticleDiv() {
+    const container = document.getElementById('scroll-container');
+    if (container) {
+        const endDiv = document.createElement('div');
+        endDiv.id = 'end-of-article';
+        endDiv.innerHTML = `
+            <button id="go-back-button">Go Back</button>
+            <button id="scroll-back-button">Scroll Back</button>
+        `;
+        container.appendChild(endDiv);
 
-            // Attach event listeners to the buttons
-            document.getElementById('go-back-button').addEventListener('click', function() {
-                window.history.back();
-            });
+        const extender = document.createElement('div');
+        extender.id = 'extender';
+        container.appendChild(extender);
 
-            document.getElementById('scroll-back-button').addEventListener('click', function() {
-                window.scrollTo({
-                    left: 0,  // Scroll to the far left
-                });
+        // Attach event listeners to the buttons
+        document.getElementById('go-back-button').addEventListener('click', function() {
+            window.history.back();
+        });
+
+        document.getElementById('scroll-back-button').addEventListener('click', function() {
+            window.scrollTo({
+                left: 0,  // Scroll to the far left
             });
-        }
+        });
     }
+}
 
     // Function to calculate the total number of pages
     function calculateTotalPages() {
@@ -195,7 +198,7 @@ function updatePagination() {
         // Update the extender width
         const container = document.getElementById('scroll-container');
         const extender = document.getElementById('extender');
-        const endOfArticle = document.getElementById('readability-page-1');
+        const endOfArticle = document.getElementById('end-of-article');
         if (container && extender && endOfArticle) {
             const width = container.clientWidth;
             const endRect = endOfArticle.getBoundingClientRect();
