@@ -185,7 +185,7 @@
         return 0;
     }
 
- function updatePagination() {
+function updatePagination() {
     const pagination = document.getElementById('pagination');
     if (pagination) {
         const currentPage = calculateCurrentPage();
@@ -198,14 +198,14 @@
         if (container && extender) {
             const width = container.clientWidth;
             const contentWidth = container.scrollWidth;
-            const theoreticalWidth = totalPages * width;
-            const additionalWidth = theoreticalWidth - contentWidth;
+            const nextMultiple = Math.ceil(contentWidth / width) * width;
+            const additionalWidth = nextMultiple - contentWidth;
             extender.style.width = `${additionalWidth}px`;
             extender.style.height = '1px';
             console.log(`Current container width: ${width}`);
             console.log(`Current content width: ${contentWidth}`);
-            console.log(`Theoretical width = container width ( ${width} )* Pages ( ${totalPages} ) = ${theoreticalWidth}`);
-            console.log(`Current extender width (theoreticalWidth - contentWidth) : ${additionalWidth}`);
+            console.log(`Next multiple of container width: ${nextMultiple}`);
+            console.log(`Current extender width (nextMultiple - contentWidth): ${additionalWidth}`);
         }
     }
 }
