@@ -202,6 +202,10 @@
             const additionalWidth = theoreticalWidth - contentWidth;
             extender.style.width = `${additionalWidth}px`;
             extender.style.height = '1px';
+            console.log(`Current container width: ${width}`);
+            console.log(`Current content width: ${contentWidth}`);
+            console.log(`Theoretical width = container width ( ${width} )* Pages ( ${totalPages} ) = ${theoreticalWidth}`);
+            console.log(`Current extender width (theoreticalWidth - contentWidth) : ${additionalWidth}`);
         }
     }
 }
