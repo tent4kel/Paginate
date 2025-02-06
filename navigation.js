@@ -195,16 +195,19 @@ function updatePagination() {
         // Update the extender width
         const container = document.getElementById('scroll-container');
         const extender = document.getElementById('extender');
-        if (container && extender) {
+        const endOfArticle = document.getElementById('end-of-article');
+        if (container && extender && endOfArticle) {
             const width = container.clientWidth;
-            const contentWidth = container.scrollWidth;
-            const nextMultiple = Math.ceil(contentWidth / width) * width;
-            const remainder = contentWidth % width;
-            const additionalWidth = (remainder === 0 ? width : width - remainder);
+            const endRect = endOfArticle.getBoundingClientRect();
+            const containerRect = container.getBoundingClientRect();
+            const endRight = endRect.right - containerRect.left;
+            const nextMultiple = Math.ceil(endRight / width) * width;
+            const additionalWidth = nextMultiple - endRight;
+
             extender.style.width = `${additionalWidth}px`;
             extender.style.height = '1px';
             console.log(`Current container width: ${width}`);
-            console.log(`Current content width: ${contentWidth}`);
+            console.log(`Rightmost point of end-of-article: ${endRight}`);
             console.log(`Next multiple of container width: ${nextMultiple}`);
             console.log(`Current extender width (to align with next column): ${additionalWidth}`);
         }
