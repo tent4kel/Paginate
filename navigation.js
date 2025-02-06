@@ -199,13 +199,14 @@ function updatePagination() {
             const width = container.clientWidth;
             const contentWidth = container.scrollWidth;
             const nextMultiple = Math.ceil(contentWidth / width) * width;
-            const additionalWidth = nextMultiple - contentWidth;
+            const remainder = contentWidth % width;
+            const additionalWidth = (remainder === 0 ? width : width - remainder);
             extender.style.width = `${additionalWidth}px`;
             extender.style.height = '1px';
             console.log(`Current container width: ${width}`);
             console.log(`Current content width: ${contentWidth}`);
             console.log(`Next multiple of container width: ${nextMultiple}`);
-            console.log(`Current extender width (nextMultiple - contentWidth): ${additionalWidth}`);
+            console.log(`Current extender width (to align with next column): ${additionalWidth}`);
         }
     }
 }
