@@ -188,8 +188,6 @@ table {
 }
 
 #extender {
-  color: orange;
-  break-before:always;
-  break-after:column;
-  width:auto;
+break-before: column;
+  width:100%;
 }
