@@ -195,7 +195,7 @@ function updatePagination() {
         // Update the extender width
         const container = document.getElementById('scroll-container');
         const extender = document.getElementById('extender');
-        const endOfArticle = document.getElementById('end-of-article');
+        const endOfArticle = document.getElementById('scroll-back-button');
         if (container && extender && endOfArticle) {
             const width = container.clientWidth;
             const endRect = endOfArticle.getBoundingClientRect();
