@@ -207,13 +207,15 @@ function updatePagination() {
             const nextMultiple = Math.ceil(endRight / width) * width;
             let additionalWidth = nextMultiple - endRight;
             
-            // If the additional width is less than 30px, set it to zero
+            // If the additional width is less than 30px, hide the extender
             if (additionalWidth < 30) {
-                additionalWidth = 0;
+                extender.style.display = 'none';
+            } else {
+                extender.style.display = 'block';
+                extender.style.width = `${additionalWidth}px`;
+                extender.style.height = '1px';
             }
 
-            extender.style.width = `${additionalWidth}px`;
-            extender.style.height = '1px';
             console.log(`Current container width: ${width}`);
             console.log(`Rightmost point of end-of-article (after deduction): ${endRight}`);
             console.log(`Next multiple of container width: ${nextMultiple}`);
