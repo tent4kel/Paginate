@@ -203,14 +203,19 @@ function updatePagination() {
             const width = container.clientWidth;
             const endRect = endOfArticle.getBoundingClientRect();
             const containerRect = container.getBoundingClientRect();
-            const endRight = endRect.right - containerRect.left;
+            const endRight = endRect.right - containerRect.left - 10; // Deduct 10px
             const nextMultiple = Math.ceil(endRight / width) * width;
-            const additionalWidth = nextMultiple - endRight;
+            let additionalWidth = nextMultiple - endRight;
+            
+            // If the additional width is less than 30px, set it to zero
+            if (additionalWidth < 30) {
+                additionalWidth = 0;
+            }
 
             extender.style.width = `${additionalWidth}px`;
             extender.style.height = '1px';
             console.log(`Current container width: ${width}`);
-            console.log(`Rightmost point of end-of-article: ${endRight}`);
+            console.log(`Rightmost point of end-of-article (after deduction): ${endRight}`);
             console.log(`Next multiple of container width: ${nextMultiple}`);
             console.log(`Current extender width (to align with next column): ${additionalWidth}`);
         }
