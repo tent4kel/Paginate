@@ -51,9 +51,9 @@ body::after {
   /* background:#78bdbd;
   border:2em #9b9b1f;
   */ /*! outline:10px pink; */ /*! outline-offset: -10px; */
-  bottom: 2rem;
-  left: 2rem;
-  right: 2rem;
+  bottom: 1rem;
+  left: 1rem;
+  right: 1rem;
 }
 
 /* medium devies */
