@@ -83,6 +83,10 @@ body::after {
 
   }
 }
+/* my boox page  */
+@media only screen and (min-resolution: 1.8dppx) and (max-resolution: 1.99dppx) {
+    font-size: .85rem;  
+}
 
 
 
