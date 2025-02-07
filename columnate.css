@@ -28,7 +28,8 @@ body::after {
   height: 100vh;
   border:2rem solid var(--bgColor);
   box-sizing:border-box;
-  border-top: 0rem;
+  border-top: 0;
+  border-Bottom:0;
   pointer-events: none;
 }
 
@@ -38,7 +39,7 @@ body::after {
   top: 1rem;
   width: auto;
   height: auto;
-  max-height: 94dvh;
+  max-height:100dvh;
   /*! margin: 1rem; */
   padding: 0rem;
   /*! margin-top: 2vh; */
