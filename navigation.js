@@ -31,14 +31,6 @@
             }
         });
 
-        // Optional: Event listener for a custom button press (e.g., a specific button click)
-        const button = document.getElementById('scroll-button'); // Assume you have a button with id 'scroll-button'
-        if (button) {
-            button.addEventListener('click', function() {
-                console.log('Custom button clicked, scrolling right');
-                scrollByContainerWidth(1);
-            });
-        }
 
         let canScroll = true;
 
@@ -159,55 +151,38 @@ function appendEndOfArticleDiv() {
     }
 }
 
-    // Function to calculate the total number of pages
-    function calculateTotalPages() {
-        const container = document.getElementById('scroll-container');
-        const scrollBackButton = document.getElementById('scroll-back-button');
-        if (container && scrollBackButton) {
-            const width = container.clientWidth; // Get the container width
-            const buttonRect = scrollBackButton.getBoundingClientRect(); // Get the position of the scroll-back-button
-            const buttonPosition = buttonRect.left + window.scrollX; // Calculate the button's position relative to the document
-            const totalPages = Math.ceil((buttonPosition + 10) / width); // Calculate total pages with tolerance
-            console.log(`Total pages: ${totalPages}`);
-            return totalPages;
-        }
-        return 0;
-    }
-
-    // Function to calculate the current page based on scroll position and container width
-    function calculateCurrentPage() {
-        const container = document.getElementById('scroll-container');
-        if (container) {
-            const width = container.clientWidth; // Get the container width
-            const scrollLeft = window.scrollX; // Get the current scroll position of the window
-            console.log(`Container width: ${width}, Scroll left: ${scrollLeft}`);
-            const page = Math.round((scrollLeft + 10) / width) + 1;
-            console.log(`Current page: ${page}`);
-            return page;
-        }
-        return 0;
-    }
 
 function updatePagination() {
     const pagination = document.getElementById('pagination');
-    if (pagination) {
-        const currentPage = calculateCurrentPage();
-        const totalPages = calculateTotalPages();
-        pagination.textContent = `${currentPage} / ${totalPages}`;
+    const container = document.getElementById('scroll-container');
+    const extender = document.getElementById('extender');
+    const endOfArticle = document.getElementById('end-of-article');
 
-        // Update the extender width
-        const container = document.getElementById('scroll-container');
-        const extender = document.getElementById('extender');
-        const endOfArticle = document.getElementById('end-of-article');
-        if (container && extender && endOfArticle) {
-            const width = container.clientWidth;
-            const endRect = endOfArticle.getBoundingClientRect();
-            const containerRect = container.getBoundingClientRect();
-            const endRight = endRect.right - containerRect.left - 10; // Deduct 10px
-            const nextMultiple = Math.ceil(endRight / width) * width;
-            let additionalWidth = nextMultiple - endRight;
-            
-            // If the additional width is less than 30px, hide the extender
+    if (container && endOfArticle) {
+        const width = container.clientWidth;
+        const scrollLeft = window.scrollX;
+
+        // Calculate the rightmost point of end-of-article relative to the container
+        const endRect = endOfArticle.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
+        const endRight = endRect.right - containerRect.left - 10; // Deduct 10px
+
+        // Calculate total pages
+        const totalPages = Math.ceil((endRight + 10) / width);
+
+        // Calculate current page
+        const currentPage = Math.round((scrollLeft + 10) / width) + 1;
+
+        // Update pagination display
+        if (pagination) {
+            pagination.textContent = `${currentPage} / ${totalPages}`;
+        }
+
+        // Calculate extender width to align with totalPages
+        const nextMultiple = totalPages * width;
+        let additionalWidth = nextMultiple - endRight;
+
+        if (extender) {
             if (additionalWidth < 30) {
                 extender.style.display = 'none';
             } else {
@@ -215,12 +190,14 @@ function updatePagination() {
                 extender.style.width = `${additionalWidth}px`;
                 extender.style.height = '1px';
             }
-
-            console.log(`Current container width: ${width}`);
-            console.log(`Rightmost point of end-of-article (after deduction): ${endRight}`);
-            console.log(`Next multiple of container width: ${nextMultiple}`);
-            console.log(`Current extender width (to align with next column): ${additionalWidth}`);
         }
+
+        console.log(`Total pages: ${totalPages}`);
+        console.log(`Current page: ${currentPage}`);
+        console.log(`Container width: ${width}`);
+        console.log(`Rightmost point of end-of-article (after deduction): ${endRight}`);
+        console.log(`Next multiple of container width: ${nextMultiple}`);
+        console.log(`Extender width (to align with next column): ${additionalWidth}`);
     }
 }
 
@@ -255,49 +232,7 @@ function scrollByContainerWidth(direction) {
         }
     }
 }
-    // Resize images based on their natural size (150% max scale)
-    const images = document.querySelectorAll('img');
-    
-    images.forEach(img => {
-        // Wait for the image to fully load before processing
-        img.addEventListener('load', function() {
-            const originalWidth = img.naturalWidth;
-            const originalHeight = img.naturalHeight;
 
-            // Check that we actually have valid dimensions
-            if (originalWidth > 0 && originalHeight > 0) {
-                // Calculate the maximum allowed size (150% of the original size)
-                const maxWidth = originalWidth * 1.5;
-                const maxHeight = originalHeight * 1.5;
-                
-                // Apply the max width and max height
-                img.style.maxWidth = `${maxWidth}px`;
-                img.style.maxHeight = `${maxHeight}px`;
-
-                // Make sure the image is responsive but does not exceed the calculated limits
-                img.style.width = '100%';
-                img.style.height = 'auto';
-
-                // Logging
-                console.log(`Image resized: originalWidth=${originalWidth}, originalHeight=${originalHeight}, maxWidth=${maxWidth}, maxHeight=${maxHeight}`);
-            }
-        });
-
-        // If the image is already loaded (in case it’s cached), we can process it immediately
-        if (img.complete) {
-            const originalWidth = img.naturalWidth;
-            const originalHeight = img.naturalHeight;
-            if (originalWidth > 0 && originalHeight > 0) {
-                const maxWidth = originalWidth * 1.5;
-                const maxHeight = originalHeight * 1.5;
-                img.style.maxWidth = `${maxWidth}px`;
-                img.style.maxHeight = `${maxHeight}px`;
-                img.style.width = '100%';
-                img.style.height = 'auto';
-                console.log(`Image resized: originalWidth=${originalWidth}, originalHeight=${originalHeight}, maxWidth=${maxWidth}, maxHeight=${maxHeight}`);
-            }
-        }
-    });
 
     // Expose the initNavigation function to be called externally
     window.initNavigation = initNavigation;
