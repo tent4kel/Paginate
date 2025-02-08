@@ -64,38 +64,58 @@
         let touchStartY = 0;
         let touchEndY = 0;
 
-        // Touch start event listener
-        document.addEventListener('touchstart', function(event) {
-            touchStartX = event.changedTouches[0].screenX;
-            touchStartY = event.changedTouches[0].screenY;
-        });
+  let swipeTimer = null;
+let swipeDirection = 0; // 1 for forward, -1 for backward
+let swipeStartX = 0, swipeStartY = 0;
 
-        // Touch move event listener
-        document.addEventListener('touchmove', function(event) {
-            // Prevent default touch scrolling
-            event.preventDefault();
-        }, { passive: false });
+document.addEventListener('touchstart', function(event) {
+    const touch = event.changedTouches[0];
+    swipeStartX = touch.screenX;
+    swipeStartY = touch.screenY;
+    swipeDirection = 0;
+    if (swipeTimer) {
+        clearInterval(swipeTimer);
+        swipeTimer = null;
+    }
+});
 
-        // Touch end event listener (detect swipe direction)
-        document.addEventListener('touchend', function(event) {
-            touchEndX = event.changedTouches[0].screenX;
-            touchEndY = event.changedTouches[0].screenY;
+document.addEventListener('touchmove', function(event) {
+    event.preventDefault(); // Prevent default scrolling
+    const touch = event.changedTouches[0];
+    const deltaX = touch.screenX - swipeStartX;
+    const deltaY = touch.screenY - swipeStartY;
+    
+    // Decide whether horizontal or vertical swipe is dominant.
+    if (Math.abs(deltaX) >= Math.abs(deltaY)) {
+        // Horizontal swipe
+        if (Math.abs(deltaX) > 50 && swipeDirection === 0) {
+            // Determine direction: right swipe means moving backward, left swipe moves forward
+            swipeDirection = (deltaX > 0) ? -1 : 1;
+            scrollByContainerWidth(swipeDirection);
+            swipeTimer = setInterval(() => {
+                scrollByContainerWidth(swipeDirection);
+            }, 300); // Adjust interval as needed
+        }
+    } else {
+        // Vertical swipe
+        if (Math.abs(deltaY) > 50 && swipeDirection === 0) {
+            // Down swipe moves backward, up swipe moves forward
+            swipeDirection = (deltaY > 0) ? -1 : 1;
+            scrollByContainerWidth(swipeDirection);
+            swipeTimer = setInterval(() => {
+                scrollByContainerWidth(swipeDirection);
+            }, 300);
+        }
+    }
+});
 
-            // If the swipe was long enough, trigger the appropriate page turn
-            if (touchEndX - touchStartX > 50) {
-                console.log('Swiped right via touch');
-                scrollByContainerWidth(-1); // Scroll right (forward)
-            } else if (touchStartX - touchEndX > 50) {
-                console.log('Swiped left via touch');
-                scrollByContainerWidth(1); // Scroll left (backward)
-            } else if (touchEndY - touchStartY > 50) {
-                console.log('Swiped down via touch');
-                scrollByContainerWidth(-1); // Scroll down (forward)
-            } else if (touchStartY - touchEndY > 50) {
-                console.log('Swiped up via touch');
-                scrollByContainerWidth(1); // Scroll up (backward)
-            }
-        });
+document.addEventListener('touchend', function() {
+    if (swipeTimer) {
+        clearInterval(swipeTimer);
+        swipeTimer = null;
+    }
+    swipeDirection = 0;
+});
 
         // Add an event listener to trigger page calculation on viewport resize
         window.addEventListener('resize', updatePagination);
