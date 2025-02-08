@@ -66,9 +66,10 @@
 let swipeTimer = null;
 let swipeDirection = 0; // 1 for forward, -1 for backward
 let swipeStartX = 0, swipeStartY = 0;
+let currentInterval = 500; // starting interval in ms
 
 document.addEventListener('touchstart', function(event) {
-    event.preventDefault();
+    event.preventDefault(); // disable native scrolling
     const touch = event.changedTouches[0];
     swipeStartX = touch.screenX;
     swipeStartY = touch.screenY;
@@ -77,36 +78,56 @@ document.addEventListener('touchstart', function(event) {
         clearInterval(swipeTimer);
         swipeTimer = null;
     }
-});
+    currentInterval = 500; // reset to base interval
+}, { passive: false });
 
 document.addEventListener('touchmove', function(event) {
-    event.preventDefault(); // Prevent default scrolling
+    event.preventDefault();
     const touch = event.changedTouches[0];
     const deltaX = touch.screenX - swipeStartX;
     const deltaY = touch.screenY - swipeStartY;
     
-    // Decide whether horizontal or vertical swipe is dominant.
-    if (Math.abs(deltaX) >= Math.abs(deltaY)) {
-        // Horizontal swipe
-        if (Math.abs(deltaX) > 50 && swipeDirection === 0) {
-            // Determine direction: right swipe means moving backward, left swipe moves forward
-            swipeDirection = (deltaX > 0) ? -1 : 1;
+    // Determine dominant swipe distance
+    const distance = (Math.abs(deltaX) >= Math.abs(deltaY)) 
+                     ? Math.abs(deltaX) 
+                     : Math.abs(deltaY);
+
+    // Start scrolling if we pass a threshold (e.g., 50px)
+    if (distance > 50 && swipeDirection === 0) {
+        // Set direction: for horizontal, right swipe (deltaX > 0) moves backward; left swipe moves forward
+        // For vertical, down swipe (deltaY > 0) moves backward; up swipe moves forward
+        swipeDirection = (Math.abs(deltaX) >= Math.abs(deltaY))
+            ? (deltaX > 0 ? -1 : 1)
+            : (deltaY > 0 ? -1 : 1);
+            
+        // Scroll one page immediately
+        scrollByContainerWidth(swipeDirection);
+        
+        // Compute dynamic interval:
+        // The further the swipe, the shorter the delay (but not below a minimum)
+        currentInterval = Math.max(100, 500 - (distance - 50));
+        swipeTimer = setInterval(() => {
             scrollByContainerWidth(swipeDirection);
+        }, currentInterval);
+    } else if (swipeTimer) {
+        // Recalculate interval based on updated distance
+        const newInterval = Math.max(100, 500 - (distance - 50));
+        if (newInterval !== currentInterval) {
+            clearInterval(swipeTimer);
+            currentInterval = newInterval;
             swipeTimer = setInterval(() => {
                 scrollByContainerWidth(swipeDirection);
-            }, 400); // Adjust interval as needed
-        }
-    } else {
-        // Vertical swipe
-        if (Math.abs(deltaY) > 50 && swipeDirection === 0) {
-            // Down swipe moves backward, up swipe moves forward
-            swipeDirection = (deltaY > 0) ? -1 : 1;
-            scrollByContainerWidth(swipeDirection);
-            swipeTimer = setInterval(() => {
-                scrollByContainerWidth(swipeDirection);
-            }, 400);
+            }, currentInterval);
         }
     }
+}, { passive: false });
+
+document.addEventListener('touchend', function() {
+    if (swipeTimer) {
+        clearInterval(swipeTimer);
+        swipeTimer = null;
+    }
+    swipeDirection = 0;
 });
 
 document.addEventListener('touchend', function() {
