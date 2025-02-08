@@ -63,12 +63,12 @@
         let touchEndX = 0;
         let touchStartY = 0;
         let touchEndY = 0;
-
-  let swipeTimer = null;
+let swipeTimer = null;
 let swipeDirection = 0; // 1 for forward, -1 for backward
 let swipeStartX = 0, swipeStartY = 0;
 
 document.addEventListener('touchstart', function(event) {
+    event.preventDefault();
     const touch = event.changedTouches[0];
     swipeStartX = touch.screenX;
     swipeStartY = touch.screenY;
