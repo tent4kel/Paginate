@@ -94,7 +94,7 @@ document.addEventListener('touchmove', function(event) {
             scrollByContainerWidth(swipeDirection);
             swipeTimer = setInterval(() => {
                 scrollByContainerWidth(swipeDirection);
-            }, 300); // Adjust interval as needed
+            }, 400); // Adjust interval as needed
         }
     } else {
         // Vertical swipe
@@ -104,7 +104,7 @@ document.addEventListener('touchmove', function(event) {
             scrollByContainerWidth(swipeDirection);
             swipeTimer = setInterval(() => {
                 scrollByContainerWidth(swipeDirection);
-            }, 300);
+            }, 400);
         }
     }
 });
