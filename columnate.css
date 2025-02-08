@@ -18,6 +18,8 @@ body {
   margin: 0;
   margin-right: 0rem;
   overflow-y: hidden;
+  
+  touch-action: none;
 }
 
 body::after {
@@ -32,6 +34,8 @@ body::after {
   border-top: 0;
   border-Bottom:0;
   pointer-events: none;
+  
+  touch-action: none;
 }
 
 #scroll-container {
@@ -56,7 +60,11 @@ body::after {
   bottom: 1rem;
   left: 1rem;
   right: 1rem;
+  
+  touch-action: none;
 }
+
+
 
 /* medium devies */
 @media only screen and (max-width: 1000px) {
