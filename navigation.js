@@ -66,7 +66,9 @@
 let swipeTimer = null;
 let swipeDirection = 0; // 1 for forward, -1 for backward
 let swipeStartX = 0, swipeStartY = 0;
-let currentInterval = 500; // starting interval in ms
+const baseInterval = 500; // starting interval when threshold is met (in ms)
+const minInterval = 100;  // fastest possible interval
+let dynamicInterval = baseInterval;
 
 document.addEventListener('touchstart', function(event) {
     event.preventDefault(); // disable native scrolling
@@ -74,11 +76,11 @@ document.addEventListener('touchstart', function(event) {
     swipeStartX = touch.screenX;
     swipeStartY = touch.screenY;
     swipeDirection = 0;
+    dynamicInterval = baseInterval;
     if (swipeTimer) {
         clearInterval(swipeTimer);
         swipeTimer = null;
     }
-    currentInterval = 500; // reset to base interval
 }, { passive: false });
 
 document.addEventListener('touchmove', function(event) {
@@ -87,48 +89,40 @@ document.addEventListener('touchmove', function(event) {
     const deltaX = touch.screenX - swipeStartX;
     const deltaY = touch.screenY - swipeStartY;
     
-    // Determine dominant swipe distance
-    const distance = (Math.abs(deltaX) >= Math.abs(deltaY)) 
-                     ? Math.abs(deltaX) 
+    // Use the dominant axis (horizontal vs vertical)
+    const distance = (Math.abs(deltaX) >= Math.abs(deltaY))
+                     ? Math.abs(deltaX)
                      : Math.abs(deltaY);
-
-    // Start scrolling if we pass a threshold (e.g., 50px)
+    
+    // Only start continuous scrolling after passing a 50px threshold
     if (distance > 50 && swipeDirection === 0) {
-        // Set direction: for horizontal, right swipe (deltaX > 0) moves backward; left swipe moves forward
-        // For vertical, down swipe (deltaY > 0) moves backward; up swipe moves forward
+        // Determine swipe direction:
         swipeDirection = (Math.abs(deltaX) >= Math.abs(deltaY))
             ? (deltaX > 0 ? -1 : 1)
             : (deltaY > 0 ? -1 : 1);
-            
         // Scroll one page immediately
         scrollByContainerWidth(swipeDirection);
         
-        // Compute dynamic interval:
-        // The further the swipe, the shorter the delay (but not below a minimum)
-        currentInterval = Math.max(100, 500 - (distance - 50));
+        // Calculate interval based on distance beyond threshold:
+        let effectiveDistance = distance - 50;
+        dynamicInterval = Math.max(minInterval, baseInterval - effectiveDistance);
+        
         swipeTimer = setInterval(() => {
             scrollByContainerWidth(swipeDirection);
-        }, currentInterval);
+        }, dynamicInterval);
     } else if (swipeTimer) {
-        // Recalculate interval based on updated distance
-        const newInterval = Math.max(100, 500 - (distance - 50));
-        if (newInterval !== currentInterval) {
+        // Continuously update the interval:
+        let effectiveDistance = distance - 50;
+        let newInterval = Math.max(minInterval, baseInterval - effectiveDistance);
+        if (newInterval !== dynamicInterval) {
             clearInterval(swipeTimer);
-            currentInterval = newInterval;
+            dynamicInterval = newInterval;
             swipeTimer = setInterval(() => {
                 scrollByContainerWidth(swipeDirection);
-            }, currentInterval);
+            }, dynamicInterval);
         }
     }
 }, { passive: false });
-
-document.addEventListener('touchend', function() {
-    if (swipeTimer) {
-        clearInterval(swipeTimer);
-        swipeTimer = null;
-    }
-    swipeDirection = 0;
-});
 
 document.addEventListener('touchend', function() {
     if (swipeTimer) {
