@@ -68,7 +68,7 @@ const scaleFactor = 0.1;  // each additional pixel reduces interval by 0.2ms
 let dynamicInterval = baseInterval;
 
 document.addEventListener('touchstart', function(event) {
-    event.preventDefault(); // disable native scrolling
+    //event.preventDefault(); // disable native scrolling
     const touch = event.changedTouches[0];
     swipeStartX = touch.screenX;
     swipeStartY = touch.screenY;
