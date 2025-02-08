@@ -62,9 +62,9 @@ let swipeTimer = null;
 let swipeDirection = 0; // 1 for forward, -1 for backward
 let swipeStartX = 0, swipeStartY = 0;
 const baseInterval = 700; // base interval in ms
-const minInterval = 200;  // fastest possible interval
+const minInterval = 150;  // fastest possible interval
 const threshold = 50;     // minimum swipe distance to start paging
-const scaleFactor = 0.1;  // each additional pixel reduces interval by 0.2ms
+const scaleFactor = 0.15;  // each additional pixel reduces interval by 0.2ms
 let dynamicInterval = baseInterval;
 
 document.addEventListener('touchstart', function(event) {
