@@ -79,11 +79,26 @@ var LoadAllImages = function(doc) {
 };
 
 var LoadMissingImages = function(doc) {
-    var images = doc.querySelectorAll('img[data-src]');
+    var images = doc.querySelectorAll('img[data-src], img[srcset]');
     images.forEach(function(img) {
-        img.setAttribute('src', img.getAttribute('data-src'));
+        var largestSrc = img.getAttribute('data-src');
+        if (img.hasAttribute('srcset')) {
+            var srcset = img.getAttribute('srcset').split(',').map(function(item) {
+                var parts = item.trim().split(' ');
+                return {
+                    url: parts[0],
+                    resolution: parseFloat(parts[1].replace('x', ''))
+                };
+            });
+            srcset.sort(function(a, b) {
+                return b.resolution - a.resolution;
+            });
+            largestSrc = srcset[0].url;
+        }
+        img.setAttribute('src', largestSrc);
+        img.setAttribute('loading', 'eager');
     });
-    console.log('All missing images set to load.');
+    console.log('All missing images set to load with the largest variant.');
 };
 
 
