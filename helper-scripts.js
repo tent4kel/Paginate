@@ -73,7 +73,7 @@ var LoadAllImages = function(doc) {
     var images = doc.querySelectorAll('img');
     images.forEach(function(img) {
         img.setAttribute('loading', 'eager');
-        img.src = img.src;
+       // img.src = img.src;
     });
     console.log('All images set to load eagerly.');
 };
