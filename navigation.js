@@ -248,9 +248,10 @@ function scrollByContainerWidth(direction) {
     const scrollBackButton = document.getElementById('scroll-back-button');
     if (container) {
         const dpr = window.devicePixelRatio || 1; // Get the device pixel ratio
-        const width = container.clientWidth * dpr; // Adjust for DPR
-        const currentPage = Math.round(window.scrollX / width / dpr);
-        const newScrollLeft = ((currentPage + direction) * width) / dpr;
+        const width = container.clientWidth; // Get the container width
+        const adjustedWidth = width * dpr; // Adjust width for DPR
+        const currentPage = Math.round(window.scrollX / width);
+        const newScrollLeft = (currentPage + direction) * adjustedWidth / dpr; // Calculate new scroll position
 
         if (direction > 0 && scrollBackButton && isElementInViewport(scrollBackButton)) {
             console.log('Scroll-back button is in the viewport, scroll prevented.');
