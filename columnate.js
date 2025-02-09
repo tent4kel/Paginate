@@ -38,9 +38,11 @@ function Columnate() {
         }
 
         var heroImageString = extractHeroImage(document); // Extract hero image before document is replaced
-        
-        UnfoldSections(document);
+        UnfoldSections(document);        
+        LoadMissingImages(document);
         LoadAllImages(document);
+        
+
 
         var doclone = document.cloneNode(true);
         CleanHTML(doclone);
