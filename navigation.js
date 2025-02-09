@@ -247,7 +247,7 @@ function scrollByContainerWidth(direction) {
     const container = document.getElementById('scroll-container');
     const scrollBackButton = document.getElementById('scroll-back-button');
     if (container) {
-        const width = container.clientWidth; // Get the container width
+        const width = container.clientWidth * (window.devicePixelRatio || 1); // Adjust for DPR
         const currentPage = Math.round(window.scrollX / width);
         const newScrollLeft = (currentPage + direction) * width;
 
@@ -256,7 +256,7 @@ function scrollByContainerWidth(direction) {
         } else {
             console.log(`Scrolling by container width: ${direction * width}px`);
             window.scrollTo({
-                left: newScrollLeft,
+                left: newScrollLeft / (window.devicePixelRatio || 1), // Adjust back for DPR
                 behavior: 'auto'
             });
             updatePagination(); // Update pagination after scrolling
