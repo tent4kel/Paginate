@@ -78,6 +78,17 @@ var LoadAllImages = function(doc) {
     console.log('All images set to load eagerly.');
 };
 
+var LoadMissingImages = function(doc) {
+    var images = doc.querySelectorAll('img[data-src]');
+    images.forEach(function(img) {
+        img.setAttribute('src', img.getAttribute('data-src'));
+    });
+    console.log('All missing images set to load.');
+};
+
+
+
+
 var getHeroImage = function(document) {
     console.log('Starting hero image extraction.');
     var images = document.querySelectorAll('img:not([src$=".svg"])');
