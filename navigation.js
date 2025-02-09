@@ -247,11 +247,10 @@ function scrollByContainerWidth(direction) {
     const container = document.getElementById('scroll-container');
     const scrollBackButton = document.getElementById('scroll-back-button');
     if (container) {
-        const dpr = window.devicePixelRatio || 1; // Get the device pixel ratio
-        const width = container.clientWidth; // Get the container width
-        const adjustedWidth = width * dpr; // Adjust width for DPR
+        const rect = container.getBoundingClientRect();
+        const width = rect.width; // Get a floating-point number for width
         const currentPage = Math.round(window.scrollX / width);
-        const newScrollLeft = (currentPage + direction) * adjustedWidth / dpr; // Calculate new scroll position
+        const newScrollLeft = (currentPage + direction) * width;
 
         if (direction > 0 && scrollBackButton && isElementInViewport(scrollBackButton)) {
             console.log('Scroll-back button is in the viewport, scroll prevented.');
@@ -265,7 +264,6 @@ function scrollByContainerWidth(direction) {
         }
     }
 }
-
 
     // Expose the initNavigation function to be called externally
     window.initNavigation = initNavigation;
