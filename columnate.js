@@ -71,7 +71,7 @@ function Columnate() {
             console.log('Document made readable and styles applied.');
 
             insertHeroImage(heroImageString, document.body); // Insert hero image after document is replaced
-
+            LoadAllImages(document);
             loadNavigationScript();
         } catch (error) {
             console.error('Error parsing document with Readability:', error);
