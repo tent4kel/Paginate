@@ -38,12 +38,15 @@ function Columnate() {
         }
 
         var heroImageString = extractHeroImage(document); // Extract hero image before document is replaced
+        
         UnfoldSections(document);        
         LoadMissingImages(document);
         LoadAllImages(document);
+        disableEvents();
+        disableTimeouts();
+        disablePopups();
+        disableStorage();
         
-
-
         var doclone = document.cloneNode(true);
         CleanHTML(doclone);
 
