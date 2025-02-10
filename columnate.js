@@ -42,7 +42,7 @@ function Columnate() {
         UnfoldSections(document);        
         LoadMissingImages(document);
         LoadAllImages(document);
-        disableEvents();
+        //disableEvents();
         disableTimeouts();
         disablePopups();
         disableStorage();
