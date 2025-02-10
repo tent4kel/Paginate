@@ -1,13 +1,3 @@
-var CleanPage = function(doc) {
-    CleanHTML(doc);
-    disableEvents();
-    disableTimeouts();
-    disablePopups();
-    disableStorage();
-    console.log('Page cleaned of unwanted behaviors and content.');
-};
-
-
 // Function to clean problematic attributes
 var CleanHTML = function(doc) {
     var elements = doc.querySelectorAll('*');
@@ -50,8 +40,6 @@ var disableStorage = function() {
         document.cookie = c.split("=")[0] + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
     });
 };
-
-
 
 var SetColorScheme = function() {
     var hour = new Date().getHours();
@@ -126,7 +114,7 @@ var LoadMissingImages = function(doc) {
                 var parts = item.trim().split(' ');
                 return {
                     url: parts[0],
-                    resolution: parseFloat(parts[1].replace('x', ''))
+                    resolution: parts[1] ? parseFloat(parts[1].replace('x', '')) : 1 // Default resolution to 1 if parts[1] is undefined
                 };
             });
             srcset.sort(function(a, b) {
@@ -139,7 +127,6 @@ var LoadMissingImages = function(doc) {
     });
     console.log('All missing images set to load with the largest variant.');
 };
-
 
 
 
