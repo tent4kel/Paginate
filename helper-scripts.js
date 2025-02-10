@@ -1,3 +1,13 @@
+var CleanPage = function(doc) {
+    CleanHTML(doc);
+    disableEvents();
+    disableTimeouts();
+    disablePopups();
+    disableStorage();
+    console.log('Page cleaned of unwanted behaviors and content.');
+};
+
+
 // Function to clean problematic attributes
 var CleanHTML = function(doc) {
     var elements = doc.querySelectorAll('*');
@@ -13,6 +23,35 @@ var CleanHTML = function(doc) {
     }
     console.log('HTML cleaned of problematic attributes.');
 };
+
+// Disable all event listeners
+var disableEvents = function() {
+    const eventTypes = ['click', 'keydown', 'keyup', 'mousedown', 'mousemove', 'focus', 'blur', 'change', 'submit'];
+    eventTypes.forEach(event => {
+        window.addEventListener(event, (e) => e.stopImmediatePropagation(), true);
+    });
+};
+
+// Prevent future timeouts and intervals
+var disableTimeouts = function() {
+    window.setTimeout = window.setInterval = function() {};
+};
+
+// Block popups by overriding window.open
+var disablePopups = function() {
+    window.open = function() {};
+};
+
+// Disable cookies, localStorage, and sessionStorage
+var disableStorage = function() {
+    localStorage.clear();
+    sessionStorage.clear();
+    document.cookie.split(";").forEach(function(c) {
+        document.cookie = c.split("=")[0] + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    });
+};
+
+
 
 var SetColorScheme = function() {
     var hour = new Date().getHours();
@@ -108,7 +147,6 @@ var getHeroImage = function(document) {
     console.log('Starting hero image extraction.');
     var images = document.querySelectorAll('img:not([src$=".svg"])');
     var heroImage = null;
-
     var largeDimensions = { width: 600, height: 300 };
     var prominentClasses = ['hero', 'featured', 'main-image'];
     var descriptiveAltKeywords = ['article', 'hero'];
@@ -126,15 +164,12 @@ var getHeroImage = function(document) {
         var isLarge = width > largeDimensions.width && height > largeDimensions.height;
         var isProminent = prominentClasses.some(function(cls) { return className.includes(cls) || id.includes(cls); });
         var hasDescriptiveAlt = descriptiveAltKeywords.some(function(keyword) { return altText.includes(keyword); }) || altText.length > 10;
-
         var isSmall = width < 300 || height < 200;
         var isRepetitive = exclusionPatterns.some(function(pattern) { return src.includes(pattern); });
         var isInNonContentArea = exclusionClasses.some(function(cls) { return className.includes(cls); });
         var isSVG = src.startsWith('data:image/svg+xml');
-
         var passCount = (isLarge ? 1 : 0) + (isProminent ? 1 : 0) + (hasDescriptiveAlt ? 1 : 0);
         var failCount = (isSmall ? 1 : 0) + (isRepetitive ? 1 : 0) + (isInNonContentArea ? 1 : 0) + (isSVG ? 1 : 0);
-
         console.log('Image analysis:', { src: img.src, width: width, height: height, altText: altText, className: className, id: id, isLarge: isLarge, isProminent: isProminent, hasDescriptiveAlt: hasDescriptiveAlt });
 
         return { img: img, passCount: passCount, failCount: failCount };
