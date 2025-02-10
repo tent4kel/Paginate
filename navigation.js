@@ -211,7 +211,7 @@ function updatePagination() {
 
         // Calculate extender width to align with totalPages
         const nextMultiple = totalPages * width;
-        let additionalWidth = nextMultiple - endRight;
+        let additionalWidth = nextMultiple - endRight -10;
 
         if (extender) {
             if (additionalWidth < 30) {
