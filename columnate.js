@@ -45,9 +45,7 @@ function Columnate() {
         UnfoldSections(document);        
         LoadMissingImages(document);
         LoadAllImages(document);
-     
-        removeSVGsFromLinks();
-        
+        removeSVGsFromLinks(document);
         var doclone = document.cloneNode(true);
         CleanHTML(doclone);
         
