@@ -36,19 +36,22 @@ function Columnate() {
             console.error('Helper scripts not loaded.');
             return;
         }
-
-        var heroImageString = extractHeroImage(document); // Extract hero image before document is replaced
-        
-        UnfoldSections(document);        
-        LoadMissingImages(document);
-        LoadAllImages(document);
+        checkZeitURL();   
         //disableEvents();
         disableTimeouts();
         disablePopups();
         disableStorage();
+        var heroImageString = extractHeroImage(document); // Extract hero image before document is replaced
+        UnfoldSections(document);        
+        LoadMissingImages(document);
+        LoadAllImages(document);
+     
+        removeSVGsFromLinks();
         
         var doclone = document.cloneNode(true);
         CleanHTML(doclone);
+        
+        
 
         try {
             var article = new Readability(doclone, { debug: true }).parse();
