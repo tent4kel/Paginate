@@ -239,3 +239,47 @@ var insertHeroImage = function(heroImageString, articleContent) {
         }
     }
 };
+
+// content specific scripts
+
+//remove SVG nodes from spiegel as the create extra paragraphs in readability.js
+
+var removeSVGsFromLinks = function(doc) {
+    var currentURL = window.location.href.toLowerCase();
+    if (currentURL.includes('spiegel') || currentURL.includes('archive')) {
+        var links = doc.querySelectorAll('a');
+        links.forEach(function(link) {
+            var svgs = link.querySelectorAll('svg');
+            svgs.forEach(function(svg) {
+                svg.remove();
+                console.log('Removed SVG from link:', link);
+            });
+        });
+        console.log('SVG nodes removed from <a> nodes based on URL condition.');
+    }
+};
+
+// New functionality: Check if URL contains 'zeit.de' and probe if '/komplettansicht' exists
+var checkZeitURL = function() {
+    var currentURL = window.location.href.toLowerCase();
+    if (currentURL.includes('zeit.de')) {
+        var fullArticleURL = currentURL + '/komplettansicht';
+        fetch(fullArticleURL)
+            .then(response => {
+                if (response.ok) {
+                    return response.text();
+                } else {
+                    throw new Error('Full article not found');
+                }
+            })
+            .then(data => {
+                var parser = new DOMParser();
+                var doc = parser.parseFromString(data, 'text/html');
+                document.body.innerHTML = doc.body.innerHTML;
+                console.log('Replaced inner HTML with full article from /komplettansicht');
+            })
+            .catch(error => console.error('Error fetching full article:', error));
+    }
+};
+
+
