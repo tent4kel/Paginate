@@ -45,12 +45,10 @@ function Columnate() {
 
             document.body.removeAttribute("class");
             document.body.removeAttribute("style");
-            document.body.innerHTML = `
-                <h1 id='article-title'>${article.title}</h1>
-                <h2 id='article-byline'>${article.byline}</h2>
-                <h3 id='article-excerpt'>${article.excerpt}</h3>
-                <div id='hero-container'></div>${article.content}
-            `;
+            document.body.innerHTML = "<h1 id='article-title'>" + article.title + "</h1>" +
+                                      "<h2 id='article-byline'>" + article.byline + "</h2>" +
+                                      "<h3 id='article-excerpt'>" + article.excerpt + "</h3>" +
+                                      "<div id='hero-container'></div>" + article.content;
 
             console.log('Document made readable and styles applied.');
 
