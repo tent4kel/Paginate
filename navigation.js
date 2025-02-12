@@ -291,4 +291,13 @@
 
     // Trigger initNavigation as soon as the DOM is ready (DOMContentLoaded)
     document.addEventListener('DOMContentLoaded', initNavigation);
+    
+    initNavigation);
+
+    // Ensure updatePagination is called after the entire page is fully loaded
+    window.addEventListener('load', function() {
+        console.log('Page fully loaded. Calling calculateTotalPages.');
+        setTimeout(calculateTotalPages, 100);
+    });
+    
 })();
