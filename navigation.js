@@ -246,7 +246,7 @@
             // Update pagination display with current page
             if (pagination) {
                 const totalPages = parseInt(pagination.textContent.split(' / ')[1]);
-                pagination.textContent = ``${{currentPage} /}$`{totalPages}`;
+                pagination.textContent = `${{currentPage} /}$`{totalPages}`;
             }
 
             console.log(`Current page: ${currentPage}`);
