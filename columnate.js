@@ -10,61 +10,57 @@ function Columnate() {
         console.log('Stylesheet loaded: ' + url);
     };
 
-
-
-
-
     var MakeReadable = function() {
-    try {
-        disableEvents();
-        disablePopups();
-        disableStorage();
+        try {
+            disableEvents();
+            disablePopups();
+            disableStorage();
 
-        var heroImageString = getHeroImage(doc);
-        UnfoldSections(document);
-        LoadMissingImages(document);
-        LoadAllImages(document);
-        removeSVGsFromLinks(document);
+            var heroImageString = getHeroImage(doc);
+            UnfoldSections(document);
+            LoadMissingImages(document);
+            LoadAllImages(document);
+            removeSVGsFromLinks(document);
 
-        var doclone = document.cloneNode(true);
-        CleanHTML(doclone);
+            var doclone = document.cloneNode(true);
+            CleanHTML(doclone);
 
-        var article = new Readability(doclone, { debug: true }).parse();
+            var article = new Readability(doclone, { debug: true }).parse();
 
-        var htmltag = document.getElementsByTagName("html")[0];
-        htmltag.removeAttribute("class");
-        htmltag.removeAttribute("style");
+            var htmltag = document.getElementsByTagName("html")[0];
+            htmltag.removeAttribute("class");
+            htmltag.removeAttribute("style");
 
-        document.head.innerHTML = "";
-        var metaTag = document.createElement('meta');
-        metaTag.name = 'viewport';
-        metaTag.content = 'width=device-width, initial-scale=1.0, user-scalable=no';
-        document.head.appendChild(metaTag);
+            document.head.innerHTML = "";
+            var metaTag = document.createElement('meta');
+            metaTag.name = 'viewport';
+            metaTag.content = 'width=device-width, initial-scale=1.0, user-scalable=no';
+            document.head.appendChild(metaTag);
 
-        LoadStylesheet('//paginate-wip.netlify.app/columnate.css');
-        LoadStylesheet('//paginate-wip.netlify.app/appearance.css');
+            LoadStylesheet('//paginate-wip.netlify.app/columnate.css');
+            LoadStylesheet('//paginate-wip.netlify.app/appearance.css');
 
-        SetColorScheme();
-        document.title = article.title;
+            SetColorScheme();
+            document.title = article.title;
 
-        document.body.removeAttribute("class");
-        document.body.removeAttribute("style");
-        document.body.innerHTML = `
-            <h1 id='article-title'>${article.title}</h1>
-            <h2 id='article-byline'>${article.byline}</h2>
-            <h3 id='article-excerpt'>${article.excerpt}</h3>
-            <div id='hero-container'></div>${article.content}
-        `;
+            document.body.removeAttribute("class");
+            document.body.removeAttribute("style");
+            document.body.innerHTML = `
+                <h1 id='article-title'>${article.title}</h1>
+                <h2 id='article-byline'>${article.byline}</h2>
+                <h3 id='article-excerpt'>${article.excerpt}</h3>
+                <div id='hero-container'></div>${article.content}
+            `;
 
-        console.log('Document made readable and styles applied.');
+            console.log('Document made readable and styles applied.');
 
-        insertHeroImage(heroImageString, document.body); // Insert hero image after document is replaced
-        LoadAllImages(document);
-        loadNavigationScript();
-    } catch (error) {
-        console.error('Error occurred:', error);
-    }
-};
+            insertHeroImage(heroImageString, document.body); // Insert hero image after document is replaced
+            LoadAllImages(document);
+            loadNavigationScript();
+        } catch (error) {
+            console.error('Error occurred:', error);
+        }
+    };
 
     var loadNavigationScript = function() {
         var navScript = document.createElement('script');
