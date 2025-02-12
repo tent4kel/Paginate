@@ -14,14 +14,9 @@
         // Ensure the document is focused to capture key presses
         window.focus();
 
-        // Use MutationObserver to detect when elements are injected
-        const observer = new MutationObserver(() => {
-            calculateTotalPages();
-            updateCurrentPage();
-            observer.disconnect(); // Disconnect after first calculation
-        });
-
-        observer.observe(document.body, { childList: true, subtree: true });
+        // Update pagination initially
+        calculateTotalPages();
+        updateCurrentPage();
 
         // Attach a keydown event listener to the whole document
         document.addEventListener('keydown', function(event) {
@@ -134,6 +129,9 @@
 
         // Add an event listener to trigger page calculation on viewport resize
         window.addEventListener('resize', calculateTotalPages);
+
+        // Delay the initial calculateTotalPages call to ensure all elements are ready
+        setTimeout(calculateTotalPages, 100);
     }
 
     // Function to inject pagination div
