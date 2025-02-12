@@ -15,6 +15,7 @@
         window.focus();
 
         // Update pagination initially
+        console.log('Calling updatePagination after initial setup.');
         updatePagination();
 
         // Attach a keydown event listener to the whole document
@@ -130,14 +131,21 @@
         window.addEventListener('resize', updatePagination);
 
         // Delay the initial updatePagination call to ensure all elements are ready
+        console.log('Setting timeout for initial updatePagination call.');
         setTimeout(updatePagination, 100);
+
+        // Force updatePagination after 1000ms
+        setTimeout(() => {
+            console.log('Forcing updatePagination after 1000ms.');
+            updatePagination();
+        }, 1000);
     }
 
     // Function to inject pagination div
     function injectPaginationDiv() {
         const paginationDiv = document.createElement('div');
         paginationDiv.id = 'pagination';
-        paginationDiv.textContent = '1 / ?';
+        paginationDiv.textContent = '1 / 1';
         document.body.insertBefore(paginationDiv, document.body.firstChild);
     }
 
@@ -180,75 +188,53 @@
         }
     }
 
-    // Function to calculate total pages and extender width
+    // Function to calculate the total number of pages
     function calculateTotalPages() {
         const container = document.getElementById('scroll-container');
-        const extender = document.getElementById('extender');
-        const endOfArticle = document.getElementById('end-of-article');
-
-        if (container && endOfArticle) {
-            const width = container.clientWidth;
-
-            // Calculate the rightmost point of end-of-article relative to the container
-            const endRect = endOfArticle.getBoundingClientRect();
-            const containerRect = container.getBoundingClientRect();
-            const endRight = endRect.right - containerRect.left - 10; // Deduct 10px
-
-            // Calculate total pages
-            const totalPages = Math.ceil((endRight + 10) / width);
-
-            // Calculate extender width to align with totalPages
-            const nextMultiple = totalPages * width;
-            let additionalWidth = nextMultiple - endRight - 10;
-
-            if (extender) {
-                if (additionalWidth < 30) {
-                    extender.style.display = 'none';
-                } else {
-                    extender.style.display = 'block';
-                    extender.style.width = `${additionalWidth}px`;
-                    extender.style.height = '1px';
-                }
-            }
-
+        const scrollBackButton = document.getElementById('scroll-back-button');
+        if (container && scrollBackButton) {
+            const width = container.clientWidth; // Get the container width
+            const buttonRect = scrollBackButton.getBoundingClientRect(); // Get the position of the scroll-back-button
+            const buttonPosition = buttonRect.left + window.scrollX; // Calculate the button's position relative to the document
+            const totalPages = Math.ceil((buttonPosition + 10) / width); // Calculate total pages with tolerance
             console.log(`Total pages: ${totalPages}`);
-            console.log(`Container width: ${width}`);
-            console.log(`Rightmost point of end-of-article (after deduction): ${endRight}`);
-            console.log(`Next multiple of container width: ${nextMultiple}`);
-            console.log(`Extender width (to align with next column): ${additionalWidth}`);
-
-            // Update pagination display with total pages
-            updatePaginationDisplay(totalPages);
+            return totalPages;
         }
+        return 0;
     }
 
-    // Function to update pagination display with total pages
-    function updatePaginationDisplay(totalPages) {
+    // Function to calculate the current page based on scroll position and container width
+    function calculateCurrentPage() {
+        const container = document.getElementById('scroll-container');
+        if (container) {
+            const width = container.clientWidth; // Get the container width
+            const scrollLeft = window.scrollX; // Get the current scroll position of the window
+            console.log(`Container width: ${width}, Scroll left: ${scrollLeft}`);
+            const page = Math.round((scrollLeft + 10) / width) + 1;
+            console.log(`Current page: ${page}`);
+            return page;
+        }
+        return 0;
+    }
+
+    // Function to update the pagination display
+    function updatePagination() {
         const pagination = document.getElementById('pagination');
         if (pagination) {
-            pagination.textContent = `1 / ${totalPages}`;
-        }
-    }
+            const currentPage = calculateCurrentPage();
+            const totalPages = calculateTotalPages();
+            pagination.textContent = `${currentPage} / ${totalPages}`;
 
-    // Function to update the current page number
-    function updateCurrentPage() {
-        const pagination = document.getElementById('pagination');
-        const container = document.getElementById('scroll-container');
-
-        if (container) {
-            const width = container.clientWidth;
-            const scrollLeft = window.scrollX;
-
-            // Calculate current page
-            const currentPage = Math.round((scrollLeft + 10) / width) + 1;
-
-            // Update pagination display with current page
-            if (pagination) {
-                const totalPages = parseInt(pagination.textContent.split(' / ')[1]);
-                pagination.textContent = `${currentPage} / ${totalPages}`;
+            // Update the extender width
+            const container = document.getElementById('scroll-container');
+            const extender = document.getElementById('extender');
+            if (container && extender) {
+                const width = container.clientWidth;
+                const contentWidth = container.scrollWidth;
+                const additionalWidth = (Math.ceil(contentWidth / width) * width) - contentWidth;
+                extender.style.width = `${additionalWidth}px`;
+                extender.style.height = '1px';
             }
-
-            console.log(`Current page: ${currentPage}`);
         }
     }
 
@@ -263,24 +249,21 @@
         );
     }
 
+    // Function to scroll the container by its width
     function scrollByContainerWidth(direction) {
         const container = document.getElementById('scroll-container');
         const scrollBackButton = document.getElementById('scroll-back-button');
         if (container) {
-            const rect = container.getBoundingClientRect();
-            const width = rect.width; // Get a floating-point number for width
-            const currentPage = Math.round(window.scrollX / width);
-            const newScrollLeft = (currentPage + direction) * width;
-
+            const width = container.clientWidth; // Get the container width
             if (direction > 0 && scrollBackButton && isElementInViewport(scrollBackButton)) {
                 console.log('Scroll-back button is in the viewport, scroll prevented.');
             } else {
                 console.log(`Scrolling by container width: ${direction * width}px`);
-                window.scrollTo({
-                    left: newScrollLeft,
+                window.scrollBy({
+                    left: direction * width,
                     behavior: 'auto'
                 });
-                updateCurrentPage(); // Update current page after scrolling
+                updatePagination(); // Update pagination after scrolling
             }
         }
     }
@@ -293,6 +276,7 @@
 
     // Ensure updatePagination is called after the entire page is fully loaded
     window.addEventListener('load', function() {
+        console.log('Page fully loaded. Calling updatePagination.');
         setTimeout(updatePagination, 100);
     });
 })();
