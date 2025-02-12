@@ -10,8 +10,7 @@ html {
 
 body {
   position:relative;
-  font-size: .6rem;
-  font-size: calc(15px + 0.390625vw); 
+  font-size: .525rem;
   height: 100%;
   /*! width: 100%; */
   padding: 0em; 
