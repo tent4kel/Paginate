@@ -10,21 +10,21 @@ function Columnate() {
         console.log('Stylesheet loaded: ' + url);
     };
 
+    var extractHeroImage = function(doc) {
+        var heroImageString = getHeroImage(doc);
+        return heroImageString;
+    };
+
     var MakeReadable = function() {
         try {
             //disableEvents();
             //disablePopups();
             //disableStorage();
-
-            var extractHeroImage = function(doc) {
-            var heroImageString = getHeroImage(doc);
-            return heroImageString;
-            };
+            var heroImageString = extractHeroImage(document); // Extract hero image before document is replaced
             UnfoldSections(document);
             LoadMissingImages(document);
             LoadAllImages(document);
             removeSVGsFromLinks(document);
-
             var doclone = document.cloneNode(true);
             CleanHTML(doclone);
 
