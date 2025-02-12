@@ -137,7 +137,7 @@
     function injectPaginationDiv() {
         const paginationDiv = document.createElement('div');
         paginationDiv.id = 'pagination';
-        paginationDiv.textContent = '1 / 1';
+        paginationDiv.textContent = '1 / ?';
         document.body.insertBefore(paginationDiv, document.body.firstChild);
     }
 
