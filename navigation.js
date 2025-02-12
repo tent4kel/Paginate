@@ -198,15 +198,16 @@
             // Calculate total pages
             const totalPages = Math.ceil((endRight + 10) / width);
 
-            // Calculate remaining space after the last column
-            const remainingSpace = (totalPages * width) - (endRight + 10);
+            // Calculate extender width to align with totalPages
+            const nextMultiple = totalPages * width;
+            let additionalWidth = nextMultiple - endRight - 10;
 
             if (extender) {
-                if (remainingSpace < 30) {
+                if (additionalWidth < 30) {
                     extender.style.display = 'none';
                 } else {
                     extender.style.display = 'block';
-                    extender.style.width = `${remainingSpace}px`;
+                    extender.style.width = `${additionalWidth}px`;
                     extender.style.height = '1px';
                 }
             }
@@ -214,7 +215,8 @@
             console.log(`Total pages: ${totalPages}`);
             console.log(`Container width: ${width}`);
             console.log(`Rightmost point of end-of-article (after deduction): ${endRight}`);
-            console.log(`Remaining space to fill: ${remainingSpace}`);
+            console.log(`Next multiple of container width: ${nextMultiple}`);
+            console.log(`Extender width (to align with next column): ${additionalWidth}`);
 
             // Update pagination display with total pages
             updatePaginationDisplay(totalPages);
