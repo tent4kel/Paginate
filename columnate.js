@@ -36,9 +36,9 @@ function Columnate() {
             console.error('Helper scripts not loaded.');
             return;
         }
-        checkZeitURL();   
-        //disableEvents();
-        disableTimeouts();
+        //checkZeitURL();   
+        disableEvents();
+        //disableTimeouts();
         disablePopups();
         disableStorage();
         var heroImageString = extractHeroImage(document); // Extract hero image before document is replaced
