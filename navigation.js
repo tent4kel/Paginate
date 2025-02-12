@@ -14,9 +14,14 @@
         // Ensure the document is focused to capture key presses
         window.focus();
 
-        // Update pagination initially
-        calculateTotalPages();
-        updateCurrentPage();
+        // Use MutationObserver to detect when elements are injected
+        const observer = new MutationObserver(() => {
+            calculateTotalPages();
+            updateCurrentPage();
+            observer.disconnect(); // Disconnect after first calculation
+        });
+
+        observer.observe(document.body, { childList: true, subtree: true });
 
         // Attach a keydown event listener to the whole document
         document.addEventListener('keydown', function(event) {
@@ -129,9 +134,6 @@
 
         // Add an event listener to trigger page calculation on viewport resize
         window.addEventListener('resize', calculateTotalPages);
-
-        // Delay the initial calculateTotalPages call to ensure all elements are ready
-        setTimeout(calculateTotalPages, 100);
     }
 
     // Function to inject pagination div
@@ -198,16 +200,15 @@
             // Calculate total pages
             const totalPages = Math.ceil((endRight + 10) / width);
 
-            // Calculate extender width to align with totalPages
-            const nextMultiple = totalPages * width;
-            let additionalWidth = nextMultiple - endRight - 10;
+            // Calculate remaining space after the last column
+            const remainingSpace = (totalPages * width) - (endRight + 10);
 
             if (extender) {
-                if (additionalWidth < 30) {
+                if (remainingSpace < 30) {
                     extender.style.display = 'none';
                 } else {
                     extender.style.display = 'block';
-                    extender.style.width = `${additionalWidth}px`;
+                    extender.style.width = `${remainingSpace}px`;
                     extender.style.height = '1px';
                 }
             }
@@ -215,8 +216,7 @@
             console.log(`Total pages: ${totalPages}`);
             console.log(`Container width: ${width}`);
             console.log(`Rightmost point of end-of-article (after deduction): ${endRight}`);
-            console.log(`Next multiple of container width: ${nextMultiple}`);
-            console.log(`Extender width (to align with next column): ${additionalWidth}`);
+            console.log(`Remaining space to fill: ${remainingSpace}`);
 
             // Update pagination display with total pages
             updatePaginationDisplay(totalPages);
@@ -246,7 +246,7 @@
             // Update pagination display with current page
             if (pagination) {
                 const totalPages = parseInt(pagination.textContent.split(' / ')[1]);
-                pagination.textContent = `${currentPage} / ${totalPages}`;
+                pagination.textContent = ``${{currentPage} /}$`{totalPages}`;
             }
 
             console.log(`Current page: ${currentPage}`);
