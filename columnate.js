@@ -12,11 +12,14 @@ function Columnate() {
 
     var MakeReadable = function() {
         try {
-            disableEvents();
-            disablePopups();
-            disableStorage();
+            //disableEvents();
+            //disablePopups();
+            //disableStorage();
 
+            var extractHeroImage = function(doc) {
             var heroImageString = getHeroImage(doc);
+            return heroImageString;
+            };
             UnfoldSections(document);
             LoadMissingImages(document);
             LoadAllImages(document);
