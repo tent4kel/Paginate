@@ -48,7 +48,7 @@ body::after {
   padding: 0rem;
   /*! margin-top: 2vh; */
   column-fill: auto;
-  column-width: 27em;
+  column-width: 24em;
   column-count: auto;
   column-gap: 0rem;
   box-sizing: content-box;
