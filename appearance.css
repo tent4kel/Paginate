@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');*/
+@import url('https://fonts.googleapis.com/css2?family=Fanwood+Text:ital@0;1&family=Outfit:wght@100..900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap');
+
 
 /* Light Mode Styles */
 
@@ -22,7 +24,7 @@
 body {
   color: var(--mainColor);
   background-color:var(--bgColor);
-  font-family: "Source Serif 4", serif;
+  font-family: "Fanwood", serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
