@@ -141,7 +141,9 @@
             });
             observer.observe(container, {
                 attributes: true,
-                attributeFilter: ['style']
+                attributeFilter: ['style'],
+                childList: true,
+                subtree: true
             });
         }
     }
@@ -201,18 +203,14 @@
 
         if (container && endOfArticle) {
             const width = container.clientWidth;
-
-            // Calculate the rightmost point of end-of-article relative to the container
-            const endRect = endOfArticle.getBoundingClientRect();
-            const containerRect = container.getBoundingClientRect();
-            const endRight = endRect.right - containerRect.left - 10; // Deduct 10px
+            const scrollWidth = container.scrollWidth;
 
             // Calculate total pages
-            const totalPages = Math.ceil((endRight + 10) / width);
-
+            const totalPages = Math.ceil(scrollWidth / width);
+            
             // Calculate extender width to align with totalPages
             const nextMultiple = totalPages * width;
-            let additionalWidth = nextMultiple - endRight - 10;
+            let additionalWidth = nextMultiple - scrollWidth;
 
             if (extender) {
                 if (additionalWidth < 30) {
@@ -226,7 +224,7 @@
 
             console.log(`Total pages: ${totalPages}`);
             console.log(`Container width: ${width}`);
-            console.log(`Rightmost point of end-of-article (after deduction): ${endRight}`);
+            console.log(`Scroll width: ${scrollWidth}`);
             console.log(`Next multiple of container width: ${nextMultiple}`);
             console.log(`Extender width (to align with next column): ${additionalWidth}`);
 
@@ -294,5 +292,4 @@
         console.log('Page fully loaded. Calling calculateTotalPages.');
         setTimeout(calculateTotalPages, 100);
     });
-
 })();
