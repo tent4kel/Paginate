@@ -132,6 +132,18 @@
 
         // Delay the initial calculateTotalPages call to ensure all elements are ready
         setTimeout(calculateTotalPages, 100);
+
+        // Add MutationObserver to detect changes in scroll width
+        const container = document.getElementById('scroll-container');
+        if (container) {
+            const observer = new MutationObserver(() => {
+                calculateTotalPages();
+            });
+            observer.observe(container, {
+                attributes: true,
+                attributeFilter: ['style']
+            });
+        }
     }
 
     // Function to inject pagination div
@@ -253,17 +265,6 @@
         }
     }
 
-    // Function to check if an element is in the viewport
-    function isElementInViewport(el) {
-        const rect = el.getBoundingClientRect();
-        return (
-            rect.top >= 0 &&
-            rect.left >= 0 &&
-            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-        );
-    }
-
     function scrollByContainerWidth(direction) {
         const container = document.getElementById('scroll-container');
         const scrollBackButton = document.getElementById('scroll-back-button');
@@ -273,16 +274,12 @@
             const currentPage = Math.round(window.scrollX / width);
             const newScrollLeft = (currentPage + direction) * width;
 
-            if (direction > 0 && scrollBackButton && isElementInViewport(scrollBackButton)) {
-                console.log('Scroll-back button is in the viewport, scroll prevented.');
-            } else {
-                console.log(`Scrolling by container width: ${direction * width}px`);
-                window.scrollTo({
-                    left: newScrollLeft,
-                    behavior: 'auto'
-                });
-                updateCurrentPage(); // Update current page after scrolling
-            }
+            console.log(`Scrolling by container width: ${direction * width}px`);
+            window.scrollTo({
+                left: newScrollLeft,
+                behavior: 'auto'
+            });
+            updateCurrentPage(); // Update current page after scrolling
         }
     }
 
@@ -297,5 +294,5 @@
         console.log('Page fully loaded. Calling calculateTotalPages.');
         setTimeout(calculateTotalPages, 100);
     });
-    
+
 })();
