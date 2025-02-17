@@ -134,7 +134,7 @@
         setTimeout(calculateTotalPages, 100);
 
         // Add MutationObserver to detect changes in scroll width
-        const container = document.getElementById('scroll-container');
+        const container = document.getElementById('readability-page-1');
         if (container) {
             const observer = new MutationObserver(() => {
                 calculateTotalPages();
