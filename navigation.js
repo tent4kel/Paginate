@@ -209,7 +209,7 @@
             const endRight = endRect.right - containerRect.left - 10; // Deduct 10px
 
             // Calculate total pages
-            const totalPages = Math.ceil((endRight + 10) / width);
+            const totalPages = Math.ceil((endRight - 10) / width);
 
             // Calculate extender width to align with totalPages
             const nextMultiple = totalPages * width;
