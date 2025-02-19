@@ -52,7 +52,7 @@
             // Set canScroll to false to start the cooldown
             canScroll = false;
 
-            // Reset canScroll after 500ms
+            // Reset canScroll after 200ms
             setTimeout(() => {
                 canScroll = true;
             }, 200);
@@ -131,7 +131,7 @@
         window.addEventListener('resize', calculateTotalPages);
 
         // Delay the initial calculateTotalPages call to ensure all elements are ready
-        setTimeout(calculateTotalPages, 100);
+        setTimeout(calculateTotalPages,250);
 
         // Add MutationObserver to detect changes in scroll width
         const container = document.getElementById('readability-page-1');
@@ -293,6 +293,6 @@
     // Ensure updatePagination is called after the entire page is fully loaded
     window.addEventListener('load', function() {
         console.log('Page fully loaded. Calling calculateTotalPages.');
-        setTimeout(calculateTotalPages, 100);
+        setTimeout(calculateTotalPages,250);
     });
 })();
