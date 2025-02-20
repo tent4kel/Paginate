@@ -221,7 +221,7 @@
                 } else {
                     extender.style.display = 'block';
                     extender.style.width = `${additionalWidth}px`;
-                    extender.style.height = '1px';
+                    extender.style.height = '100%';
                 }
             }
 
