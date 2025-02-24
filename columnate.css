@@ -152,6 +152,10 @@ table, th, td, tr, tbody {
   margin-top: 0px;
 }
 
+#hero-container {
+  max-height:80vh;
+}
+  
 article {
   padding-bottom: 3rem;
 }
