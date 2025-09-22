@@ -1,4 +1,4 @@
-var Defuddle = (() => {
+(() => {
   var __create = Object.create;
   var __defProp = Object.defineProperty;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -2372,6 +2372,6 @@ ${e3.length > 0 ? `
   });
 
   // bundle.js
-  var defuddle = __toESM(require_dist());
-  window.Defuddle = defuddle;
+  var import_defuddle = __toESM(require_dist());
+  window.Defuddle = import_defuddle.default;
 })();
